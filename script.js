@@ -310,8 +310,8 @@ if (metricsEl) metricsObs.observe(metricsEl);
    COUNTER ANIMATION (stats)
 ──────────────────────────────────────────────── */
 function animateCounters() {
-  document.querySelectorAll('[data-count]').forEach(el => {
-    const target = parseFloat(el.dataset.count);
+  document.querySelectorAll('[data-count], [data-target]').forEach(el => {
+    const target = parseFloat(el.dataset.count ?? el.dataset.target);
     const suffix = el.dataset.suffix || '';
     const prefix = el.dataset.prefix || '';
     const duration = 1600;
