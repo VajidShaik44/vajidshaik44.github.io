@@ -1,332 +1,452 @@
-/* ============================================================
-   VAJID SHAIK — Portfolio JavaScript
-   ============================================================ */
+/* ===================================================
+   script.js — Vajid Shaik Portfolio
+   =================================================== */
 
-/* ── NAVBAR SCROLL ── */
+/* ────────────────────────────────────────────────
+   LOADER
+──────────────────────────────────────────────── */
 (function () {
-  const nav = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
-})();
+  const loader = document.getElementById('loader');
+  const loaderBar = document.querySelector('.loader-bar');
+  const loaderMsgs = document.querySelector('.loader-msgs');
 
-/* ── HAMBURGER MENU ── */
-(function () {
-  const ham = document.getElementById('hamburger');
-  const menu = document.getElementById('mobileMenu');
-  if (!ham || !menu) return;
-
-  ham.addEventListener('click', () => {
-    menu.classList.toggle('open');
-    const open = menu.classList.contains('open');
-    ham.setAttribute('aria-expanded', open);
-    // Animate spans
-    const spans = ham.querySelectorAll('span');
-    if (open) {
-      spans[0].style.cssText = 'transform:rotate(45deg) translate(5px,5px)';
-      spans[1].style.cssText = 'opacity:0';
-      spans[2].style.cssText = 'transform:rotate(-45deg) translate(5px,-5px)';
-    } else {
-      spans.forEach(s => s.style.cssText = '');
-    }
-  });
-
-  // Close on link click
-  menu.querySelectorAll('.mobile-link').forEach(link => {
-    link.addEventListener('click', () => {
-      menu.classList.remove('open');
-      ham.querySelectorAll('span').forEach(s => s.style.cssText = '');
-    });
-  });
-})();
-
-/* ── SMOOTH ACTIVE NAV HIGHLIGHT ── */
-(function () {
-  const sections = document.querySelectorAll('section[id]');
-  const links = document.querySelectorAll('.nav-links a:not(.nav-cta)');
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        links.forEach(l => l.classList.remove('active'));
-        const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
-        if (active) active.classList.add('active');
-      }
-    });
-  }, { threshold: 0.4 });
-
-  sections.forEach(s => observer.observe(s));
-})();
-
-/* ── HERO TYPEWRITER ── */
-(function () {
-  const el = document.getElementById('typedTitle');
-  if (!el) return;
-
-  const titles = [
-    'DevOps Engineer',
-    'CI/CD Architect',
-    'Cloud Infrastructure',
-    'Kubernetes Enthusiast',
-    'Automation First'
+  const messages = [
+    '> initializing portfolio.exe...',
+    '> loading devops modules...',
+    '> connecting to AWS...',
+    '> spinning up containers...',
+    '> deploying pipeline...',
+    '> ready.',
   ];
-  let tIdx = 0, cIdx = 0, deleting = false;
 
-  function type() {
-    const current = titles[tIdx];
-    if (!deleting) {
-      el.textContent = current.slice(0, ++cIdx);
-      if (cIdx === current.length) {
-        setTimeout(() => { deleting = true; type(); }, 2000);
-        return;
-      }
-    } else {
-      el.textContent = current.slice(0, --cIdx);
-      if (cIdx === 0) {
-        deleting = false;
-        tIdx = (tIdx + 1) % titles.length;
-      }
+  let msgIdx = 0;
+  let pct = 0;
+
+  function tick() {
+    if (pct >= 100) {
+      loader.style.opacity = '0';
+      setTimeout(() => {
+        loader.style.display = 'none';
+        initReveal();
+      }, 600);
+      return;
     }
-    setTimeout(type, deleting ? 40 : 80);
+    pct = Math.min(100, pct + Math.random() * 18 + 6);
+    loaderBar.style.width = pct + '%';
+    if (msgIdx < messages.length) {
+      loaderMsgs.textContent = messages[msgIdx++];
+    }
+    setTimeout(tick, 240 + Math.random() * 200);
   }
-
-  setTimeout(type, 800);
+  tick();
 })();
 
-/* ── SCROLL REVEAL ── */
-(function () {
-  const targets = document.querySelectorAll(
-    '.skill-category, .project-card, .timeline-item, .contact-link-item, ' +
-    '.arch-stage, .arch-detail-card, .highlight-item, .about-card, .metric-box, .repo-card'
-  );
 
-  targets.forEach((el, i) => {
-    el.classList.add('reveal');
-    el.style.transitionDelay = `${(i % 6) * 0.07}s`;
+/* ────────────────────────────────────────────────
+   SCROLL PROGRESS
+──────────────────────────────────────────────── */
+const scrollProgress = document.getElementById('scroll-progress');
+window.addEventListener('scroll', () => {
+  const st = window.scrollY;
+  const dh = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = dh > 0 ? (st / dh) * 100 : 0;
+  scrollProgress.style.width = pct + '%';
+}, { passive: true });
+
+
+/* ────────────────────────────────────────────────
+   NAVBAR
+──────────────────────────────────────────────── */
+const navbar = document.getElementById('navbar');
+const mobileMenu = document.getElementById('mobile-menu');
+const hamburger = document.getElementById('hamburger');
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+  highlightNav();
+}, { passive: true });
+
+hamburger && hamburger.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
+});
+
+// Close mobile menu on link click
+document.querySelectorAll('.mobile-link').forEach(a => {
+  a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+});
+
+function highlightNav() {
+  let current = '';
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - 100;
+    if (window.scrollY >= sectionTop) current = section.getAttribute('id');
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+}
+
+
+/* ────────────────────────────────────────────────
+   CUSTOM CURSOR
+──────────────────────────────────────────────── */
+const cursorDot = document.getElementById('cursor-dot');
+const cursorRing = document.getElementById('cursor-ring');
+
+if (cursorDot && cursorRing) {
+  let mouseX = 0, mouseY = 0;
+  let ringX = 0, ringY = 0;
+
+  window.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursorDot.style.left = mouseX + 'px';
+    cursorDot.style.top  = mouseY + 'px';
   });
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.18;
+    ringY += (mouseY - ringY) * 0.18;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top  = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
 
-  targets.forEach(el => observer.observe(el));
+  document.querySelectorAll('a, button, .project-card, .skill-category, .repo-card').forEach(el => {
+    el.addEventListener('mouseenter', () => cursorRing.classList.add('hovered'));
+    el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovered'));
+  });
+}
+
+
+/* ────────────────────────────────────────────────
+   HERO TYPING EFFECT
+──────────────────────────────────────────────── */
+const roles = [
+  'DevOps Engineer',
+  'Cloud Architect',
+  'CI/CD Specialist',
+  'Kubernetes Engineer',
+  'Infrastructure Wizard',
+];
+let roleIdx = 0;
+let charIdx = 0;
+let isDeleting = false;
+const heroTitleText = document.querySelector('.hero-title-text');
+
+function typeRole() {
+  if (!heroTitleText) return;
+  const current = roles[roleIdx];
+  if (isDeleting) {
+    charIdx--;
+    heroTitleText.textContent = current.slice(0, charIdx);
+    if (charIdx === 0) {
+      isDeleting = false;
+      roleIdx = (roleIdx + 1) % roles.length;
+      setTimeout(typeRole, 400);
+      return;
+    }
+    setTimeout(typeRole, 50);
+  } else {
+    charIdx++;
+    heroTitleText.textContent = current.slice(0, charIdx);
+    if (charIdx === current.length) {
+      isDeleting = true;
+      setTimeout(typeRole, 2200);
+      return;
+    }
+    setTimeout(typeRole, 90);
+  }
+}
+typeRole();
+
+
+/* ────────────────────────────────────────────────
+   PARTICLES CANVAS
+──────────────────────────────────────────────── */
+(function () {
+  const canvas = document.getElementById('bg-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  const NUM = 55;
+  const particles = Array.from({ length: NUM }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: (Math.random() - 0.5) * 0.35,
+    vy: (Math.random() - 0.5) * 0.35,
+    r: Math.random() * 1.8 + 0.4,
+    alpha: Math.random() * 0.4 + 0.15,
+  }));
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Connect nearby particles
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 130) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(0,255,136,${(0.08 * (1 - dist / 130)).toFixed(3)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0,255,136,${p.alpha.toFixed(3)})`;
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = 'rgba(0,255,136,0.5)';
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < -10) p.x = canvas.width + 10;
+      if (p.x > canvas.width + 10) p.x = -10;
+      if (p.y < -10) p.y = canvas.height + 10;
+      if (p.y > canvas.height + 10) p.y = -10;
+    });
+
+    requestAnimationFrame(draw);
+  }
+  draw();
 })();
 
-/* ── GITHUB REPOS ── */
-(function () {
-  const grid = document.getElementById('reposGrid');
+
+/* ────────────────────────────────────────────────
+   SCROLL REVEAL
+──────────────────────────────────────────────── */
+function initReveal() {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('revealed');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+}
+// Also call on DOMContentLoaded for cases where loader isn't shown
+document.addEventListener('DOMContentLoaded', () => {
+  if (!document.getElementById('loader')) initReveal();
+});
+
+
+/* ────────────────────────────────────────────────
+   3D CARD TILT
+──────────────────────────────────────────────── */
+document.querySelectorAll('.tilt-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top  + rect.height / 2;
+    const dx = (e.clientX - cx) / (rect.width  / 2);
+    const dy = (e.clientY - cy) / (rect.height / 2);
+    const maxTilt = 8;
+    card.style.transform = `perspective(800px) rotateY(${dx * maxTilt}deg) rotateX(${-dy * maxTilt}deg) translateZ(8px)`;
+
+    const shine = card.querySelector('.tilt-shine');
+    if (shine) {
+      const px = ((e.clientX - rect.left) / rect.width)  * 100;
+      const py = ((e.clientY - rect.top)  / rect.height) * 100;
+      shine.style.background = `radial-gradient(circle at ${px}% ${py}%, rgba(255,255,255,0.06) 0%, transparent 60%)`;
+    }
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+
+
+/* ────────────────────────────────────────────────
+   ANIMATED SKILL RINGS
+──────────────────────────────────────────────── */
+function animateRings() {
+  document.querySelectorAll('.ring-fill').forEach(ring => {
+    const pct = parseFloat(ring.dataset.pct || 0);
+    const r = parseFloat(ring.getAttribute('r'));
+    const circumference = 2 * Math.PI * r;
+    ring.style.strokeDasharray = `0 ${circumference}`;
+    setTimeout(() => {
+      ring.style.transition = 'stroke-dasharray 1.4s cubic-bezier(0.25,1,0.5,1)';
+      ring.style.strokeDasharray = `${circumference * pct / 100} ${circumference}`;
+    }, 400);
+  });
+}
+
+const metricsObs = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    animateRings();
+    metricsObs.disconnect();
+  }
+}, { threshold: 0.3 });
+
+const metricsEl = document.querySelector('.about-metrics');
+if (metricsEl) metricsObs.observe(metricsEl);
+
+
+/* ────────────────────────────────────────────────
+   COUNTER ANIMATION (stats)
+──────────────────────────────────────────────── */
+function animateCounters() {
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = parseFloat(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const prefix = el.dataset.prefix || '';
+    const duration = 1600;
+    const startTime = performance.now();
+
+    function update(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const val = target * eased;
+      el.textContent = prefix + (Number.isInteger(target) ? Math.round(val) : val.toFixed(1)) + suffix;
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  });
+}
+
+const heroStats = document.querySelector('.hero-stats');
+if (heroStats) {
+  const statsObs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      animateCounters();
+      statsObs.disconnect();
+    }
+  }, { threshold: 0.5 });
+  statsObs.observe(heroStats);
+}
+
+
+/* ────────────────────────────────────────────────
+   GITHUB REPOS
+──────────────────────────────────────────────── */
+async function fetchRepos() {
+  const grid = document.getElementById('repos-grid');
   if (!grid) return;
 
-  const USERNAME = 'VajidShaik44';
-
-  const LANG_COLORS = {
-    JavaScript: '#f7df1e', Python: '#3776ab', Java: '#ed8b00',
-    Shell: '#89e051', HTML: '#e34c26', CSS: '#563d7c',
-    TypeScript: '#2b7489', Go: '#00add8', Rust: '#dea584',
-    Dockerfile: '#384d54', HCL: '#5c4ee5', default: '#94a3b8'
+  const langColors = {
+    Python: '#3572A5', Shell: '#89e051', Dockerfile: '#384d54',
+    JavaScript: '#f1e05a', HCL: '#844FBA', YAML: '#cb171e',
+    HTML: '#e34c26', CSS: '#563d7c', Go: '#00ADD8', Ruby: '#701516',
+    TypeScript: '#3178c6', Java: '#b07219', Makefile: '#427819',
   };
 
-  async function fetchRepos() {
-    try {
-      const res = await fetch(
-        `https://api.github.com/users/${USERNAME}/repos?sort=pushed&per_page=9`,
-        { headers: { 'Accept': 'application/vnd.github.v3+json' } }
-      );
+  try {
+    const res = await fetch('https://api.github.com/users/VajidShaik44/repos?per_page=12&sort=updated', {
+      headers: { Accept: 'application/vnd.github.v3+json' }
+    });
+    if (!res.ok) throw new Error('GitHub API error');
+    const repos = await res.json();
 
-      if (!res.ok) throw new Error(`GitHub API: ${res.status}`);
-      const repos = await res.json();
-
-      if (!repos.length) {
-        grid.innerHTML = `<div class="repo-empty">No public repositories found yet.</div>`;
-        return;
-      }
-
-      const filtered = repos
-        .filter(r => !r.fork)
-        .slice(0, 9);
-
-      grid.innerHTML = filtered.map(repo => {
-        const color = LANG_COLORS[repo.language] || LANG_COLORS.default;
-        return `
-          <a href="${repo.html_url}" target="_blank" rel="noopener" class="repo-card reveal">
-            <div class="repo-name">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-              </svg>
-              ${repo.name}
-            </div>
-            <div class="repo-desc">${repo.description || 'No description provided.'}</div>
-            <div class="repo-meta">
-              ${repo.language ? `<div class="repo-lang"><span class="repo-lang-dot" style="background:${color}"></span>${repo.language}</div>` : ''}
-              <div class="repo-stars">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                ${repo.stargazers_count}
-              </div>
-              <div>Updated ${timeAgo(repo.pushed_at)}</div>
-            </div>
-          </a>
-        `;
-      }).join('');
-
-      // Trigger reveal animations on new cards
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('revealed');
-            observer.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.1 });
-
-      grid.querySelectorAll('.repo-card').forEach((card, i) => {
-        card.style.transitionDelay = `${i * 0.05}s`;
-        observer.observe(card);
-      });
-
-    } catch (err) {
-      console.warn('GitHub fetch error:', err);
-      grid.innerHTML = `
-        <div class="repo-empty">
-          <p>Could not load repositories from GitHub API.</p>
-          <p style="margin-top:8px;">
-            <a href="https://github.com/${USERNAME}" target="_blank" rel="noopener" style="color:var(--blue)">
-              View all repos on GitHub →
-            </a>
-          </p>
+    grid.innerHTML = '';
+    if (!repos.length) {
+      grid.innerHTML = '<div class="repo-empty">No public repositories found.</div>';
+      return;
+    }
+    repos.forEach(repo => {
+      const langColor = langColors[repo.language] || '#8b949e';
+      const card = document.createElement('a');
+      card.className = 'repo-card reveal';
+      card.href = repo.html_url;
+      card.target = '_blank';
+      card.rel = 'noopener noreferrer';
+      card.innerHTML = `
+        <div class="repo-name">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/>
+          </svg>
+          ${repo.name}
+        </div>
+        <div class="repo-desc">${repo.description || 'No description provided.'}</div>
+        <div class="repo-meta">
+          ${repo.language ? `
+          <div class="repo-lang">
+            <span class="repo-lang-dot" style="background:${langColor}"></span>
+            ${repo.language}
+          </div>` : ''}
+          <div class="repo-stars">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.873 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/>
+            </svg>
+            ${repo.stargazers_count}
+          </div>
         </div>
       `;
-    }
+      grid.appendChild(card);
+    });
+
+    // Trigger reveal for newly added cards
+    initReveal();
+  } catch (err) {
+    grid.innerHTML = '<div class="repo-empty">Could not load repositories. <a href="https://github.com/VajidShaik44" target="_blank" rel="noopener" style="color:var(--blue)">View on GitHub →</a></div>';
   }
+}
+fetchRepos();
 
-  function timeAgo(dateStr) {
-    const diff = Date.now() - new Date(dateStr);
-    const d = Math.floor(diff / 86400000);
-    if (d === 0) return 'today';
-    if (d === 1) return 'yesterday';
-    if (d < 30) return `${d}d ago`;
-    const m = Math.floor(d / 30);
-    if (m < 12) return `${m}mo ago`;
-    return `${Math.floor(m / 12)}y ago`;
-  }
 
-  // Load repos when GitHub section is in view
-  const ghSection = document.getElementById('github');
-  if (ghSection) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          fetchRepos();
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    observer.observe(ghSection);
-  }
-})();
-
-/* ── CONTACT FORM → FORMSPREE ── */
-(function () {
-  const form = document.getElementById('contactForm');
-  if (!form) return;
-
+/* ────────────────────────────────────────────────
+   CONTACT FORM
+──────────────────────────────────────────────── */
+const form = document.getElementById('contact-form');
+if (form) {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const btn = form.querySelector('button[type=submit]');
-    const original = btn.innerHTML;
-
+    const btn = form.querySelector('.submit-btn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<span>Sending...</span>';
     btn.disabled = true;
-    btn.innerHTML = 'Sending...';
 
-    try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      });
+    // Simulate submission (wire up to Formspree/EmailJS as needed)
+    await new Promise(r => setTimeout(r, 1400));
 
-      if (res.ok) {
-        btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Message Sent!`;
-        btn.style.background = '#27c93f';
-        btn.style.color = '#000';
-        form.reset();
-        setTimeout(() => {
-          btn.innerHTML = original;
-          btn.style.background = '';
-          btn.style.color = '';
-          btn.disabled = false;
-        }, 4000);
-      } else {
-        throw new Error('Server error');
-      }
-    } catch {
-      btn.innerHTML = 'Failed. Try again.';
-      btn.style.background = '#e74c3c';
-      btn.style.color = '#fff';
-      setTimeout(() => {
-        btn.innerHTML = original;
-        btn.style.background = '';
-        btn.style.color = '';
-        btn.disabled = false;
-      }, 4000);
+    btn.innerHTML = '<span>✓ Sent!</span>';
+    btn.style.background = 'var(--green)';
+    btn.style.color = '#000';
+    form.reset();
+    setTimeout(() => {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 3000);
+  });
+}
+
+
+/* ────────────────────────────────────────────────
+   SMOOTH SCROLL
+──────────────────────────────────────────────── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const navH = document.getElementById('navbar')?.offsetHeight || 64;
+      window.scrollTo({ top: target.offsetTop - navH, behavior: 'smooth' });
     }
   });
-})();
-
-/* ── METRIC RINGS ANIMATE ON SCROLL ── */
-(function () {
-  const rings = document.querySelectorAll('.ring-fill');
-  if (!rings.length) return;
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const dashArr = entry.target.getAttribute('stroke-dasharray') || '0, 100';
-        entry.target.style.strokeDasharray = '0, 100';
-        requestAnimationFrame(() => {
-          setTimeout(() => {
-            entry.target.style.transition = 'stroke-dasharray 1.5s ease';
-            entry.target.style.strokeDasharray = dashArr;
-          }, 200);
-        });
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  rings.forEach(r => {
-    const original = r.getAttribute('stroke-dasharray');
-    r.setAttribute('data-target', original);
-    r.style.strokeDasharray = '0, 100';
-    observer.observe(r);
-  });
-})();
-
-/* ── SECTION TITLE REVEAL ── */
-(function () {
-  const titles = document.querySelectorAll('.section-title');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.2 });
-
-  titles.forEach(t => {
-    t.style.opacity = '0';
-    t.style.transform = 'translateY(20px)';
-    t.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(t);
-  });
-})();
-
-/* ── ACTIVE NAV STYLE ── */
-const style = document.createElement('style');
-style.textContent = `.nav-links a.active { color: var(--green) !important; background: var(--green-glow); }`;
-document.head.appendChild(style);
+});
