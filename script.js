@@ -229,37 +229,51 @@
   }
 })();
 
-/* ── CONTACT FORM → MAILTO ── */
+/* ── CONTACT FORM → FORMSPREE ── */
 (function () {
   const form = document.getElementById('contactForm');
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const name    = form.querySelector('#contactName').value.trim();
-    const email   = form.querySelector('#contactEmail').value.trim();
-    const message = form.querySelector('#contactMessage').value.trim();
-
-    if (!name || !email || !message) return;
-
-    const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
-    const body = encodeURIComponent(
-      `Hi Vajid,\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-    );
-
-    window.location.href = `mailto:shaikvajid484@gmail.com?subject=${subject}&body=${body}`;
-
-    // Visual feedback
     const btn = form.querySelector('button[type=submit]');
     const original = btn.innerHTML;
-    btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Opened in mail client!`;
-    btn.style.background = '#27c93f';
-    btn.style.color = '#000';
-    setTimeout(() => {
-      btn.innerHTML = original;
-      btn.style.background = '';
-      btn.style.color = '';
-    }, 4000);
+
+    btn.disabled = true;
+    btn.innerHTML = 'Sending...';
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Message Sent!`;
+        btn.style.background = '#27c93f';
+        btn.style.color = '#000';
+        form.reset();
+        setTimeout(() => {
+          btn.innerHTML = original;
+          btn.style.background = '';
+          btn.style.color = '';
+          btn.disabled = false;
+        }, 4000);
+      } else {
+        throw new Error('Server error');
+      }
+    } catch {
+      btn.innerHTML = 'Failed. Try again.';
+      btn.style.background = '#e74c3c';
+      btn.style.color = '#fff';
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.disabled = false;
+      }, 4000);
+    }
   });
 })();
 
