@@ -345,7 +345,7 @@ if (heroStats) {
    GITHUB REPOS
 ──────────────────────────────────────────────── */
 async function fetchRepos() {
-  const grid = document.getElementById('repos-grid');
+  const grid = document.getElementById('reposGrid');
   if (!grid) return;
 
   const langColors = {
