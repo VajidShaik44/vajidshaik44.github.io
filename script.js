@@ -39,14 +39,6 @@
     setTimeout(tick, 240 + Math.random() * 200);
   }
   tick();
-  // Failsafe: force-dismiss loader after 5s if tick() stalls for any reason
-  setTimeout(() => {
-    const l = document.getElementById('loader');
-    if (l && l.style.display !== 'none') {
-      l.style.opacity = '0';
-      setTimeout(() => { l.style.display = 'none'; try { initReveal(); } catch(e){} }, 600);
-    }
-  }, 5000);
 })();
 
 
