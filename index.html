@@ -129,7 +129,6 @@
 
   <!-- ░░ INTERACTIVE TERMINAL ░░ -->
   <div class="hero-terminal" id="heroTerminal" tabindex="0" role="region" aria-label="Interactive terminal — type help to explore">
-    <!-- Header -->
     <div class="it-header">
       <span class="it-dot it-red"></span>
       <span class="it-dot it-yellow"></span>
@@ -137,15 +136,10 @@
       <span class="it-title" id="it-title">vajid@devops:~</span>
       <span class="it-hint" id="it-hint">click &amp; type <span style="color:#e3b341;font-weight:600">help</span></span>
     </div>
-    <!-- Scrollable body -->
     <div class="it-body" id="terminalBody">
-      <!-- Output lines injected here by terminal.js -->
       <div id="it-output"></div>
-      <!-- Active input row — kept at bottom by JS -->
       <div class="it-input-row" id="it-input-row">
-        <span class="it-prompt">vajid@devops:~$&nbsp;</span><span
-          class="it-input-text" id="it-typed"></span><span
-          class="it-cursor" id="it-cursor"></span>
+        <span class="it-prompt">vajid@devops:~$&nbsp;</span><span class="it-input-text" id="it-typed"></span><span class="it-cursor" id="it-cursor"></span>
       </div>
     </div>
   </div>
@@ -225,6 +219,47 @@
             </div>
             <span class="metric-text">Uptime SLA</span>
           </div>
+        </div>
+
+        <!-- ░░ LIVE INFRA MONITOR ░░ -->
+        <div class="infra-monitor reveal" id="infraMonitor">
+          <div class="im-header">
+            <span class="im-pulse-dot"></span>
+            <span class="im-title-text">sys-monitor</span>
+            <span class="im-badge" id="imBadge">● NOMINAL</span>
+            <span class="im-uptime" id="imUptime">up 0d</span>
+          </div>
+          <div class="im-metrics">
+            <div class="im-row">
+              <span class="im-label">CPU</span>
+              <div class="im-bar-wrap"><div class="im-fill" id="imCpuBar"></div></div>
+              <span class="im-val" id="imCpuVal">--</span>
+            </div>
+            <div class="im-row">
+              <span class="im-label">MEM</span>
+              <div class="im-bar-wrap"><div class="im-fill im-fill-blue" id="imMemBar"></div></div>
+              <span class="im-val" id="imMemVal">--</span>
+            </div>
+            <div class="im-row">
+              <span class="im-label">DISK</span>
+              <div class="im-bar-wrap"><div class="im-fill im-fill-yellow" id="imDiskBar"></div></div>
+              <span class="im-val" id="imDiskVal">--</span>
+            </div>
+            <div class="im-row">
+              <span class="im-label">NET↑</span>
+              <div class="im-bar-wrap"><div class="im-fill im-fill-purple" id="imNetBar"></div></div>
+              <span class="im-val" id="imNetVal">--</span>
+            </div>
+          </div>
+          <div class="im-divider"></div>
+          <div class="im-feed" id="imFeed">
+            <div class="im-feed-row im-green">✓ deploy/prod — success — 2m ago</div>
+            <div class="im-feed-row im-blue">↻ elk-logstash — restarted — 14m ago</div>
+            <div class="im-feed-row im-dim">✓ ssl-cert-renew — scheduled — 1h ago</div>
+          </div>
+          <button class="im-deploy-btn" id="imDeployBtn">
+            <span class="im-btn-icon">⚡</span> Trigger Deploy
+          </button>
         </div>
       </div>
     </div>
@@ -679,5 +714,111 @@
 
 <script src="terminal.js" defer></script>
 <script src="script.js"></script>
+<script>
+/* ── INFRA MONITOR WIDGET ─────────────────────────────────────── */
+(function () {
+  const cpuBar   = document.getElementById('imCpuBar');
+  const memBar   = document.getElementById('imMemBar');
+  const diskBar  = document.getElementById('imDiskBar');
+  const netBar   = document.getElementById('imNetBar');
+  const cpuVal   = document.getElementById('imCpuVal');
+  const memVal   = document.getElementById('imMemVal');
+  const diskVal  = document.getElementById('imDiskVal');
+  const netVal   = document.getElementById('imNetVal');
+  const feed     = document.getElementById('imFeed');
+  const badge    = document.getElementById('imBadge');
+  const upEl     = document.getElementById('imUptime');
+  const deployBtn= document.getElementById('imDeployBtn');
+  if (!cpuBar) return;
+
+  // Smoothly wandering metrics
+  let cpu = 23, mem = 61, disk = 44, net = 18;
+  function wander(val, min, max, speed) {
+    val += (Math.random() - 0.5) * speed;
+    return Math.max(min, Math.min(max, val));
+  }
+
+  function setBar(bar, valEl, pct, label) {
+    bar.style.width = pct.toFixed(0) + '%';
+    if (valEl) valEl.textContent = label;
+  }
+
+  function tick() {
+    cpu  = wander(cpu,  8, 72, 4);
+    mem  = wander(mem, 45, 78, 2);
+    disk = wander(disk,40, 55, 0.8);
+    net  = wander(net,  5, 60, 8);
+    setBar(cpuBar,  cpuVal,  cpu,  cpu.toFixed(0) + '%');
+    setBar(memBar,  memVal,  mem,  mem.toFixed(0) + '%');
+    setBar(diskBar, diskVal, disk, disk.toFixed(0) + '%');
+    const mbps = (net * 0.12).toFixed(1);
+    setBar(netBar, netVal, net, mbps + ' MB/s');
+    // Badge colour based on CPU
+    if (cpu > 65) {
+      badge.textContent = '⚠ HIGH LOAD';
+      badge.style.color = '#e3b341';
+    } else {
+      badge.textContent = '● NOMINAL';
+      badge.style.color = '#3fb950';
+    }
+  }
+
+  // Uptime counter from Jan 15 2024
+  function updateUptime() {
+    const days = Math.floor((Date.now() - new Date('2024-01-15')) / 86400000);
+    if (upEl) upEl.textContent = 'up ' + days + 'd';
+  }
+
+  // Deploy events feed
+  const deployEvents = [
+    { cls: 'im-green',  text: (t) => `✓ deploy/prod — success — just now` },
+    { cls: 'im-blue',   text: (t) => `↺ docker pull app:${t} — done` },
+    { cls: 'im-white',  text: (t) => `▸ kubectl rollout — 3/3 pods live` },
+    { cls: 'im-green',  text: (t) => `✓ healthcheck /ping — 200 OK — 4ms` },
+    { cls: 'im-dim',    text: (t) => `✓ nginx reload — config ok` },
+    { cls: 'im-green',  text: (t) => `✓ deploy complete — ${t} — 0 errors` },
+  ];
+
+  let isDeploying = false;
+  function addFeedRow(cls, text) {
+    const row = document.createElement('div');
+    row.className = 'im-feed-row ' + cls + ' im-feed-new';
+    row.textContent = text;
+    feed.insertBefore(row, feed.firstChild);
+    // Keep max 5 rows
+    while (feed.children.length > 5) feed.removeChild(feed.lastChild);
+    setTimeout(() => row.classList.remove('im-feed-new'), 10);
+  }
+
+  function runDeploy() {
+    if (isDeploying) return;
+    isDeploying = true;
+    deployBtn.disabled = true;
+    deployBtn.innerHTML = '<span class="im-btn-icon im-spin">↻</span> Deploying...';
+    const tag = 'v2.' + Math.floor(Math.random() * 90 + 10);
+    let step = 0;
+    const interval = setInterval(() => {
+      if (step >= deployEvents.length) {
+        clearInterval(interval);
+        isDeploying = false;
+        deployBtn.disabled = false;
+        deployBtn.innerHTML = '<span class="im-btn-icon">⚡</span> Trigger Deploy';
+        return;
+      }
+      const ev = deployEvents[step];
+      addFeedRow(ev.cls, ev.text(tag));
+      step++;
+    }, 600);
+  }
+
+  deployBtn && deployBtn.addEventListener('click', runDeploy);
+
+  // Kick off
+  updateUptime();
+  tick();
+  setInterval(tick, 1800);
+  setInterval(updateUptime, 60000);
+})();
+</script>
 </body>
 </html>

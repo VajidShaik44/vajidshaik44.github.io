@@ -119,10 +119,13 @@
 .it-link    { color: #79c0ff; text-decoration: none; border-bottom: 1px solid #21262d; }
 .it-link:hover { color: #00d4aa; border-bottom-color: #00d4aa; }
 
-/* ── Hero terminal integration — makes .it-* styles work inside .hero-terminal ── */
-
-/* The outer .hero-terminal already sets dimensions/position from styles.css.
-   We override only what's needed for the interactive layer. */
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .it-container { font-size: 12px; border-radius: 8px; }
+  .it-body      { padding: 10px 12px; max-height: 400px; }
+  .it-hint      { display: none; }
+}
+/* ── Hero terminal integration ──────────────────────────────────────────────── */
 .hero-terminal .it-header {
   background: #161b22;
   padding: 10px 16px;
@@ -139,39 +142,216 @@
   padding: 14px 18px 10px;
   min-height: 260px;
   max-height: 340px;
-  height: 100%;
   overflow-y: auto;
   cursor: text;
   scroll-behavior: smooth;
-  border-radius: 0 0 10px 10px;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
   font-size: 13px;
   line-height: 1.65;
 }
 
-/* Focus ring on the terminal when clicked */
+/* Focus glow */
 .hero-terminal:focus,
 .hero-terminal.it-focused {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(0, 212, 170, 0.4), 0 24px 48px rgba(0,0,0,0.6);
+  box-shadow: 0 0 0 2px rgba(0,212,170,0.4), 0 24px 48px rgba(0,0,0,0.6);
 }
 
-/* Scrollbar inside hero terminal */
+/* Scrollbar */
 .hero-terminal .it-body::-webkit-scrollbar       { width: 4px; }
 .hero-terminal .it-body::-webkit-scrollbar-track { background: transparent; }
 .hero-terminal .it-body::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
 
-/* Hide the hint on small screens */
+/* ── FIX: no background on output lines (fixes yellow highlight bug) ─────── */
+.it-line {
+  background: transparent !important;
+  /* Ensure text always readable */
+  color: #c9d1d9;
+}
+.it-line.it-yellow  { color: #e3b341; background: transparent !important; }
+.it-line.it-green   { color: #3fb950; background: transparent !important; }
+.it-line.it-cyan    { color: #79c0ff; background: transparent !important; }
+.it-line.it-red     { color: #f85149; background: transparent !important; }
+.it-line.it-white   { color: #e6edf3; background: transparent !important; }
+.it-line.it-dim     { color: #484f58; background: transparent !important; }
+.it-line.it-bold    { font-weight: 700; }
+
+/* Focused hint hides */
+.hero-terminal.it-focused .it-hint { opacity: 0; transition: opacity 0.2s; }
+
 @media (max-width: 900px) {
-  .hero-terminal .it-body {
-    max-height: 260px;
-    font-size: 12px;
-  }
+  .hero-terminal .it-body { max-height: 260px; font-size: 12px; }
   .hero-terminal .it-hint { display: none; }
 }
 
-/* ── "focused" glow on the header hint when terminal is active ── */
-.hero-terminal.it-focused .it-hint {
-  opacity: 0;
-  transition: opacity 0.2s;
+/* ══════════════════════════════════════════════════════════════════════════════
+   LIVE INFRA MONITOR WIDGET
+══════════════════════════════════════════════════════════════════════════════ */
+.infra-monitor {
+  margin-top: 18px;
+  background: #0d1117;
+  border: 1px solid #21262d;
+  border-radius: 10px;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.03);
 }
+
+/* ── Header ── */
+.im-header {
+  background: #161b22;
+  border-bottom: 1px solid #21262d;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+
+.im-pulse-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #3fb950;
+  flex-shrink: 0;
+  animation: im-pulse 2s ease-in-out infinite;
+}
+@keyframes im-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(63,185,80,0.6); }
+  50%       { opacity: 0.7; box-shadow: 0 0 0 5px rgba(63,185,80,0); }
+}
+
+.im-title-text {
+  color: #8b949e;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.im-badge {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 700;
+  color: #3fb950;
+  letter-spacing: 0.05em;
+  transition: color 0.4s;
+}
+
+.im-uptime {
+  font-size: 10px;
+  color: #3d444d;
+  margin-left: 10px;
+}
+
+/* ── Metric rows ── */
+.im-metrics {
+  padding: 12px 14px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.im-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.im-label {
+  color: #484f58;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  width: 30px;
+  flex-shrink: 0;
+}
+
+.im-bar-wrap {
+  flex: 1;
+  height: 5px;
+  background: #21262d;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.im-fill {
+  height: 100%;
+  background: #3fb950;
+  border-radius: 3px;
+  transition: width 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0%;
+}
+.im-fill-blue   { background: #79c0ff; }
+.im-fill-yellow { background: #e3b341; }
+.im-fill-purple { background: #c678dd; }
+
+.im-val {
+  color: #8b949e;
+  font-size: 10px;
+  width: 56px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── Divider ── */
+.im-divider {
+  height: 1px;
+  background: #21262d;
+  margin: 4px 0;
+}
+
+/* ── Deploy events feed ── */
+.im-feed {
+  padding: 6px 14px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-height: 62px;
+}
+
+.im-feed-row {
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: #484f58;
+  transition: opacity 0.4s, transform 0.3s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.im-feed-row.im-feed-new {
+  animation: im-slide-in 0.3s ease;
+}
+@keyframes im-slide-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.im-feed-row.im-green  { color: #3fb950; }
+.im-feed-row.im-blue   { color: #79c0ff; }
+.im-feed-row.im-white  { color: #c9d1d9; }
+.im-feed-row.im-dim    { color: #484f58; }
+
+/* ── Deploy button ── */
+.im-deploy-btn {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-top: 1px solid #21262d;
+  color: #00d4aa;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 10px 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.04em;
+  transition: background 0.15s, color 0.15s;
+}
+.im-deploy-btn:hover   { background: rgba(0,212,170,0.07); color: #00ffcc; }
+.im-deploy-btn:active  { background: rgba(0,212,170,0.14); }
+.im-deploy-btn:disabled { color: #484f58; cursor: not-allowed; }
+.im-deploy-btn:disabled:hover { background: transparent; }
+
+.im-btn-icon { font-size: 13px; }
+.im-spin     { display: inline-block; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
