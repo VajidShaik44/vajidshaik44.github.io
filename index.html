@@ -18,6 +18,16 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="terminal-interactive.css" />
+  <style>
+    /* Ticker bar offset — ensures navbar and hero sit below the 28px ticker */
+    :root { --ticker-h: 28px; }
+    body   { padding-top: var(--ticker-h); }
+    #navbar { top: var(--ticker-h) !important; }
+    #hero   { padding-top: calc(var(--nav-h) + var(--ticker-h)); }
+    @media (max-width: 600px) {
+      :root { --ticker-h: 24px; }
+    }
+  </style>
 </head>
 <body>
 

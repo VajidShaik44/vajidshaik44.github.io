@@ -695,7 +695,6 @@
 
       default:
         if (e.key.length === 1) {
-          e.preventDefault(); // stop spacebar & other keys from scrolling the page
           inputBuffer += e.key;
           renderInput();
         }
@@ -716,7 +715,7 @@
 
   // Prevent page scroll on arrow keys when focused
   document.addEventListener('keydown', e => {
-    if (isFocused && ['ArrowUp', 'ArrowDown', 'Tab', ' ', 'PageUp', 'PageDown'].includes(e.key)) {
+    if (isFocused && ['ArrowUp', 'ArrowDown', 'Tab'].includes(e.key)) {
       e.preventDefault();
     }
   }, { passive: false });

@@ -3,51 +3,50 @@
    =================================================== */
 
 /* ────────────────────────────────────────────────
-   BOOT SCREEN
+   LOADER
 ──────────────────────────────────────────────── */
 (function () {
-  const loader     = document.getElementById('loader');
-  const bootLines  = document.getElementById('bootLines');
-  const bootCursor = document.getElementById('bootCursor');
+  const loader = document.getElementById('loader');
+  const loaderBar = document.querySelector('.loader-bar');
+  const loaderMsgs = document.querySelector('.loader-msgs');
 
-  if (!loader || !bootLines) return;
-
-  const BOOT_LINES = [
-    { html: '<span class="boot-time">[  0.000000]</span> BIOS-provided memory map: <span class="boot-ok">vajid-devops v2.0</span>',                          delay:   0 },
-    { html: '<span class="boot-time">[  0.001234]</span> Loading kernel modules: <span class="boot-ok">docker</span>, <span class="boot-ok">k8s</span>, <span class="boot-ok">terraform</span>, <span class="boot-ok">nginx</span>...', delay: 220 },
-    { html: '<span class="boot-time">[  0.002678]</span> Initializing <span class="boot-white">AWS/EC2</span> network interfaces...',                          delay: 460 },
-    { html: '<span class="boot-time">[  0.003456]</span> Mounting <span class="boot-white">/dev/aws/ec2</span> .............................<span class="boot-ok">  [ OK ]</span>', delay: 680 },
-    { html: '<span class="boot-time">[  0.004821]</span> Starting <span class="boot-white">github-actions</span> runner daemon .........<span class="boot-ok">  [ OK ]</span>',  delay: 900 },
-    { html: '<span class="boot-time">[  0.005012]</span> Starting <span class="boot-white">systemd</span> services .....................<span class="boot-ok">  [ OK ]</span>',      delay: 1100 },
-    { html: '<span class="boot-time">[  0.006390]</span> Mounting <span class="boot-white">kubernetes</span> cluster ...................<span class="boot-ok">  [ OK ]</span>',      delay: 1280 },
-    { html: '<span class="boot-time">[  0.007891]</span> <span class="boot-ok">Portfolio initialized.</span> <span class="boot-white">Welcome.</span>',                                  delay: 1480 },
-    { html: '',                                                                                                                                                 delay: 1600 },
-    { html: '<span class="boot-dim">vajid@devops login:</span> <span class="boot-ok">vajid</span>',                                                             delay: 1780 },
-    { html: '<span class="boot-dim">Password:</span> <span class="boot-dim">••••••••</span>',                                                                   delay: 2150 },
-    { html: '',                                                                                                                                                 delay: 2400 },
-    { html: '<span class="boot-dim">Last login: Sun Apr 27 2026 from 127.0.0.1</span>',                                                                        delay: 2520 },
-    { html: '',                                                                                                                                                 delay: 2650 },
+  const messages = [
+    '> initializing portfolio.exe...',
+    '> loading devops modules...',
+    '> connecting to AWS...',
+    '> spinning up containers...',
+    '> deploying pipeline...',
+    '> ready.',
   ];
 
-  BOOT_LINES.forEach(({ html, delay }) => {
-    setTimeout(() => {
-      const div = document.createElement('div');
-      div.className = 'boot-line';
-      div.innerHTML = html || '&nbsp;';
-      bootLines.appendChild(div);
-    }, delay);
-  });
+  let msgIdx = 0;
+  let pct = 0;
 
-  // Fade out after last line + short hold
-  const lastDelay = BOOT_LINES[BOOT_LINES.length - 1].delay;
+  function tick() {
+    if (pct >= 100) {
+      loader.style.opacity = '0';
+      setTimeout(() => {
+        loader.style.display = 'none';
+        initReveal();
+      }, 600);
+      return;
+    }
+    pct = Math.min(100, pct + Math.random() * 18 + 6);
+    loaderBar.style.width = pct + '%';
+    if (msgIdx < messages.length) {
+      loaderMsgs.textContent = messages[msgIdx++];
+    }
+    setTimeout(tick, 240 + Math.random() * 200);
+  }
+  tick();
+  // Failsafe: force-dismiss loader after 5s if tick() stalls for any reason
   setTimeout(() => {
-    if (bootCursor) bootCursor.style.display = 'none';
-    loader.style.opacity = '0';
-    setTimeout(() => {
-      loader.style.display = 'none';
-      initReveal();
-    }, 800);
-  }, lastDelay + 480);
+    const l = document.getElementById('loader');
+    if (l && l.style.display !== 'none') {
+      l.style.opacity = '0';
+      setTimeout(() => { l.style.display = 'none'; try { initReveal(); } catch(e){} }, 600);
+    }
+  }, 5000);
 })();
 
 
@@ -459,98 +458,3 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     }
   });
 });
-
-/* ────────────────────────────────────────────────
-   KONAMI CODE — MATRIX RAIN EASTER EGG
-   ↑ ↑ ↓ ↓ ← → ← → B A
-──────────────────────────────────────────────── */
-(function () {
-  const KONAMI = [
-    'ArrowUp','ArrowUp','ArrowDown','ArrowDown',
-    'ArrowLeft','ArrowRight','ArrowLeft','ArrowRight',
-    'b','a'
-  ];
-  let seq = [];
-
-  document.addEventListener('keydown', function(e) {
-    seq.push(e.key);
-    if (seq.length > KONAMI.length) seq.shift();
-    if (seq.join(',') === KONAMI.join(',')) {
-      seq = [];
-      triggerMatrix();
-    }
-  });
-
-  function triggerMatrix() {
-    if (document.getElementById('matrix-overlay')) return;
-
-    /* ── overlay ── */
-    var overlay = document.createElement('div');
-    overlay.id = 'matrix-overlay';
-
-    var canvas = document.createElement('canvas');
-    canvas.id = 'matrix-canvas';
-    overlay.appendChild(canvas);
-
-    var msg = document.createElement('div');
-    msg.id = 'matrix-msg';
-    msg.innerHTML = '<span class="mx-bracket">[</span>vajid@devops<span class="mx-bracket">]</span><br><span class="mx-sub">You found the Easter Egg \uD83D\uDC23</span>';
-    overlay.appendChild(msg);
-
-    document.body.appendChild(overlay);
-
-    /* ── matrix rain ── */
-    var ctx = canvas.getContext('2d');
-    var W, H, cols, drops;
-    var CHARS = '\u30A2\u30A4\u30A6\u30A8\u30AA\u30AB\u30AD\u30AF\u30B1\u30B3\u30B5\u30B7\u30B9\u30BB\u30BD\u30BF\u30C1\u30C4\u30C6\u30C8\u30CA\u30CB\u30CC\u30CD\u30CE\u30CF\u30D2\u30D5\u30D8\u30DB\u30DE\u30DF\u30E0\u30E1\u30E2\u30E4\u30E6\u30E8\u30E9\u30EA\u30EB\u30EC\u30ED\u30EF\u30F2\u30F30123456789ABCDEF<>{}[]|';
-    var FONT_SIZE = 15;
-
-    function resize() {
-      W = canvas.width  = window.innerWidth;
-      H = canvas.height = window.innerHeight;
-      cols  = Math.floor(W / FONT_SIZE);
-      drops = [];
-      for (var i = 0; i < cols; i++) drops[i] = Math.floor(Math.random() * -50);
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    function draw() {
-      ctx.fillStyle = 'rgba(0,0,0,0.05)';
-      ctx.fillRect(0, 0, W, H);
-      ctx.font = FONT_SIZE + 'px "JetBrains Mono", monospace';
-      for (var i = 0; i < drops.length; i++) {
-        var y = drops[i] * FONT_SIZE;
-        if (y < 0) { drops[i]++; continue; }
-        /* lead char — bright; trail chars — green */
-        ctx.fillStyle = (drops[i] % 5 === 0) ? '#cfffdf' : '#00ff41';
-        var ch = CHARS[Math.floor(Math.random() * CHARS.length)];
-        ctx.fillText(ch, i * FONT_SIZE, y);
-        if (y > H && Math.random() > 0.975) drops[i] = 0;
-        drops[i]++;
-      }
-    }
-
-    var rafId = null;
-    function loop() { draw(); rafId = requestAnimationFrame(loop); }
-    loop();
-
-    /* fade in */
-    requestAnimationFrame(function() { overlay.classList.add('mx-visible'); });
-
-    function dismiss() {
-      overlay.classList.remove('mx-visible');
-      overlay.classList.add('mx-hiding');
-      setTimeout(function() {
-        cancelAnimationFrame(rafId);
-        window.removeEventListener('resize', resize);
-        if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
-      }, 700);
-    }
-
-    /* auto dismiss at 5 s */
-    setTimeout(dismiss, 5000);
-    /* click to dismiss early */
-    overlay.addEventListener('click', dismiss);
-  }
-})();

@@ -465,18 +465,8 @@
   user-select: none;
 }
 
-/* Push everything down so ticker doesn't overlap navbar */
-body {
-  padding-top: 28px;
-}
-
-/* Navbar needs to sit below ticker */
-#navbar {
-  top: 28px !important;
-}
+/* body padding-top handled via inline <style> in index.html */
 
 @media (max-width: 600px) {
   .st-bar { font-size: 9.5px; height: 24px; line-height: 24px; }
-  body { padding-top: 24px; }
-  #navbar { top: 24px !important; }
 }
