@@ -3,42 +3,125 @@
    =================================================== */
 
 /* ────────────────────────────────────────────────
-   LOADER
+   KERNEL BOOT LOADER
 ──────────────────────────────────────────────── */
 (function () {
-  const loader = document.getElementById('loader');
-  const loaderBar = document.querySelector('.loader-bar');
-  const loaderMsgs = document.querySelector('.loader-msgs');
+  const loader   = document.getElementById('loader');
+  const screen   = document.getElementById('bootScreen');
+  const fill     = document.getElementById('bootBarFill');
+  const pctEl    = document.getElementById('bootBarPct');
+  const labelEl  = document.getElementById('bootBarLabel');
+  if (!loader || !screen) return;
 
-  const messages = [
-    '> initializing portfolio.exe...',
-    '> loading devops modules...',
-    '> connecting to AWS...',
-    '> spinning up containers...',
-    '> deploying pipeline...',
-    '> ready.',
+  // Each entry: [timestamp, text, color, delay_after_ms]
+  // color: 'dim' | 'white' | 'green' | 'yellow' | 'cyan' | 'red'
+  const lines = [
+    ['0.000000', 'BIOS-provided physical RAM map:',                          'dim',    60],
+    ['0.000000', 'vajid-devops kernel v6.8.0 · SMP · x86_64',               'white',  80],
+    ['0.000000', 'Command line: BOOT_IMAGE=/vmlinuz root=/dev/sda1',         'dim',    55],
+    ['0.001182', 'ACPI: RSDP 0x000F05B0 000024 (v02 BOCHS)',                 'dim',    40],
+    ['0.002344', 'PCI: Using configuration type 1 for base access',          'dim',    50],
+    ['0.004201', 'clocksource: tsc-early: mask: 0xffffffffffffff',           'dim',    45],
+    ['0.006811', 'Initializing cgroup subsys cpuset · cpuacct · blkio',      'dim',    60],
+    ['0.009533', 'Loading kernel modules:',                                   'cyan',  100],
+    ['0.009533', '  [OK] docker.ko          — container runtime',            'green',  80],
+    ['0.009533', '  [OK] k8s-cni.ko         — pod networking',               'green',  80],
+    ['0.009533', '  [OK] terraform.ko       — infra provisioning',           'green',  80],
+    ['0.009533', '  [OK] ansible.ko         — configuration mgmt',           'green',  70],
+    ['0.009533', '  [OK] jenkins-agent.ko   — CI/CD pipeline',               'green',  80],
+    ['0.009533', '  [OK] nginx-proxy.ko     — reverse proxy',                'green',  70],
+    ['0.009533', '  [OK] elk-stack.ko       — log aggregation',              'green',  80],
+    ['0.012045', 'Mounting filesystems:',                                     'cyan',   90],
+    ['0.012045', '  [OK] /dev/aws/ec2       → /mnt/cloud',                   'green',  70],
+    ['0.012045', '  [OK] /dev/s3/artifacts  → /mnt/artifacts',               'green',  70],
+    ['0.012045', '  [OK] /dev/github/repos  → /mnt/repos',                   'green',  70],
+    ['0.015320', 'Starting systemd services:',                                'cyan',   90],
+    ['0.015320', '  [OK] docker.service     — Started Container Runtime',    'green',  80],
+    ['0.015320', '  [OK] kubelet.service    — Started Kubernetes Node',      'green',  80],
+    ['0.015320', '  [OK] nginx.service      — Started HTTP/S Server',        'green',  80],
+    ['0.015320', '  [OK] logstash.service   — Started Log Pipeline',         'green',  70],
+    ['0.018741', 'Running health checks:',                                    'cyan',   90],
+    ['0.018741', '  [OK] 3/3 pods running   — PROD cluster nominal',         'green',  70],
+    ['0.018741', '  [OK] CI pipeline        — last build passing',           'green',  70],
+    ['0.018741', '  [OK] uptime SLA         — 99.97%',                       'green',  70],
+    ['0.021900', 'vajid@devops login: ████████',                             'yellow', 200],
+    ['0.022100', 'Last login: Mon Apr 28 2026 from 203.0.113.42',            'dim',   120],
+    ['0.022100', '',                                                          'dim',    60],
+    ['0.022100', '  ██╗   ██╗ █████╗      ██╗██╗██████╗',                   'green',  30],
+    ['0.022100', '  ██║   ██║██╔══██╗     ██║██║██╔══██╗',                  'green',  30],
+    ['0.022100', '  ██║   ██║███████║     ██║██║██║  ██║',                  'green',  30],
+    ['0.022100', '  ╚██╗ ██╔╝██╔══██║██  ██║██║██║  ██║',                  'green',  30],
+    ['0.022100', '   ╚████╔╝ ██║  ██║╚█████╔╝██║██████╔╝',                 'green',  30],
+    ['0.022100', '    ╚═══╝  ╚═╝  ╚═╝ ╚════╝ ╚═╝╚═════╝',                  'green',  30],
+    ['0.022100', '',                                                          'dim',    60],
+    ['0.023500', 'Portfolio initialized. Welcome.',                           'white', 400],
   ];
 
-  let msgIdx = 0;
-  let pct = 0;
+  const COLOR = {
+    dim:    '#3d4a5c',
+    white:  '#e6edf3',
+    green:  '#00ff88',
+    yellow: '#fbbf24',
+    cyan:   '#22d3ee',
+    red:    '#f87171',
+  };
 
-  function tick() {
-    if (pct >= 100) {
-      loader.style.opacity = '0';
+  let lineIdx = 0;
+  let totalDelay = 0;
+  lines.forEach(l => { totalDelay += l[3]; });
+
+  function addLine(ts, text, color) {
+    const row = document.createElement('div');
+    row.className = 'boot-line';
+    if (text === '') { row.innerHTML = '&nbsp;'; row.style.lineHeight = '0.8'; }
+    else if (ts) {
+      row.innerHTML =
+        `<span class="boot-ts">[${ts}]</span> ` +
+        `<span style="color:${COLOR[color] || COLOR.white}">${escHtml(text)}</span>`;
+    } else {
+      row.innerHTML = `<span style="color:${COLOR[color] || COLOR.white}">${escHtml(text)}</span>`;
+    }
+    screen.appendChild(row);
+    screen.scrollTop = screen.scrollHeight;
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function updateBar(idx) {
+    const pct = Math.round((idx / lines.length) * 100);
+    fill.style.width = pct + '%';
+    pctEl.textContent = pct + '%';
+    if (pct < 30)       labelEl.textContent = 'BIOS INIT';
+    else if (pct < 55)  labelEl.textContent = 'LOADING MODULES';
+    else if (pct < 75)  labelEl.textContent = 'MOUNTING FS';
+    else if (pct < 90)  labelEl.textContent = 'STARTING SERVICES';
+    else                labelEl.textContent = 'READY';
+  }
+
+  function runBoot() {
+    if (lineIdx >= lines.length) {
+      // Done — fade out
+      updateBar(lines.length);
       setTimeout(() => {
-        loader.style.display = 'none';
-        initReveal();
-      }, 600);
+        loader.style.transition = 'opacity 0.7s ease';
+        loader.style.opacity = '0';
+        setTimeout(() => {
+          loader.style.display = 'none';
+          initReveal();
+        }, 700);
+      }, 500);
       return;
     }
-    pct = Math.min(100, pct + Math.random() * 18 + 6);
-    loaderBar.style.width = pct + '%';
-    if (msgIdx < messages.length) {
-      loaderMsgs.textContent = messages[msgIdx++];
-    }
-    setTimeout(tick, 240 + Math.random() * 200);
+    const [ts, text, color, delay] = lines[lineIdx++];
+    addLine(ts, text, color);
+    updateBar(lineIdx);
+    setTimeout(runBoot, delay);
   }
-  tick();
+
+  // Small initial pause so page assets settle, then boot
+  setTimeout(runBoot, 120);
 })();
 
 

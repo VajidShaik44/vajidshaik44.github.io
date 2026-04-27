@@ -31,13 +31,15 @@
 </head>
 <body>
 
-<!-- ░░ LOADER ░░ -->
+<!-- ░░ KERNEL BOOT LOADER ░░ -->
 <div id="loader">
-  <div class="loader-content">
-    <div class="loader-logo">[<span class="loader-vs">VS</span>]</div>
-    <div class="loader-msgs" id="loaderText">&gt; Initializing portfolio...</div>
-    <div class="loader-track"><div class="loader-bar" id="loaderBar"></div></div>
-    <div class="loader-ver">vajid@devops &nbsp;·&nbsp; v2.0 &nbsp;·&nbsp; 2026</div>
+  <div class="boot-wrap">
+    <div class="boot-screen" id="bootScreen"></div>
+    <div class="boot-bar-row">
+      <span class="boot-bar-label" id="bootBarLabel">LOADING</span>
+      <div class="boot-bar-track"><div class="boot-bar-fill" id="bootBarFill"></div></div>
+      <span class="boot-bar-pct" id="bootBarPct">0%</span>
+    </div>
   </div>
 </div>
 

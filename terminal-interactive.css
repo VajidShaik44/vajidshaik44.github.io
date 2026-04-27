@@ -470,3 +470,134 @@
 @media (max-width: 600px) {
   .st-bar { font-size: 9.5px; height: 24px; line-height: 24px; }
 }
+
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   KERNEL BOOT LOADER
+══════════════════════════════════════════════════════════════════════════════ */
+
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: opacity 0.7s ease;
+}
+
+.boot-wrap {
+  width: min(760px, 92vw);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Scrolling terminal ── */
+.boot-screen {
+  background: #000;
+  border: 1px solid #1a2332;
+  border-radius: 4px;
+  padding: 14px 18px;
+  height: min(62vh, 420px);
+  overflow-y: auto;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: clamp(10px, 1.3vw, 12.5px);
+  line-height: 1.7;
+  scroll-behavior: smooth;
+  box-shadow: inset 0 0 40px rgba(0,255,136,0.03), 0 0 0 1px rgba(0,255,136,0.06);
+}
+
+/* Tiny scrollbar */
+.boot-screen::-webkit-scrollbar       { width: 3px; }
+.boot-screen::-webkit-scrollbar-track { background: transparent; }
+.boot-screen::-webkit-scrollbar-thumb { background: #1a2332; }
+
+.boot-line {
+  display: block;
+  white-space: pre;
+  animation: boot-appear 0.06s ease;
+}
+@keyframes boot-appear {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.boot-ts {
+  color: #3d4a5c;
+  user-select: none;
+  font-size: 0.85em;
+}
+
+/* ── Progress bar row ── */
+.boot-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.boot-bar-label {
+  color: #3d4a5c;
+  width: 130px;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.boot-bar-track {
+  flex: 1;
+  height: 3px;
+  background: #0d1117;
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid #1a2332;
+}
+
+.boot-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #00ff88, #22d3ee);
+  border-radius: 2px;
+  transition: width 0.12s linear;
+  box-shadow: 0 0 8px rgba(0,255,136,0.4);
+}
+
+.boot-bar-pct {
+  color: #00ff88;
+  font-weight: 700;
+  width: 34px;
+  text-align: right;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Scanline flicker effect over the whole loader */
+#loader::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  animation: scanlines 8s linear infinite;
+  opacity: 0.4;
+}
+@keyframes scanlines {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 100px; }
+}
+
+@media (max-width: 600px) {
+  .boot-screen { height: 55vh; font-size: 9.5px; padding: 10px 12px; }
+  .boot-line    { white-space: pre-wrap; }
+}
