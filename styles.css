@@ -164,6 +164,50 @@ body:has(button:hover) #cursor-dot { background: var(--cyan); box-shadow: 0 0 10
   50%       { opacity: 0; }
 }
 
+/* ── MATRIX RAIN EASTER EGG ── */
+#matrix-overlay {
+  position: fixed; inset: 0; z-index: 999999;
+  background: #000;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  cursor: pointer;
+  pointer-events: none;
+}
+#matrix-overlay.mx-visible  { opacity: 1; pointer-events: all; }
+#matrix-overlay.mx-hiding   { opacity: 0; pointer-events: none; }
+#matrix-canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; display: block;
+}
+#matrix-msg {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: clamp(22px, 3.5vw, 40px);
+  font-weight: 700;
+  color: #00ff41;
+  text-align: center;
+  text-shadow: 0 0 20px #00ff41, 0 0 50px rgba(0,255,65,0.45);
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  pointer-events: none;
+  animation: mxPulse 1.5s ease-in-out infinite;
+}
+#matrix-msg .mx-bracket { color: #afffce; }
+#matrix-msg .mx-sub {
+  display: block;
+  font-size: clamp(12px, 1.7vw, 18px);
+  font-weight: 400;
+  color: #7fff9f;
+  text-shadow: 0 0 12px rgba(0,255,65,0.35);
+  margin-top: 12px;
+  letter-spacing: 0.14em;
+}
+@keyframes mxPulse {
+  0%, 100% { text-shadow: 0 0 20px #00ff41, 0 0 50px rgba(0,255,65,0.45); }
+  50%       { text-shadow: 0 0 36px #00ff41, 0 0 90px rgba(0,255,65,0.8), 0 0 130px rgba(0,255,65,0.25); }
+}
+
 /* ── CONTAINER ── */
 .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
 .section { padding: 100px 0; }

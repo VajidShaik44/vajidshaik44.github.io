@@ -459,3 +459,98 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     }
   });
 });
+
+/* ────────────────────────────────────────────────
+   KONAMI CODE — MATRIX RAIN EASTER EGG
+   ↑ ↑ ↓ ↓ ← → ← → B A
+──────────────────────────────────────────────── */
+(function () {
+  const KONAMI = [
+    'ArrowUp','ArrowUp','ArrowDown','ArrowDown',
+    'ArrowLeft','ArrowRight','ArrowLeft','ArrowRight',
+    'b','a'
+  ];
+  let seq = [];
+
+  document.addEventListener('keydown', function(e) {
+    seq.push(e.key);
+    if (seq.length > KONAMI.length) seq.shift();
+    if (seq.join(',') === KONAMI.join(',')) {
+      seq = [];
+      triggerMatrix();
+    }
+  });
+
+  function triggerMatrix() {
+    if (document.getElementById('matrix-overlay')) return;
+
+    /* ── overlay ── */
+    var overlay = document.createElement('div');
+    overlay.id = 'matrix-overlay';
+
+    var canvas = document.createElement('canvas');
+    canvas.id = 'matrix-canvas';
+    overlay.appendChild(canvas);
+
+    var msg = document.createElement('div');
+    msg.id = 'matrix-msg';
+    msg.innerHTML = '<span class="mx-bracket">[</span>vajid@devops<span class="mx-bracket">]</span><br><span class="mx-sub">You found the Easter Egg \uD83D\uDC23</span>';
+    overlay.appendChild(msg);
+
+    document.body.appendChild(overlay);
+
+    /* ── matrix rain ── */
+    var ctx = canvas.getContext('2d');
+    var W, H, cols, drops;
+    var CHARS = '\u30A2\u30A4\u30A6\u30A8\u30AA\u30AB\u30AD\u30AF\u30B1\u30B3\u30B5\u30B7\u30B9\u30BB\u30BD\u30BF\u30C1\u30C4\u30C6\u30C8\u30CA\u30CB\u30CC\u30CD\u30CE\u30CF\u30D2\u30D5\u30D8\u30DB\u30DE\u30DF\u30E0\u30E1\u30E2\u30E4\u30E6\u30E8\u30E9\u30EA\u30EB\u30EC\u30ED\u30EF\u30F2\u30F30123456789ABCDEF<>{}[]|';
+    var FONT_SIZE = 15;
+
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+      cols  = Math.floor(W / FONT_SIZE);
+      drops = [];
+      for (var i = 0; i < cols; i++) drops[i] = Math.floor(Math.random() * -50);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function draw() {
+      ctx.fillStyle = 'rgba(0,0,0,0.05)';
+      ctx.fillRect(0, 0, W, H);
+      ctx.font = FONT_SIZE + 'px "JetBrains Mono", monospace';
+      for (var i = 0; i < drops.length; i++) {
+        var y = drops[i] * FONT_SIZE;
+        if (y < 0) { drops[i]++; continue; }
+        /* lead char — bright; trail chars — green */
+        ctx.fillStyle = (drops[i] % 5 === 0) ? '#cfffdf' : '#00ff41';
+        var ch = CHARS[Math.floor(Math.random() * CHARS.length)];
+        ctx.fillText(ch, i * FONT_SIZE, y);
+        if (y > H && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+
+    var rafId = null;
+    function loop() { draw(); rafId = requestAnimationFrame(loop); }
+    loop();
+
+    /* fade in */
+    requestAnimationFrame(function() { overlay.classList.add('mx-visible'); });
+
+    function dismiss() {
+      overlay.classList.remove('mx-visible');
+      overlay.classList.add('mx-hiding');
+      setTimeout(function() {
+        cancelAnimationFrame(rafId);
+        window.removeEventListener('resize', resize);
+        if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+      }, 700);
+    }
+
+    /* auto dismiss at 5 s */
+    setTimeout(dismiss, 5000);
+    /* click to dismiss early */
+    overlay.addEventListener('click', dismiss);
+  }
+})();
