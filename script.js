@@ -3,42 +3,51 @@
    =================================================== */
 
 /* ────────────────────────────────────────────────
-   LOADER
+   BOOT SCREEN
 ──────────────────────────────────────────────── */
 (function () {
-  const loader = document.getElementById('loader');
-  const loaderBar = document.querySelector('.loader-bar');
-  const loaderMsgs = document.querySelector('.loader-msgs');
+  const loader     = document.getElementById('loader');
+  const bootLines  = document.getElementById('bootLines');
+  const bootCursor = document.getElementById('bootCursor');
 
-  const messages = [
-    '> initializing portfolio.exe...',
-    '> loading devops modules...',
-    '> connecting to AWS...',
-    '> spinning up containers...',
-    '> deploying pipeline...',
-    '> ready.',
+  if (!loader || !bootLines) return;
+
+  const BOOT_LINES = [
+    { html: '<span class="boot-time">[  0.000000]</span> BIOS-provided memory map: <span class="boot-ok">vajid-devops v2.0</span>',                          delay:   0 },
+    { html: '<span class="boot-time">[  0.001234]</span> Loading kernel modules: <span class="boot-ok">docker</span>, <span class="boot-ok">k8s</span>, <span class="boot-ok">terraform</span>, <span class="boot-ok">nginx</span>...', delay: 220 },
+    { html: '<span class="boot-time">[  0.002678]</span> Initializing <span class="boot-white">AWS/EC2</span> network interfaces...',                          delay: 460 },
+    { html: '<span class="boot-time">[  0.003456]</span> Mounting <span class="boot-white">/dev/aws/ec2</span> .............................<span class="boot-ok">  [ OK ]</span>', delay: 680 },
+    { html: '<span class="boot-time">[  0.004821]</span> Starting <span class="boot-white">github-actions</span> runner daemon .........<span class="boot-ok">  [ OK ]</span>',  delay: 900 },
+    { html: '<span class="boot-time">[  0.005012]</span> Starting <span class="boot-white">systemd</span> services .....................<span class="boot-ok">  [ OK ]</span>',      delay: 1100 },
+    { html: '<span class="boot-time">[  0.006390]</span> Mounting <span class="boot-white">kubernetes</span> cluster ...................<span class="boot-ok">  [ OK ]</span>',      delay: 1280 },
+    { html: '<span class="boot-time">[  0.007891]</span> <span class="boot-ok">Portfolio initialized.</span> <span class="boot-white">Welcome.</span>',                                  delay: 1480 },
+    { html: '',                                                                                                                                                 delay: 1600 },
+    { html: '<span class="boot-dim">vajid@devops login:</span> <span class="boot-ok">vajid</span>',                                                             delay: 1780 },
+    { html: '<span class="boot-dim">Password:</span> <span class="boot-dim">••••••••</span>',                                                                   delay: 2150 },
+    { html: '',                                                                                                                                                 delay: 2400 },
+    { html: '<span class="boot-dim">Last login: Sun Apr 27 2026 from 127.0.0.1</span>',                                                                        delay: 2520 },
+    { html: '',                                                                                                                                                 delay: 2650 },
   ];
 
-  let msgIdx = 0;
-  let pct = 0;
+  BOOT_LINES.forEach(({ html, delay }) => {
+    setTimeout(() => {
+      const div = document.createElement('div');
+      div.className = 'boot-line';
+      div.innerHTML = html || '&nbsp;';
+      bootLines.appendChild(div);
+    }, delay);
+  });
 
-  function tick() {
-    if (pct >= 100) {
-      loader.style.opacity = '0';
-      setTimeout(() => {
-        loader.style.display = 'none';
-        initReveal();
-      }, 600);
-      return;
-    }
-    pct = Math.min(100, pct + Math.random() * 18 + 6);
-    loaderBar.style.width = pct + '%';
-    if (msgIdx < messages.length) {
-      loaderMsgs.textContent = messages[msgIdx++];
-    }
-    setTimeout(tick, 240 + Math.random() * 200);
-  }
-  tick();
+  // Fade out after last line + short hold
+  const lastDelay = BOOT_LINES[BOOT_LINES.length - 1].delay;
+  setTimeout(() => {
+    if (bootCursor) bootCursor.style.display = 'none';
+    loader.style.opacity = '0';
+    setTimeout(() => {
+      loader.style.display = 'none';
+      initReveal();
+    }, 800);
+  }, lastDelay + 480);
 })();
 
 
