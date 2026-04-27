@@ -50,6 +50,20 @@
 <!-- ░░ SCROLL PROGRESS ░░ -->
 <div id="scroll-progress"></div>
 
+<!-- ░░ MATRIX RAIN EASTER EGG ░░ -->
+<div id="matrixOverlay" style="display:none;position:fixed;inset:0;z-index:999999;pointer-events:none;">
+  <canvas id="matrixCanvas" style="display:block;width:100%;height:100%;"></canvas>
+  <div id="matrixMsg" style="
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    font-family:'JetBrains Mono',monospace;font-size:clamp(20px,4vw,42px);
+    font-weight:700;color:#00ff88;text-align:center;opacity:0;
+    text-shadow:0 0 20px #00ff88,0 0 40px #00ff88,0 0 80px #00ff88;
+    transition:opacity 0.6s;letter-spacing:0.12em;white-space:nowrap;">
+    ACCESS GRANTED<br>
+    <span style="font-size:0.45em;opacity:0.7;letter-spacing:0.2em;">WELCOME, VAJID SHAIK</span>
+  </div>
+</div>
+
 <!-- ░░ PARTICLE CANVAS ░░ -->
 <canvas id="bg-canvas"></canvas>
 
@@ -547,7 +561,7 @@
         <div class="arch-label">Code Commit</div>
         <div class="arch-sublabel">GitHub</div>
       </div>
-      <div class="arch-connector"><div class="connector-line"><div class="connector-dot"></div></div><span class="connector-label">push</span></div>
+      <div class="arch-connector"><div class="connector-line" id="conn0"></div><span class="connector-label">push</span></div>
       <div class="arch-stage">
         <div class="arch-icon-wrap arch-ci">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
@@ -555,7 +569,7 @@
         <div class="arch-label">CI Pipeline</div>
         <div class="arch-sublabel">GitHub Actions</div>
       </div>
-      <div class="arch-connector"><div class="connector-line"><div class="connector-dot"></div></div><span class="connector-label">trigger</span></div>
+      <div class="arch-connector"><div class="connector-line" id="conn1"></div><span class="connector-label">trigger</span></div>
       <div class="arch-stage">
         <div class="arch-icon-wrap arch-build">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
@@ -563,7 +577,7 @@
         <div class="arch-label">Build WAR</div>
         <div class="arch-sublabel">Maven</div>
       </div>
-      <div class="arch-connector"><div class="connector-line"><div class="connector-dot"></div></div><span class="connector-label">artifact</span></div>
+      <div class="arch-connector"><div class="connector-line" id="conn2"></div><span class="connector-label">artifact</span></div>
       <div class="arch-stage">
         <div class="arch-icon-wrap arch-storage">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
@@ -571,7 +585,7 @@
         <div class="arch-label">Artifact Storage</div>
         <div class="arch-sublabel">AWS S3</div>
       </div>
-      <div class="arch-connector"><div class="connector-line"><div class="connector-dot"></div></div><span class="connector-label">deploy</span></div>
+      <div class="arch-connector"><div class="connector-line" id="conn3"></div><span class="connector-label">deploy</span></div>
       <div class="arch-stage">
         <div class="arch-icon-wrap arch-deploy">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
@@ -782,6 +796,175 @@
 <script src="terminal.js" defer></script>
 <script src="script.js"></script>
 <script>
+
+/* ══════════════════════════════════════════════════════════════════════════
+   PIPELINE DATA FLOW — animated packets travelling across connectors
+══════════════════════════════════════════════════════════════════════════ */
+(function () {
+
+  // Config per connector: [color, speed_ms, packet count, stage icon IDs]
+  const CONNECTORS = [
+    { id: 'conn0', color: '#fb923c', speeds: [1800, 2600, 3400], label: 'push' },
+    { id: 'conn1', color: '#00ff88', speeds: [1500, 2200, 3100], label: 'trigger' },
+    { id: 'conn2', color: '#38bdf8', speeds: [2000, 2900],       label: 'artifact' },
+    { id: 'conn3', color: '#a855f7', speeds: [1600, 2500, 3600], label: 'deploy' },
+  ];
+
+  // Stage icons to pulse when a packet arrives at destination
+  const STAGES = ['arch-dev','arch-ci','arch-build','arch-storage','arch-deploy'];
+
+  function pulse(stageClass) {
+    const el = document.querySelector('.' + stageClass);
+    if (!el) return;
+    el.classList.add('stage-pulse');
+    setTimeout(() => el.classList.remove('stage-pulse'), 600);
+  }
+
+  function buildConnector(cfg, stageIdx) {
+    const line = document.getElementById(cfg.id);
+    if (!line) return;
+
+    // Clear any existing children (the old single dot)
+    line.innerHTML = '';
+
+    cfg.speeds.forEach((speed, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'pkt-dot';
+      dot.style.cssText = `
+        position:absolute; top:-2px;
+        width:7px; height:7px; border-radius:50%;
+        background:${cfg.color};
+        box-shadow:0 0 8px ${cfg.color}, 0 0 16px ${cfg.color}55;
+        animation: pktFlow ${speed}ms linear infinite;
+        animation-delay: ${(speed / cfg.speeds.length) * i}ms;
+        pointer-events:none;
+      `;
+      line.appendChild(dot);
+
+      // Pulse destination stage when each packet completes a loop
+      setInterval(() => {
+        pulse(STAGES[stageIdx]);
+      }, speed);
+    });
+  }
+
+  // Wait for DOM + IntersectionObserver to avoid unnecessary work offscreen
+  const archDiagram = document.querySelector('.arch-diagram');
+  if (!archDiagram) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      CONNECTORS.forEach((cfg, i) => buildConnector(cfg, i + 1));
+      observer.disconnect();
+    }
+  }, { threshold: 0.2 });
+
+  observer.observe(archDiagram);
+
+  // Also add "commit burst" — every 8s simulate a real push that sends
+  // a burst of 3 packets across all connectors sequentially
+  let burstTimer;
+  function scheduleBurst() {
+    burstTimer = setTimeout(() => {
+      STAGES.forEach((cls, i) => {
+        setTimeout(() => pulse(cls), i * 700);
+      });
+      scheduleBurst();
+    }, 8000 + Math.random() * 4000);
+  }
+  scheduleBurst();
+
+})();
+
+
+/* ══════════════════════════════════════════════════════════════════════════
+   KONAMI CODE EASTER EGG — ↑↑↓↓←→←→BA → Matrix Rain
+   Try it: press those keys on desktop!
+══════════════════════════════════════════════════════════════════════════ */
+(function () {
+  const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown',
+                  'ArrowLeft','ArrowRight','ArrowLeft','ArrowRight',
+                  'b','a'];
+  let seq = [];
+  let running = false;
+  let animId;
+
+  document.addEventListener('keydown', e => {
+    seq.push(e.key);
+    if (seq.length > KONAMI.length) seq.shift();
+    if (seq.join(',') === KONAMI.join(',') && !running) {
+      seq = [];
+      launchMatrix();
+    }
+  });
+
+  function launchMatrix() {
+    running = true;
+    const overlay  = document.getElementById('matrixOverlay');
+    const canvas   = document.getElementById('matrixCanvas');
+    const msgEl    = document.getElementById('matrixMsg');
+    if (!overlay || !canvas) { running = false; return; }
+
+    // Size canvas to viewport
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const ctx = canvas.getContext('2d');
+
+    const COLS    = Math.floor(canvas.width / 16);
+    const drops   = Array(COLS).fill(1);
+    const CHARS   = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF<>{}[]|&%$#';
+
+    overlay.style.display = 'block';
+    overlay.style.opacity = '0';
+    overlay.style.transition = 'opacity 0.4s';
+    requestAnimationFrame(() => { overlay.style.opacity = '1'; });
+
+    let frame = 0;
+
+    function draw() {
+      // Fade trail
+      ctx.fillStyle = 'rgba(0,0,0,0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      frame++;
+
+      drops.forEach((y, i) => {
+        // Randomise char brightness — lead char is bright white/cyan
+        const isLead = Math.random() > 0.95;
+        ctx.fillStyle = isLead ? '#ccffee' : (Math.random() > 0.85 ? '#00ff88' : '#006633');
+        ctx.font = `${13 + Math.floor(Math.random() * 3)}px "JetBrains Mono", monospace`;
+        const char = CHARS[Math.floor(Math.random() * CHARS.length)];
+        ctx.fillText(char, i * 16, y * 16);
+
+        if (y * 16 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      });
+
+      animId = requestAnimationFrame(draw);
+    }
+
+    draw();
+
+    // Show ACCESS GRANTED message after 1.5s
+    setTimeout(() => { msgEl.style.opacity = '1'; }, 1500);
+
+    // Dismiss after 6s
+    setTimeout(() => {
+      cancelAnimationFrame(animId);
+      overlay.style.transition = 'opacity 0.8s';
+      overlay.style.opacity = '0';
+      msgEl.style.opacity = '0';
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        running = false;
+      }, 900);
+    }, 6000);
+  }
+
+})();
+
+</script>
 /* ── STATUS TICKER ──────────────────────────────────────────────────────── */
 (function () {
   const clockEl = document.getElementById('stClock');
