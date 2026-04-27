@@ -65,7 +65,7 @@ input, textarea, button { font-family: inherit; }
 ::-webkit-scrollbar-thumb:hover { background: var(--green-dim); }
 
 /* ── SELECTION ── */
-::selection { background: var(--green-glow); color: var(--green); }
+::selection { background: rgba(0,255,136,0.22); color: inherit; }
 
 /* ── CANVAS BACKGROUND ── */
 #bg-canvas {

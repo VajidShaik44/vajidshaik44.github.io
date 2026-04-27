@@ -162,10 +162,9 @@
 .hero-terminal .it-body::-webkit-scrollbar-track { background: transparent; }
 .hero-terminal .it-body::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
 
-/* ── FIX: no background on output lines (fixes yellow highlight bug) ─────── */
+/* ── FIX: no background on output lines + readable selection colors ────────── */
 .it-line {
   background: transparent !important;
-  /* Ensure text always readable */
   color: #c9d1d9;
 }
 .it-line.it-yellow  { color: #e3b341; background: transparent !important; }
@@ -173,8 +172,16 @@
 .it-line.it-cyan    { color: #79c0ff; background: transparent !important; }
 .it-line.it-red     { color: #f85149; background: transparent !important; }
 .it-line.it-white   { color: #e6edf3; background: transparent !important; }
-.it-line.it-dim     { color: #484f58; background: transparent !important; }
+.it-line.it-dim     { color: #7d8590; background: transparent !important; }
 .it-line.it-bold    { font-weight: 700; }
+
+/* Override global ::selection inside terminal so green text stays readable
+   when content is selected (prevents green-on-green invisible text) */
+.it-body *::selection,
+#it-output *::selection {
+  background: rgba(255, 255, 255, 0.18);
+  color: inherit;
+}
 
 /* Focused hint hides */
 .hero-terminal.it-focused .it-hint { opacity: 0; transition: opacity 0.2s; }
