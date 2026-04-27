@@ -21,11 +21,13 @@
 </head>
 <body>
 
-<!-- ░░ BOOT SCREEN ░░ -->
+<!-- ░░ LOADER ░░ -->
 <div id="loader">
-  <div class="boot-screen">
-    <div id="bootLines"></div>
-    <span class="boot-cursor-blink" id="bootCursor">▋</span>
+  <div class="loader-content">
+    <div class="loader-logo">[<span class="loader-vs">VS</span>]</div>
+    <div class="loader-msgs" id="loaderText">&gt; Initializing portfolio...</div>
+    <div class="loader-track"><div class="loader-bar" id="loaderBar"></div></div>
+    <div class="loader-ver">vajid@devops &nbsp;·&nbsp; v2.0 &nbsp;·&nbsp; 2026</div>
   </div>
 </div>
 
@@ -40,6 +42,61 @@
 <canvas id="bg-canvas"></canvas>
 
 <!-- ░░ NAV ░░ -->
+<!-- ░░ INFRA STATUS TICKER ░░ -->
+<div id="statusTicker" class="st-bar">
+  <div class="st-track">
+    <div class="st-inner" id="stInner">
+
+      <span class="st-item">
+        <span class="st-dot st-green"></span>
+        <span class="st-key">PROD</span>
+        <span class="st-val" id="stPods">3/3 pods running</span>
+      </span>
+
+      <span class="st-sep">|</span>
+
+      <span class="st-item">
+        <span class="st-dot st-green"></span>
+        <span class="st-key">CI</span>
+        <span class="st-val" id="stBuild">Last build 2m ago ✓</span>
+      </span>
+
+      <span class="st-sep">|</span>
+
+      <span class="st-item">
+        <span class="st-dot st-blue"></span>
+        <span class="st-key">UPTIME</span>
+        <span class="st-val">99.97%</span>
+      </span>
+
+      <span class="st-sep">|</span>
+
+      <span class="st-item">
+        <span class="st-dot st-yellow"></span>
+        <span class="st-key">ELK</span>
+        <span class="st-val" id="stElk">Logstash ingesting · 0 errors</span>
+      </span>
+
+      <span class="st-sep">|</span>
+
+      <span class="st-item">
+        <span class="st-dot st-green"></span>
+        <span class="st-key">SSL</span>
+        <span class="st-val">apollopharmacy.info · valid</span>
+      </span>
+
+      <span class="st-sep">|</span>
+
+      <span class="st-item">
+        <span class="st-dot st-blue"></span>
+        <span class="st-key">HYD, IN</span>
+        <span class="st-val st-clock" id="stClock">--:--:--</span>
+      </span>
+
+    </div>
+  </div>
+</div>
+
 <nav id="navbar">
   <div class="nav-inner">
     <a href="#hero" class="nav-logo">
@@ -713,7 +770,81 @@
 <script src="terminal.js" defer></script>
 <script src="script.js"></script>
 <script>
-/* ── INFRA MONITOR WIDGET ─────────────────────────────────────── */
+/* ── STATUS TICKER ──────────────────────────────────────────────────────── */
+(function () {
+  const clockEl = document.getElementById('stClock');
+  const buildEl = document.getElementById('stBuild');
+  const podsEl  = document.getElementById('stPods');
+  const elkEl   = document.getElementById('stElk');
+  if (!clockEl) return;
+
+  // Live clock — Hyderabad IST = UTC+5:30
+  function updateClock() {
+    const now = new Date();
+    const ist = new Date(now.getTime() + (5.5 * 3600000));
+    const hh  = String(ist.getUTCHours()).padStart(2, '0');
+    const mm  = String(ist.getUTCMinutes()).padStart(2, '0');
+    const ss  = String(ist.getUTCSeconds()).padStart(2, '0');
+    clockEl.textContent = hh + ':' + mm + ':' + ss;
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // Build timer — counts up realistically
+  let buildMinutes = 2;
+  const buildStates = ['✓', '✓', '✓', '⚡ running'];
+  let buildStateIdx = 0;
+  setInterval(() => {
+    buildMinutes++;
+    if (buildMinutes >= 28) {
+      // "new build" triggers
+      buildMinutes = 0;
+      buildStateIdx = (buildStateIdx + 1) % buildStates.length;
+    }
+    const state = buildStates[buildStateIdx % (buildStates.length - 1)];
+    const label = buildMinutes < 1 ? 'just now' :
+                  buildMinutes === 1 ? '1m ago' : buildMinutes + 'm ago';
+    buildEl.textContent = 'Last build ' + label + ' ' + state;
+  }, 60000);
+
+  // Pods — randomly flicker between 3/3 and briefly 2/3 then back
+  setInterval(() => {
+    const roll = Math.random();
+    if (roll > 0.96) {
+      podsEl.textContent = '2/3 pods running';
+      podsEl.style.color = '#e3b341';
+      setTimeout(() => {
+        podsEl.textContent = '3/3 pods running';
+        podsEl.style.color = '';
+      }, 3500);
+    }
+  }, 12000);
+
+  // ELK events feed
+  const elkMsgs = [
+    'Logstash ingesting · 0 errors',
+    'siteid_28245 pipeline · active',
+    'ES index refresh · 200 OK',
+    'Kibana dashboard · live',
+    'MySQL → ES sync · 4.2k docs',
+  ];
+  let elkIdx = 0;
+  setInterval(() => {
+    elkIdx = (elkIdx + 1) % elkMsgs.length;
+    elkEl.textContent = elkMsgs[elkIdx];
+  }, 7000);
+
+  // Seamless scroll loop — duplicate inner content
+  const stInner = document.getElementById('stInner');
+  if (stInner) {
+    stInner.innerHTML = stInner.innerHTML + stInner.innerHTML;
+  }
+  const navbar = document.getElementById('navbar');
+  if (navbar) {
+    const tickerH = document.getElementById('statusTicker').offsetHeight;
+    navbar.style.top = tickerH + 'px';
+  }
+})();
 (function () {
   const cpuBar   = document.getElementById('imCpuBar');
   const memBar   = document.getElementById('imMemBar');

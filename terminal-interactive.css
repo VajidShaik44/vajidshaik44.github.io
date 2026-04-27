@@ -109,7 +109,7 @@
 
 /* ── Color tokens ──────────────────────────────────────────────────────────── */
 .it-prompt  { color: #00d4aa; font-weight: 600; }
-.it-dim     { color: #7d8590; }
+.it-dim     { color: #484f58; }
 .it-white   { color: #e6edf3; }
 .it-cyan    { color: #79c0ff; }
 .it-green   { color: #3fb950; }
@@ -162,9 +162,10 @@
 .hero-terminal .it-body::-webkit-scrollbar-track { background: transparent; }
 .hero-terminal .it-body::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
 
-/* ── FIX: no background on output lines + readable selection colors ────────── */
+/* ── FIX: no background on output lines (fixes yellow highlight bug) ─────── */
 .it-line {
   background: transparent !important;
+  /* Ensure text always readable */
   color: #c9d1d9;
 }
 .it-line.it-yellow  { color: #e3b341; background: transparent !important; }
@@ -172,16 +173,8 @@
 .it-line.it-cyan    { color: #79c0ff; background: transparent !important; }
 .it-line.it-red     { color: #f85149; background: transparent !important; }
 .it-line.it-white   { color: #e6edf3; background: transparent !important; }
-.it-line.it-dim     { color: #7d8590; background: transparent !important; }
+.it-line.it-dim     { color: #484f58; background: transparent !important; }
 .it-line.it-bold    { font-weight: 700; }
-
-/* Override global ::selection inside terminal so green text stays readable
-   when content is selected (prevents green-on-green invisible text) */
-.it-body *::selection,
-#it-output *::selection {
-  background: rgba(255, 255, 255, 0.18);
-  color: inherit;
-}
 
 /* Focused hint hides */
 .hero-terminal.it-focused .it-hint { opacity: 0; transition: opacity 0.2s; }
@@ -362,3 +355,128 @@
 .im-btn-icon { font-size: 13px; }
 .im-spin     { display: inline-block; animation: spin 0.8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   INFRA STATUS TICKER BAR
+══════════════════════════════════════════════════════════════════════════════ */
+
+.st-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100;                          /* above navbar */
+  height: 28px;
+  background: #080b10;
+  border-bottom: 1px solid #1a2332;
+  overflow: hidden;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  line-height: 28px;
+}
+
+/* Fade masks on edges */
+.st-bar::before,
+.st-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 60px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+.st-bar::before { left: 0;  background: linear-gradient(to right, #080b10, transparent); }
+.st-bar::after  { right: 0; background: linear-gradient(to left,  #080b10, transparent); }
+
+/* Scrolling track */
+.st-track {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.st-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  white-space: nowrap;
+  padding: 0 40px;
+  /* The scrolling animation is added by JS after measuring width */
+  animation: st-scroll 38s linear infinite;
+}
+
+@keyframes st-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Pause on hover */
+.st-bar:hover .st-inner { animation-play-state: paused; }
+
+/* Items */
+.st-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.st-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: st-pulse 2.4s ease-in-out infinite;
+}
+.st-dot.st-green  { background: #3fb950; }
+.st-dot.st-blue   { background: #79c0ff; animation-delay: 0.8s; }
+.st-dot.st-yellow { background: #e3b341; animation-delay: 1.6s; }
+.st-dot.st-red    { background: #f85149; }
+
+@keyframes st-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+.st-key {
+  color: #484f58;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 9.5px;
+}
+
+.st-val {
+  color: #8b949e;
+  transition: color 0.4s;
+}
+
+.st-clock {
+  color: #00d4aa;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  min-width: 64px;
+}
+
+.st-sep {
+  color: #21262d;
+  user-select: none;
+}
+
+/* Push everything down so ticker doesn't overlap navbar */
+body {
+  padding-top: 28px;
+}
+
+/* Navbar needs to sit below ticker */
+#navbar {
+  top: 28px !important;
+}
+
+@media (max-width: 600px) {
+  .st-bar { font-size: 9.5px; height: 24px; line-height: 24px; }
+  body { padding-top: 24px; }
+  #navbar { top: 24px !important; }
+}
