@@ -119,9 +119,59 @@
 .it-link    { color: #79c0ff; text-decoration: none; border-bottom: 1px solid #21262d; }
 .it-link:hover { color: #00d4aa; border-bottom-color: #00d4aa; }
 
-/* ── Responsive ────────────────────────────────────────────────────────────── */
-@media (max-width: 600px) {
-  .it-container { font-size: 12px; border-radius: 8px; }
-  .it-body      { padding: 10px 12px; max-height: 400px; }
-  .it-hint      { display: none; }
+/* ── Hero terminal integration — makes .it-* styles work inside .hero-terminal ── */
+
+/* The outer .hero-terminal already sets dimensions/position from styles.css.
+   We override only what's needed for the interactive layer. */
+.hero-terminal .it-header {
+  background: #161b22;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border-bottom: 1px solid #21262d;
+  border-radius: 10px 10px 0 0;
+  user-select: none;
+}
+
+.hero-terminal .it-body {
+  background: #0d1117;
+  padding: 14px 18px 10px;
+  min-height: 260px;
+  max-height: 340px;
+  height: 100%;
+  overflow-y: auto;
+  cursor: text;
+  scroll-behavior: smooth;
+  border-radius: 0 0 10px 10px;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+/* Focus ring on the terminal when clicked */
+.hero-terminal:focus,
+.hero-terminal.it-focused {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 212, 170, 0.4), 0 24px 48px rgba(0,0,0,0.6);
+}
+
+/* Scrollbar inside hero terminal */
+.hero-terminal .it-body::-webkit-scrollbar       { width: 4px; }
+.hero-terminal .it-body::-webkit-scrollbar-track { background: transparent; }
+.hero-terminal .it-body::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
+
+/* Hide the hint on small screens */
+@media (max-width: 900px) {
+  .hero-terminal .it-body {
+    max-height: 260px;
+    font-size: 12px;
+  }
+  .hero-terminal .it-hint { display: none; }
+}
+
+/* ── "focused" glow on the header hint when terminal is active ── */
+.hero-terminal.it-focused .it-hint {
+  opacity: 0;
+  transition: opacity 0.2s;
 }

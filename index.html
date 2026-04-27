@@ -17,6 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="terminal-interactive.css" />
 </head>
 <body>
 
@@ -126,49 +127,25 @@
     </div>
   </div>
 
-  <!-- Terminal animation -->
-  <div class="hero-terminal" id="heroTerminal">
-    <div class="terminal-header">
-      <span class="terminal-dot red"></span>
-      <span class="terminal-dot yellow"></span>
-      <span class="terminal-dot green"></span>
-      <span class="terminal-title">pipeline.sh</span>
-      <span class="terminal-live">&#9679; LIVE</span>
+  <!-- ░░ INTERACTIVE TERMINAL ░░ -->
+  <div class="hero-terminal" id="heroTerminal" tabindex="0" role="region" aria-label="Interactive terminal — type help to explore">
+    <!-- Header -->
+    <div class="it-header">
+      <span class="it-dot it-red"></span>
+      <span class="it-dot it-yellow"></span>
+      <span class="it-dot it-green"></span>
+      <span class="it-title" id="it-title">vajid@devops:~</span>
+      <span class="it-hint" id="it-hint">click &amp; type <span style="color:#e3b341;font-weight:600">help</span></span>
     </div>
-    <div class="terminal-body" id="terminalBody">
-      <div class="terminal-line">
-        <span class="t-prompt">$</span>
-        <span class="t-cmd"> git push origin main</span>
-      </div>
-      <div class="terminal-line t-output">&gt; Triggering GitHub Actions workflow...</div>
-      <div class="terminal-line">
-        <span class="t-prompt">$</span>
-        <span class="t-cmd"> docker build -t app:latest .</span>
-      </div>
-      <div class="terminal-line t-output">&gt; Step 1/8: FROM openjdk:17-slim</div>
-      <div class="terminal-line t-output t-success">&gt; Successfully built 8a3f9c2d1b4e</div>
-      <div class="terminal-line">
-        <span class="t-prompt">$</span>
-        <span class="t-cmd"> kubectl apply -f deployment.yaml</span>
-      </div>
-      <div class="terminal-line t-output t-success">&gt; deployment.apps/app configured</div>
-      <div class="terminal-line">
-        <span class="t-prompt">$</span>
-        <span class="t-cmd"> kubectl get pods</span>
-      </div>
-      <div class="terminal-line t-output">
-        <span class="t-success">app-pod-1&nbsp;&nbsp;1/1&nbsp;&nbsp;Running &#10003;</span><br>
-        <span class="t-success">app-pod-2&nbsp;&nbsp;1/1&nbsp;&nbsp;Running &#10003;</span><br>
-        <span class="t-success">app-pod-3&nbsp;&nbsp;1/1&nbsp;&nbsp;Running &#10003;</span>
-      </div>
-      <div class="terminal-line">
-        <span class="t-prompt">$</span>
-        <span class="t-cmd"> terraform apply -auto-approve</span>
-      </div>
-      <div class="terminal-line t-output t-success">&gt; Apply complete! Resources: 12 added.</div>
-      <div class="terminal-line">
-        <span class="t-prompt">$</span>
-        <span class="t-cursor-line">&#9608;</span>
+    <!-- Scrollable body -->
+    <div class="it-body" id="terminalBody">
+      <!-- Output lines injected here by terminal.js -->
+      <div id="it-output"></div>
+      <!-- Active input row — kept at bottom by JS -->
+      <div class="it-input-row" id="it-input-row">
+        <span class="it-prompt">vajid@devops:~$&nbsp;</span><span
+          class="it-input-text" id="it-typed"></span><span
+          class="it-cursor" id="it-cursor"></span>
       </div>
     </div>
   </div>
@@ -700,6 +677,7 @@
   </div>
 </footer>
 
+<script src="terminal.js" defer></script>
 <script src="script.js"></script>
 </body>
 </html>
