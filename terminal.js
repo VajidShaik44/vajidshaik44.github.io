@@ -46,6 +46,13 @@
     });
   }
 
+  async function typeText(text, element) {
+    for (let i = 0; i < text.length; i++) {
+      element.innerHTML += esc(text[i]);
+      await sleep(30); // Typing speed
+    }
+  }
+
   function appendLine(html, cls) {
     const div = document.createElement('div');
     div.className = 'it-line' + (cls ? ' ' + cls : '');
@@ -135,6 +142,8 @@
       ['', 'it-white', '│ <span class="it-cyan">uptime</span>              │ deployment stats                 │'],
       ['', 'it-white', '│ <span class="it-cyan">history</span>             │ command history                  │'],
       ['', 'it-white', '│ <span class="it-cyan">clear</span>               │ clear terminal                   │'],
+      ['', 'it-dim', '├────────────────────┼─────────────────────────────────┤'],
+      ['', 'it-white', '│ <span class="it-cyan">ai &lt;question&gt;</span>     │ chat with Grok AI                │'],
       ['', 'it-dim', '├────────────────────┼─────────────────────────────────┤'],
       ['', 'it-white', '│ <span class="it-dim">sudo hire me</span>        │ 👀 ...                           │'],
       ['', 'it-white', '│ <span class="it-cyan">bash earthquake.sh</span> │ unleash the site glitch demo     │'],
@@ -533,6 +542,63 @@
     appendLine('<span class="it-dim">Incident logged. Alert sent to on-call. (jk)</span>');
   }
 
+  async function cmdAi(rawInput) {
+    const query = rawInput.replace(/^ai\s*/, '').trim();
+    if (!query) {
+      appendLine('<span class="it-yellow">Usage: ai &lt;question&gt;</span>');
+      appendLine('<span class="it-dim">Ask me anything about Vajid\'s portfolio, devops, or tech!</span>');
+      return;
+    }
+
+    appendLine('<span class="it-cyan">🤖 Connecting to Grok AI...</span>');
+    await sleep(500);
+
+    try {
+      const apiKey = 'YOUR_GROK_API_KEY_HERE'; // Replace with your actual API key
+      const response = await fetch('https://api.x.ai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: 'grok-beta', // Adjust if needed
+          messages: [
+            {
+              role: 'system',
+              content: 'You are a humorous AI assistant for a DevOps engineer\'s portfolio. Respond in a fun, portfolio-themed way. Keep answers concise and witty.'
+            },
+            {
+              role: 'user',
+              content: query
+            }
+          ],
+          max_tokens: 150
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      let aiResponse = data.choices[0].message.content.trim();
+
+      // Corrupt during quake mode
+      if (document.body.classList.contains('quake-active')) {
+        aiResponse = aiResponse.split('').map(char => Math.random() > 0.7 ? '�' : char).join('') + ' [SIGNAL LOST]';
+      }
+
+      appendLine('<span class="it-green">Grok:</span> <span class="it-white"></span>');
+      const responseLine = outputEl.lastChild.querySelector('.it-white');
+      await typeText(aiResponse, responseLine);
+
+    } catch (error) {
+      appendLine('<span class="it-red">Error: Could not reach Grok AI. Check your connection or API key.</span>');
+      console.error('AI command error:', error);
+    }
+  }
+
   function playQuakeSound() {
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
     if (!AudioCtx) return;
@@ -697,6 +763,7 @@
     'bash earthquake.sh': triggerEarthquake,
     'sh earthquake.sh':  triggerEarthquake,
     './earthquake.sh':   triggerEarthquake,
+    'ai':                cmdAi,
     'exit':             () => appendLine('<span class="it-yellow">There\'s no escaping. You\'re already hired. 😄</span>'),
     'sudo':             () => appendLine('<span class="it-red">usage: sudo hire me</span>'),
     'vim':              async () => { appendLine('Opening vim...'); await sleep(400); appendLine('<span class="it-yellow">just kidding. use neofetch instead.</span>'); },
