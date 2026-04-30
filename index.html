@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vajid Shaik — DevOps Engineer</title>
+  <title>Vajid Shaik | DevOps Engineer — Infrastructure & CI/CD</title>
   <meta name="description" content="Vajid Shaik — DevOps Engineer specializing in CI/CD automation, AWS infrastructure, Kubernetes, Docker, and Terraform. Based in Hyderabad, India." />
   <meta name="keywords" content="DevOps Engineer, CI/CD, AWS, Kubernetes, Docker, Terraform, Ansible, Jenkins, Hyderabad" />
   <meta name="author" content="Vajid Shaik" />
@@ -12,6 +12,8 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://vajidshaik44.github.io" />
   <link rel="canonical" href="https://vajidshaik44.github.io" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="shortcut icon" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -965,6 +967,7 @@
 })();
 
 </script>
+<script>
 /* ── STATUS TICKER ──────────────────────────────────────────────────────── */
 (function () {
   const clockEl = document.getElementById('stClock');
@@ -976,7 +979,8 @@
   // Live clock — Hyderabad IST = UTC+5:30
   function updateClock() {
     const now = new Date();
-    const ist = new Date(now.getTime() + (5.5 * 3600000));
+    const utc = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+    const ist = new Date(utc.getTime() + 5.5 * 3600000);
     const hh  = String(ist.getUTCHours()).padStart(2, '0');
     const mm  = String(ist.getUTCMinutes()).padStart(2, '0');
     const ss  = String(ist.getUTCSeconds()).padStart(2, '0');
