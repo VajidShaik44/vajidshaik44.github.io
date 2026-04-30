@@ -1190,7 +1190,7 @@ body:has(button:hover) #cursor-dot { background: var(--cyan); box-shadow: 0 0 10
 
 /* ── EARTHQUAKE MODE ── */
 body.quake-active {
-  animation: quakeShake 0.06s ease-in-out infinite;
+  animation: quakeShake 0.06s ease-in-out infinite, quakePulse 0.22s ease-in-out infinite;
   transform-origin: center center;
 }
 body.quake-active .hero-terminal {
@@ -1200,7 +1200,8 @@ body.quake-active .hero-terminal {
   position: fixed; inset: 0; pointer-events: none;
   z-index: 999999;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.15s ease;
+  overflow: hidden;
 }
 #quakeOverlay.quake-active {
   opacity: 1;
@@ -1208,36 +1209,127 @@ body.quake-active .hero-terminal {
 #quakeOverlay::before {
   content: '';
   position: absolute; inset: 0;
-  background: radial-gradient(circle at top center, rgba(255,255,255,0.18), transparent 28%),
-              radial-gradient(circle at 20% 20%, rgba(0,255,255,0.15), transparent 18%),
-              linear-gradient(180deg, rgba(10,20,30,0.35), rgba(0,0,0,0.75));
-  mix-blend-mode: screen;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.06), transparent 21%),
+              linear-gradient(180deg, rgba(30, 15, 40, 0.9), rgba(0, 0, 0, 0.95));
+  mix-blend-mode: hard-light;
 }
 #quakeOverlay::after {
   content: '';
   position: absolute; inset: 0;
-  background-image: repeating-linear-gradient(120deg, rgba(255,255,255,0.08) 0 2px, transparent 2px 30px);
-  opacity: 0.45;
-  transform: translateY(-20px);
+  background-image: repeating-linear-gradient(120deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 24px);
+  opacity: 0.75;
+  transform: translateY(-28px);
+  animation: quakeRain 0.2s linear infinite;
 }
-#quakeOverlay .quake-warning {
-  position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
-  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.18em;
-  color: #f8a71f; text-transform: uppercase;
-  padding: 10px 18px; border: 1px solid rgba(248,167,31,0.4);
-  background: rgba(0, 0, 0, 0.55); border-radius: 999px;
-  box-shadow: 0 0 24px rgba(248,167,31,0.18);
+#quakeOverlay .quake-warning-big {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  z-index: 1000000;
+  display: flex; align-items: center; gap: 18px;
+  padding: 24px 36px;
+  background: rgba(9, 0, 15, 0.95);
+  border: 2px solid rgba(255, 160, 0, 0.4);
+  box-shadow: 0 0 120px rgba(255, 160, 0, 0.18), 0 0 40px rgba(255, 255, 255, 0.08);
+  border-radius: 26px;
+  backdrop-filter: blur(10px);
+}
+#quakeOverlay .quake-warning-big strong {
+  display: block;
+  font-size: 24px;
+  letter-spacing: 0.14em;
+  color: #ffba08;
+  text-transform: uppercase;
+}
+#quakeOverlay .quake-warning-big span {
+  display: block;
+  margin-top: 6px;
+  color: rgba(255,255,255,0.92);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+#quakeOverlay .quake-symbol {
+  display: grid; place-items: center;
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle at top, #ffef7a, #ff7c00);
+  color: #0b0a07;
+  font-size: 32px;
+  box-shadow: 0 0 28px rgba(255, 124, 0, 0.45);
+}
+#quakeOverlay .quake-fracture {
+  position: absolute; inset: 0;
+  display: flex;
+  opacity: 0.95;
+}
+#quakeOverlay .quake-fracture .half {
+  flex: 1;
+  background: linear-gradient(180deg, rgba(0,0,0,0.24), rgba(10,10,14,0.8));
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: inset 0 0 65px rgba(0,0,0,0.45), 0 0 60px rgba(255,255,255,0.02);
+}
+#quakeOverlay .quake-fracture .half.left {
+  clip-path: polygon(0 0, 55% 0, 50% 100%, 0% 100%);
+  transform-origin: left center;
+  animation: quakeSplitLeft 8s ease-in-out forwards;
+}
+#quakeOverlay .quake-fracture .half.right {
+  clip-path: polygon(45% 0, 100% 0, 100% 100%, 50% 100%);
+  transform-origin: right center;
+  animation: quakeSplitRight 8s ease-in-out forwards;
+}
+#quakeOverlay .quake-smoke {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.15), transparent 20%),
+              radial-gradient(circle at 75% 30%, rgba(255,255,255,0.1), transparent 20%),
+              radial-gradient(circle at 50% 60%, rgba(180,180,255,0.08), transparent 24%);
+  opacity: 0.45;
+  animation: quakeSmoke 6s ease-in-out infinite;
+}
+#quakeOverlay .quake-static-bars {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 100% 5px, 5px 100%;
+  opacity: 0.15;
+  mix-blend-mode: screen;
+  animation: quakeStatic 0.16s steps(3, end) infinite;
 }
 #quakeOverlay.quake-flash::before {
-  background: rgba(255,255,255,0.6);
-}
-#quakeOverlay::after {
-  animation: quakeRain 0.35s linear infinite;
+  background: rgba(255,255,255,0.9);
+  mix-blend-mode: screen;
 }
 
 @keyframes quakeRain {
   0% { background-position: 0 -10px; }
   100% { background-position: 0 100%; }
+}
+
+@keyframes quakeSmoke {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.45; }
+  50% { transform: translateY(-18px) scale(1.08); opacity: 0.62; }
+}
+
+@keyframes quakeStatic {
+  0% { opacity: 0.18; }
+  50% { opacity: 0.24; }
+  100% { opacity: 0.16; }
+}
+
+@keyframes quakeSplitLeft {
+  0% { transform: translateX(0) skewY(0deg); }
+  20% { transform: translateX(-12px) skewY(-0.5deg); }
+  45% { transform: translateX(-32px) skewY(-1.4deg); }
+  65% { transform: translateX(-24px) skewY(-0.8deg); }
+  85% { transform: translateX(-30px) skewY(-1.2deg); }
+  100% { transform: translateX(-18px) skewY(-0.8deg); }
+}
+
+@keyframes quakeSplitRight {
+  0% { transform: translateX(0) skewY(0deg); }
+  20% { transform: translateX(12px) skewY(0.5deg); }
+  45% { transform: translateX(32px) skewY(1.4deg); }
+  65% { transform: translateX(24px) skewY(0.8deg); }
+  85% { transform: translateX(30px) skewY(1.2deg); }
+  100% { transform: translateX(18px) skewY(0.8deg); }
 }
 
 body.quake-active {

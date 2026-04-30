@@ -533,6 +533,60 @@
     appendLine('<span class="it-dim">Incident logged. Alert sent to on-call. (jk)</span>');
   }
 
+  function playQuakeSound() {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    const master = ctx.createGain();
+    master.gain.setValueAtTime(0.24, ctx.currentTime);
+    master.connect(ctx.destination);
+
+    const bass = ctx.createOscillator();
+    bass.type = 'sawtooth';
+    bass.frequency.setValueAtTime(72, ctx.currentTime);
+    bass.connect(master);
+
+    const sub = ctx.createOscillator();
+    sub.type = 'sine';
+    sub.frequency.setValueAtTime(28, ctx.currentTime);
+    const subGain = ctx.createGain();
+    subGain.gain.setValueAtTime(0.36, ctx.currentTime);
+    sub.connect(subGain).connect(master);
+
+    const lfo = ctx.createOscillator();
+    lfo.type = 'triangle';
+    lfo.frequency.setValueAtTime(3.8, ctx.currentTime);
+    const lfoGain = ctx.createGain();
+    lfoGain.gain.setValueAtTime(42, ctx.currentTime);
+    lfo.connect(lfoGain).connect(bass.frequency);
+    lfo.connect(lfoGain).connect(sub.frequency);
+
+    const noiseBuffer = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
+    const noiseData = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < noiseData.length; i += 1) {
+      noiseData[i] = (Math.random() * 2 - 1) * 0.08;
+    }
+    const noise = ctx.createBufferSource();
+    noise.buffer = noiseBuffer;
+    const noiseGain = ctx.createGain();
+    noiseGain.gain.setValueAtTime(0.06, ctx.currentTime);
+    noise.connect(noiseGain).connect(master);
+
+    bass.start(ctx.currentTime);
+    sub.start(ctx.currentTime);
+    lfo.start(ctx.currentTime);
+    noise.start(ctx.currentTime);
+
+    master.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 3.6);
+    setTimeout(() => {
+      bass.stop();
+      sub.stop();
+      lfo.stop();
+      noise.stop();
+      ctx.close();
+    }, 3600);
+  }
+
   async function triggerEarthquake() {
     const body = document.body;
     let overlay = document.getElementById('quakeOverlay');
@@ -542,10 +596,25 @@
       document.body.appendChild(overlay);
     }
 
+    playQuakeSound();
     body.classList.add('quake-active');
     terminal.classList.add('quake-static');
     overlay.classList.add('quake-active');
-    overlay.innerHTML = '<div class="quake-warning">WARNING: seismic event detected — systems unstable</div>';
+    overlay.innerHTML = `
+      <div class="quake-warning-big">
+        <span class="quake-symbol">⚠</span>
+        <div>
+          <strong>SEISMIC FAILURE</strong>
+          <span>GROUND RUPTURE DETECTED — SITE UNSTABLE</span>
+        </div>
+      </div>
+      <div class="quake-fracture">
+        <span class="half left"></span>
+        <span class="half right"></span>
+      </div>
+      <div class="quake-smoke"></div>
+      <div class="quake-static-bars"></div>
+    `;
 
     const alertLines = [
       'Initializing seismic payload...',
