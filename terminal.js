@@ -137,6 +137,7 @@
       ['', 'it-white', '│ <span class="it-cyan">clear</span>               │ clear terminal                   │'],
       ['', 'it-dim', '├────────────────────┼─────────────────────────────────┤'],
       ['', 'it-white', '│ <span class="it-dim">sudo hire me</span>        │ 👀 ...                           │'],
+      ['', 'it-white', '│ <span class="it-cyan">bash earthquake.sh</span> │ unleash the site glitch demo     │'],
       ['', 'it-white', '│ <span class="it-dim">sudo rm -rf /</span>       │ go ahead, try it                 │'],
       ['', 'it-dim', '└────────────────────┴─────────────────────────────────┘'],
       ['', 'it-dim', 'Keyboard: ↑↓ history  ·  Tab autocomplete  ·  Ctrl+C abort  ·  Ctrl+L clear'],
@@ -531,6 +532,67 @@
     appendLine('<span class="it-dim">Incident logged. Alert sent to on-call. (jk)</span>');
   }
 
+  async function triggerEarthquake() {
+    const body = document.body;
+    let overlay = document.getElementById('quakeOverlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'quakeOverlay';
+      document.body.appendChild(overlay);
+    }
+
+    body.classList.add('quake-active');
+    overlay.classList.add('quake-active');
+    overlay.innerHTML = '<div class="quake-warning">WARNING: seismic event detected — systems unstable</div>';
+
+    const alertLines = [
+      'Initializing seismic payload...',
+      'Loading atmospheric disturbance module...',
+      'Injecting groundwave oscillators...',
+      'Activating fault line simulation...',
+      'Earthquake sequence primed. Brace for impact.'
+    ];
+
+    for (const line of alertLines) {
+      appendLine(`<span class="it-red">${esc(line)}</span>`);
+      await sleep(450);
+    }
+
+    appendLine('');
+    appendLine('<span class="it-yellow">Deploying earthquake.sh — site stability compromised.</span>');
+    await sleep(500);
+    appendLine('<span class="it-dim">System warnings: GPU spikes · network jitter · page glitching</span>');
+    await sleep(800);
+    appendLine('<span class="it-red it-bold">↯ SEISMIC ACTIVITY  •  8.2 MAG</span>');
+    appendLine('');
+
+    setProcessing(true);
+    await sleep(600);
+
+    // Run the visual crash sequence for 8 seconds
+    await new Promise(resolve => {
+      let flashes = 0;
+      const lightning = setInterval(() => {
+        overlay.classList.toggle('quake-flash');
+        flashes += 1;
+        if (flashes >= 10) {
+          clearInterval(lightning);
+          overlay.classList.remove('quake-flash');
+        }
+      }, 300);
+
+      setTimeout(() => {
+        body.classList.remove('quake-active');
+        overlay.classList.remove('quake-active');
+        resolve();
+      }, 8200);
+    });
+
+    appendLine('<span class="it-green">Seismic activity complete. Systems stabilizing...</span>');
+    appendLine('<span class="it-dim">Note: This was a simulated site event for demo purposes.</span>');
+    setProcessing(false);
+  }
+
   /* ──────────────────────────────────────────────────────────────── */
   /*  COMMAND ROUTER                                                  */
   /* ──────────────────────────────────────────────────────────────── */
@@ -559,6 +621,10 @@
     'sudo hire me':     cmdSudoHire,
     'sudo rm -rf /':    cmdSudoRm,
     'rm -rf /':         cmdSudoRm,
+    'earthquake.sh':    triggerEarthquake,
+    'bash earthquake.sh': triggerEarthquake,
+    'sh earthquake.sh':  triggerEarthquake,
+    './earthquake.sh':   triggerEarthquake,
     'exit':             () => appendLine('<span class="it-yellow">There\'s no escaping. You\'re already hired. 😄</span>'),
     'sudo':             () => appendLine('<span class="it-red">usage: sudo hire me</span>'),
     'vim':              async () => { appendLine('Opening vim...'); await sleep(400); appendLine('<span class="it-yellow">just kidding. use neofetch instead.</span>'); },
@@ -695,6 +761,7 @@
 
       default:
         if (e.key.length === 1) {
+          e.preventDefault();
           inputBuffer += e.key;
           renderInput();
         }
