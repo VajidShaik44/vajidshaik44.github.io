@@ -280,15 +280,16 @@
 
   function cmdLs() {
     const rows = [
-      ['it-cyan it-bold',  'drwxr-xr-x', 'projects/',    '← featured work'],
-      ['it-cyan it-bold',  'drwxr-xr-x', 'experience/',  '← work history'],
-      ['it-cyan it-bold',  'drwxr-xr-x', 'skills/',      '← tech stack'],
-      ['it-cyan it-bold',  'drwxr-xr-x', 'pipeline/',    '← CI/CD artefacts'],
-      ['it-green it-bold', '-rwxr--r--',  'pipeline.sh',  '← GitHub Actions workflow'],
-      ['it-green it-bold', '-rwxr--r--',  'deploy.yaml',  '← K8s deployment manifest'],
-      ['it-green it-bold', '-rw-r--r--',  'main.tf',      '← Terraform infrastructure'],
-      ['it-green it-bold', '-rw-r--r--',  'resume.pdf',   '← ATS-optimised resume'],
-      ['it-green it-bold', '-rw-r--r--',  'contact.txt',  '← shaikvajid484@gmail.com'],
+      ['it-cyan it-bold',  'drwxr-xr-x', 'projects/',      '← featured work'],
+      ['it-cyan it-bold',  'drwxr-xr-x', 'experience/',    '← work history'],
+      ['it-cyan it-bold',  'drwxr-xr-x', 'skills/',        '← tech stack'],
+      ['it-cyan it-bold',  'drwxr-xr-x', 'pipeline/',      '← CI/CD artefacts'],
+      ['it-green it-bold', '-rwxr--r--',  'pipeline.sh',    '← GitHub Actions workflow'],
+      ['it-green it-bold', '-rwxr--r--',  'earthquake.sh',  '← run the demo crash script'],
+      ['it-green it-bold', '-rwxr--r--',  'deploy.yaml',    '← K8s deployment manifest'],
+      ['it-green it-bold', '-rw-r--r--',  'main.tf',        '← Terraform infrastructure'],
+      ['it-green it-bold', '-rw-r--r--',  'resume.pdf',     '← ATS-optimised resume'],
+      ['it-green it-bold', '-rw-r--r--',  'contact.txt',    '← shaikvajid484@gmail.com'],
     ];
     for (const [cls, perms, name, note] of rows) {
       appendLine(
@@ -542,6 +543,7 @@
     }
 
     body.classList.add('quake-active');
+    terminal.classList.add('quake-static');
     overlay.classList.add('quake-active');
     overlay.innerHTML = '<div class="quake-warning">WARNING: seismic event detected — systems unstable</div>';
 
@@ -583,6 +585,7 @@
 
       setTimeout(() => {
         body.classList.remove('quake-active');
+        terminal.classList.remove('quake-static');
         overlay.classList.remove('quake-active');
         resolve();
       }, 8200);
@@ -650,6 +653,11 @@
 
     // Exact match
     let fn = COMMANDS[lower];
+
+    // Special handling for earthquake script variants
+    if (!fn && lower.endsWith('earthquake.sh')) {
+      fn = triggerEarthquake;
+    }
 
     // Prefix match (e.g. "kubectl get pods" → matches "kubectl")
     if (!fn) {
