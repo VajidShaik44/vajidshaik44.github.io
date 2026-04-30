@@ -831,13 +831,13 @@
 
     cfg.speeds.forEach((speed, i) => {
       const dot = document.createElement('span');
-      dot.className = 'pkt-dot';
+      dot.className = 'connector-dot';
       dot.style.cssText = `
         position:absolute; top:-2px;
         width:7px; height:7px; border-radius:50%;
         background:${cfg.color};
         box-shadow:0 0 8px ${cfg.color}, 0 0 16px ${cfg.color}55;
-        animation: pktFlow ${speed}ms linear infinite;
+        animation: flowDot ${speed}ms linear infinite;
         animation-delay: ${(speed / cfg.speeds.length) * i}ms;
         pointer-events:none;
       `;
@@ -976,15 +976,14 @@
   const elkEl   = document.getElementById('stElk');
   if (!clockEl) return;
 
-  // Live clock — Hyderabad IST = UTC+5:30
+  // Live clock — Hyderabad IST via Asia/Kolkata timezone
   function updateClock() {
     const now = new Date();
-    const utc = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
-    const ist = new Date(utc.getTime() + 5.5 * 3600000);
-    const hh  = String(ist.getUTCHours()).padStart(2, '0');
-    const mm  = String(ist.getUTCMinutes()).padStart(2, '0');
-    const ss  = String(ist.getUTCSeconds()).padStart(2, '0');
-    clockEl.textContent = hh + ':' + mm + ':' + ss;
+    const fmt = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Asia/Kolkata', hour12: false,
+      hour: '2-digit', minute: '2-digit', second: '2-digit'
+    });
+    clockEl.textContent = fmt.format(now);
   }
   setInterval(updateClock, 1000);
   updateClock();
