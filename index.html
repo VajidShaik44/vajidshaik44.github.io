@@ -132,7 +132,7 @@
     </a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
+      <li><a href="#architecture">Architecture</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#github">GitHub</a></li>
@@ -144,7 +144,7 @@
   </div>
   <div class="mobile-menu" id="mobileMenu">
     <a href="#about" class="mobile-link">About</a>
-    <a href="#skills" class="mobile-link">Skills</a>
+    <a href="#architecture" class="mobile-link">Architecture</a>
     <a href="#projects" class="mobile-link">Projects</a>
     <a href="#experience" class="mobile-link">Experience</a>
     <a href="#github" class="mobile-link">GitHub</a>
@@ -232,6 +232,44 @@
     <span>scroll</span>
   </div>
 </section>
+
+/* ════════════════════════════════════
+   PRODUCTION ARCHITECTURE
+════════════════════════════════════ */
+
+#architecture {
+  position: relative;
+  overflow: hidden;
+}
+
+#architecture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top left, rgba(0,255,136,0.05), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(56,189,248,0.04), transparent 35%);
+  pointer-events: none;
+}
+
+.architecture-flow {
+  margin-top: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+.arch-box {
+  width: 220px;
+  min-height: 230px;
+  padding: 26px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.03);
+}
 
 <!-- ░░ ABOUT ░░ -->
 <section id="about" class="section">
@@ -347,6 +385,44 @@
       </div>
     </div>
   </div>
+</section>
+
+<!-- ░░ PRODUCTION ARCHITECTURE ░░ -->
+<section id="architecture" class="section section-alt">
+  <div class="container">
+
+    <div class="section-label">
+      <span class="label-line"></span>
+      <span class="label-text scramble">03 / production architecture</span>
+    </div>
+
+    <h2 class="section-title">
+      Production <span class="accent-green">Deployment Workflow</span>
+    </h2>
+
+    <p class="section-sub">
+      Real-world CI/CD deployment architecture used for multi-service Java WAR applications.
+    </p>
+
+    <div class="architecture-flow">
+
+      <div class="arch-box reveal">
+        <div class="arch-icon">📦</div>
+        <h3>Developer Push</h3>
+        <p>Code pushed to GitHub repository with automated workflow trigger.</p>
+      </div>
+
+      <div class="arch-arrow">→</div>
+
+      <div class="arch-box reveal">
+        <div class="arch-icon">⚙️</div>
+        <h3>GitHub Actions</h3>
+        <p>CI/CD pipeline starts automated build and deployment process.</p>
+      </div>
+
+      <div class="arch-arrow">→</div>
+
+      <div class="arch-box reveal">
 </section>
 
 <!-- ░░ SKILLS ░░ -->
