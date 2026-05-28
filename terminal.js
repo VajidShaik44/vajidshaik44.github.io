@@ -49,7 +49,7 @@
   async function typeText(text, element) {
     for (let i = 0; i < text.length; i++) {
       element.innerHTML += esc(text[i]);
-      await sleep(30); // Typing speed
+      await sleep(18); // Subtle type-on without dragging readability
     }
   }
 
@@ -66,7 +66,8 @@
 
   function appendPromptLine(cmd) {
     appendLine(
-      `<span class="it-prompt">vajid@devops:~$</span>&nbsp;<span class="it-white">${esc(cmd)}</span>`
+      `<span class="it-prompt-wrap"><span class="it-prompt-user">vajid</span><span class="it-prompt-at">@</span><span class="it-prompt-host">devops</span><span class="it-prompt-path">:~</span><span class="it-prompt-sigil">$</span></span>&nbsp;<span class="it-command">${esc(cmd)}</span>`,
+      'it-line-command'
     );
   }
 

@@ -496,12 +496,32 @@ html[data-theme="light"] .it-input-text,
 html[data-theme="light"] .it-white,
 html[data-theme="light"] .it-line,
 html[data-theme="light"] .it-line.it-white,
-html[data-theme="light"] .terminal-status-value {
+html[data-theme="light"] .terminal-status-value,
+html[data-theme="light"] .it-command {
   color: #182a31;
 }
 
 html[data-theme="light"] .it-link {
   border-bottom-color: rgba(13, 143, 104, 0.16);
+}
+
+html[data-theme="light"] .it-prompt-user,
+html[data-theme="light"] .it-prompt-sigil {
+  color: #13936b;
+}
+
+html[data-theme="light"] .it-prompt-host {
+  color: #5a83b4;
+}
+
+html[data-theme="light"] .it-prompt-at,
+html[data-theme="light"] .it-prompt-path {
+  color: #7f8f95;
+}
+
+html[data-theme="light"] .it-cursor {
+  background: linear-gradient(180deg, #3de0ae, #199a71);
+  box-shadow: 0 0 0 1px rgba(25, 154, 113, 0.12);
 }
 
 html[data-theme="light"] .terminal-chip {
