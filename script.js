@@ -11,7 +11,14 @@
   const fill     = document.getElementById('bootBarFill');
   const pctEl    = document.getElementById('bootBarPct');
   const labelEl  = document.getElementById('bootBarLabel');
+  const isPreviewMode = new URLSearchParams(window.location.search).get('preview') === '1';
   if (!loader || !screen) return;
+
+  if (isPreviewMode) {
+    loader.style.display = 'none';
+    requestAnimationFrame(() => initReveal());
+    return;
+  }
 
   // Each entry: [timestamp, text, color, delay_after_ms]
   // color: 'dim' | 'white' | 'green' | 'yellow' | 'cyan' | 'red'
