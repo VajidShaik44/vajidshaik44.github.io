@@ -7,6 +7,7 @@
   <meta name="description" content="Vajid Shaik — DevOps Engineer specializing in CI/CD automation, AWS infrastructure, Kubernetes, Docker, and Terraform. Based in Hyderabad, India." />
   <meta name="keywords" content="DevOps Engineer, CI/CD, AWS, Kubernetes, Docker, Terraform, Ansible, Jenkins, Hyderabad" />
   <meta name="author" content="Vajid Shaik" />
+  <meta name="theme-color" content="#02060d" />
   <meta property="og:title" content="Vajid Shaik — DevOps Engineer" />
   <meta property="og:description" content="Automating Infrastructure | Building Reliable CI/CD Systems | Cloud Native Engineering" />
   <meta property="og:type" content="website" />
@@ -18,8 +19,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" />
+  <script>
+    (function () {
+      try {
+        var storedTheme = localStorage.getItem('portfolio-theme');
+        if (storedTheme === 'light' || storedTheme === 'dark') {
+          document.documentElement.setAttribute('data-theme', storedTheme);
+        }
+      } catch (error) {}
+    })();
+  </script>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="terminal-interactive.css" />
+  <link rel="stylesheet" href="premium-upgrade.css" />
   <style>
     /* Ticker bar offset — ensures navbar and hero sit below the 28px ticker */
     :root { --ticker-h: 28px; }
@@ -138,6 +150,12 @@
       <li><a href="#github">GitHub</a></li>
       <li><a href="#contact" class="nav-cta">Contact</a></li>
     </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch color theme" aria-pressed="false">
+        <span class="theme-toggle-icon" id="themeToggleIcon">LM</span>
+        <span class="theme-toggle-text" id="themeToggleText">Light mode</span>
+      </button>
+    </div>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
@@ -224,6 +242,26 @@
       <div class="it-input-row" id="it-input-row">
         <span class="it-prompt">vajid@devops:~$&nbsp;</span><span class="it-input-text" id="it-typed"></span><span class="it-cursor" id="it-cursor"></span>
       </div>
+    </div>
+    <div class="terminal-toolbar" aria-label="Terminal shortcuts">
+      <button class="terminal-chip" type="button" data-terminal-command="help">help</button>
+      <button class="terminal-chip" type="button" data-terminal-command="neofetch">neofetch</button>
+      <button class="terminal-chip" type="button" data-terminal-command="uptime">uptime</button>
+      <button class="terminal-chip terminal-chip-accent" type="button" id="terminalThemeCommand" data-terminal-command="theme light">theme light</button>
+    </div>
+    <div class="terminal-statusbar" aria-hidden="true">
+      <span class="terminal-status-meta">
+        <span class="terminal-status-dot"></span>
+        shell synced
+      </span>
+      <span class="terminal-status-meta">
+        theme
+        <strong class="terminal-status-value" data-theme-value>dark</strong>
+      </span>
+      <span class="terminal-status-meta">
+        shortcut
+        <strong class="terminal-status-value">Tab autocomplete</strong>
+      </span>
     </div>
   </div>
 
@@ -873,8 +911,9 @@
   </div>
 </footer>
 
-<script src="terminal.js" defer></script>
 <script src="script.js"></script>
+<script src="premium-upgrade.js"></script>
+<script src="terminal.js" defer></script>
 <script>
 
 /* ══════════════════════════════════════════════════════════════════════════

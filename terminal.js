@@ -79,6 +79,22 @@
     if (titleEl) titleEl.textContent = val ? 'running...' : 'vajid@devops:~';
   }
 
+  function getCurrentTheme() {
+    return document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  }
+
+  function setCurrentTheme(theme, source) {
+    if (window.PortfolioTheme && typeof window.PortfolioTheme.setTheme === 'function') {
+      return window.PortfolioTheme.setTheme(theme, { source: source || 'terminal' });
+    }
+    const normalizedTheme = theme === 'light' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', normalizedTheme);
+    window.dispatchEvent(new CustomEvent('portfolio:theme-change', {
+      detail: { theme: normalizedTheme, source: source || 'terminal' }
+    }));
+    return normalizedTheme;
+  }
+
   /* ── Focus ────────────────────────────────────────────────────── */
   function setFocus(on) {
     isFocused = on;
@@ -140,6 +156,9 @@
       ['', 'it-white', '│ <span class="it-cyan">pwd</span>                 │ working directory                │'],
       ['', 'it-white', '│ <span class="it-cyan">date</span>                │ current date & time              │'],
       ['', 'it-white', '│ <span class="it-cyan">uptime</span>              │ deployment stats                 │'],
+      ['', 'it-white', '│ <span class="it-cyan">theme</span>               │ show current color mode          │'],
+      ['', 'it-white', '│ <span class="it-cyan">theme light</span>         │ switch to premium light mode     │'],
+      ['', 'it-white', '│ <span class="it-cyan">theme dark</span>          │ restore cyberpunk dark mode      │'],
       ['', 'it-white', '│ <span class="it-cyan">history</span>             │ command history                  │'],
       ['', 'it-white', '│ <span class="it-cyan">clear</span>               │ clear terminal                   │'],
       ['', 'it-dim', '├────────────────────┼─────────────────────────────────┤'],
@@ -334,6 +353,26 @@
     appendLine(`  <span class="it-green it-bold">Last incident:</span>   <span class="it-dim">that Nginx SSL thing. fixed in 12 min.</span>`);
     appendLine('');
     appendLine(`  <span class="it-dim">load avg: 0.12  0.08  0.05  ·  tasks: 3 running, 127 sleeping</span>`);
+  }
+
+  function cmdTheme(raw) {
+    const parts = raw.trim().split(/\s+/).slice(1);
+    const requestedTheme = (parts[0] || '').toLowerCase();
+
+    if (!requestedTheme || requestedTheme === 'status') {
+      appendLine(`  <span class="it-cyan">theme</span>  <span class="it-dim">â†’</span>  <span class="it-green">${getCurrentTheme()}</span>`);
+      appendLine('  <span class="it-dim">Try:</span> <span class="it-yellow">theme light</span> <span class="it-dim">or</span> <span class="it-yellow">theme dark</span>');
+      return;
+    }
+
+    if (!['light', 'dark'].includes(requestedTheme)) {
+      appendLine('<span class="it-yellow">Usage: theme [light|dark|status]</span>');
+      return;
+    }
+
+    const activeTheme = setCurrentTheme(requestedTheme, 'terminal');
+    appendLine(`  <span class="it-green">âœ“ Theme synced:</span> <span class="it-white">${activeTheme}</span>`);
+    appendLine('  <span class="it-dim">Terminal chrome, particles, and surface tones updated live.</span>');
   }
 
   function cmdClear() {
@@ -747,6 +786,10 @@
     'pwd':              cmdPwd,
     'date':             cmdDate,
     'uptime':           cmdUptime,
+    'theme':            cmdTheme,
+    'theme light':      cmdTheme,
+    'theme dark':       cmdTheme,
+    'theme status':     cmdTheme,
     'clear':            cmdClear,
     'history':          cmdHistory,
     'neofetch':         cmdNeofetch,
@@ -930,6 +973,18 @@
       e.preventDefault();
     }
   }, { passive: false });
+
+  window.addEventListener('portfolio:terminal-run', (event) => {
+    const command = event.detail && typeof event.detail.command === 'string'
+      ? event.detail.command.trim()
+      : '';
+    if (!command || isProcessing) return;
+
+    setFocus(true);
+    inputBuffer = '';
+    renderInput();
+    runCommand(command);
+  });
 
   // Mobile: show tap hint
   if ('ontouchstart' in window && hintEl) {
