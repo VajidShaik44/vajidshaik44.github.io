@@ -255,6 +255,7 @@ typeRole();
   const canvas = document.getElementById('bg-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
+  let particleTheme = readParticleTheme();
 
   function resize() {
     canvas.width  = window.innerWidth;
@@ -273,6 +274,19 @@ typeRole();
     alpha: Math.random() * 0.4 + 0.15,
   }));
 
+  function readParticleTheme() {
+    const styles = getComputedStyle(document.documentElement);
+    return {
+      rgb: styles.getPropertyValue('--particle-rgb').trim() || '0, 255, 136',
+      lineAlpha: parseFloat(styles.getPropertyValue('--particle-line-alpha')) || 0.08,
+      shadow: styles.getPropertyValue('--particle-shadow').trim() || 'rgba(0, 255, 136, 0.45)',
+    };
+  }
+
+  window.addEventListener('portfolio:theme-change', () => {
+    particleTheme = readParticleTheme();
+  });
+
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -286,7 +300,7 @@ typeRole();
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(0,255,136,${(0.08 * (1 - dist / 130)).toFixed(3)})`;
+          ctx.strokeStyle = `rgba(${particleTheme.rgb},${(particleTheme.lineAlpha * (1 - dist / 130)).toFixed(3)})`;
           ctx.lineWidth = 0.5;
           ctx.stroke();
         }
@@ -296,9 +310,9 @@ typeRole();
     particles.forEach(p => {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(0,255,136,${p.alpha.toFixed(3)})`;
+      ctx.fillStyle = `rgba(${particleTheme.rgb},${p.alpha.toFixed(3)})`;
       ctx.shadowBlur = 8;
-      ctx.shadowColor = 'rgba(0,255,136,0.5)';
+      ctx.shadowColor = particleTheme.shadow;
       ctx.fill();
       ctx.shadowBlur = 0;
 
