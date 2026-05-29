@@ -310,14 +310,8 @@ body.fx-pulse-active {
   animation: fxGlobalPulse 1.2s ease-in-out infinite;
 }
 @keyframes fxGlobalPulse {
-  0%,100% {
-    filter: brightness(1) saturate(1);
-    --pulse-glow: 0;
-  }
-  50% {
-    filter: brightness(1.12) saturate(1.6);
-    --pulse-glow: 1;
-  }
+  0%,100% { filter: brightness(1) saturate(1); }
+  50%      { filter: brightness(1.12) saturate(1.6); }
 }
 #fxPulseOverlay {
   background: transparent;
