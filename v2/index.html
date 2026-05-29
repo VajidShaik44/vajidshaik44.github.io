@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- SEO Meta Tags -->
+  <title>Vajid Shaik | DevOps Engineer — Hyderabad</title>
+  <meta name="description" content="Vajid Shaik is a DevOps Engineer specializing in end-to-end CI/CD automation, AWS cloud architecture, containerized environments via Kubernetes, and Infrastructure as Code (IaC)." />
+  <meta name="keywords" content="DevOps Engineer, Vajid Shaik, CI/CD, AWS, Kubernetes, Terraform, Docker, Nginx, Linux, Jenkins, Hyderabad, India" />
+  <meta name="author" content="Vajid Shaik" />
+  <link rel="canonical" href="https://vajidshaik44.github.io/v2/" />
+
+  <!-- Open Graph / LinkedIn Preview Metadata -->
+  <meta property="og:title" content="Vajid Shaik | DevOps Engineer — Hyderabad" />
+  <meta property="og:description" content="Automating release engineering and infrastructure systems. Specializing in CI/CD, AWS cloud design, and Kubernetes management." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://vajidshaik44.github.io/v2/" />
+  <!-- TODO: Take a screenshot of the hero section and place it at assets/images/og-preview.png -->
+  <meta property="og:image" content="https://vajidshaik44.github.io/v2/assets/images/og-preview.png" />
+  <meta property="og:site_name" content="Vajid Shaik Portfolio" />
+
+  <!-- Fonts & Styling -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="icon" type="image/svg+xml" href="/v2/favicon.svg" />
+  <link rel="shortcut icon" href="/v2/favicon.svg" />
+  <link rel="stylesheet" href="/v2/assets/css/styles.css" />
+
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Vajid Shaik",
+    "jobTitle": "DevOps Engineer",
+    "url": "https://vajidshaik44.github.io",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Hyderabad",
+      "addressRegion": "Telangana",
+      "addressCountry": "India"
+    },
+    "alumniOf": {
+      "@type": "EducationalOrganization",
+      "name": "JNTU Hyderabad"
+    },
+    "sameAs": [
+      "https://github.com/VajidShaik44",
+      "https://www.linkedin.com/in/vajid-shaik"
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ── 1. LOADING SCREEN ── -->
+  <div id="loader" aria-live="polite" aria-label="Loading portfolio configurations">
+    <div class="loader-container">
+      <div class="loader-text">Booting...</div>
+      <div class="loader-bar-track">
+        <div class="loader-bar-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 1.5 OPERATIONS Status BAR ── -->
+  <div id="ops-ticker" role="status" aria-label="Operations status ticker">
+    <div class="ticker-item">
+      <span class="status-dot green" id="ticker-pods-dot"></span>
+      pods:<strong id="ticker-pods-val">3/3 running</strong>
+    </div>
+    <span class="ticker-separator">|</span>
+    <div class="ticker-item">
+      <span class="status-dot green" id="ticker-cicd-dot"></span>
+      CI/CD:<strong id="ticker-cicd-val">last build 2m ago ✓</strong>
+    </div>
+    <span class="ticker-separator">|</span>
+    <div class="ticker-item">
+      <span class="status-dot green"></span>
+      uptime:<strong>99.97%</strong>
+    </div>
+    <span class="ticker-separator">|</span>
+    <div class="ticker-item">
+      <span class="status-dot green" id="ticker-elk-dot"></span>
+      ELK:<strong id="ticker-elk-val">0 errors</strong>
+    </div>
+    <span class="ticker-separator">|</span>
+    <div class="ticker-item">
+      <span class="status-dot green"></span>
+      nginx:<strong>healthy</strong>
+    </div>
+    <span class="ticker-separator">|</span>
+    <div class="ticker-item">
+      <span>IST:</span><strong id="ticker-time-val">--:--:--</strong>
+    </div>
+  </div>
+
+  <!-- ── 2. NAVIGATION BAR ── -->
+  <nav id="navbar" role="navigation" aria-label="Main Navigation">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">[VS]</a>
+      
+      <!-- Desktop links -->
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#infrastructure">Infrastructure</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <!-- Hamburger Trigger for mobile -->
+      <button class="hamburger" id="hamburger-trigger" aria-expanded="false" aria-controls="mobile-nav-menu" aria-label="Open navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile navigation panel -->
+  <div class="mobile-nav-panel" id="mobile-nav-menu">
+    <ul class="mobile-nav-links">
+      <li><a href="#about" class="mobile-link">About</a></li>
+      <li><a href="#infrastructure" class="mobile-link">Infrastructure</a></li>
+      <li><a href="#projects" class="mobile-link">Projects</a></li>
+      <li><a href="#experience" class="mobile-link">Experience</a></li>
+      <li><a href="#contact" class="mobile-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- ── 3. MAIN PAGE SECTIONS ── -->
+  <main id="main-content">
+    
+    <!-- Hero Section -->
+    <section id="hero" class="section-placeholder">
+      <div class="hero-wrapper">
+        <div class="section-header" style="margin-bottom: var(--spacing-unit);">
+          <span class="subtitle" style="font-family: var(--font-mono); color: var(--accent-green); font-size: 13px;">vajid@devops:~$ whoami</span>
+          <h1 style="font-size: clamp(32px, 6vw, 56px); margin-top: calc(var(--spacing-unit) * 1.5); margin-bottom: calc(var(--spacing-unit) * 2);">I keep production systems running.</h1>
+        </div>
+        
+        <p class="hero-description">
+          DevOps Engineer specializing in CI/CD automation, Kubernetes deployments, and AWS infrastructure. Currently at Zerocode Innovations, Hyderabad.
+        </p>
+
+        <div class="hero-metrics">
+          <span class="metric-pill">70% faster deploys</span>
+          <span class="metric-pill">9 services on systemd</span>
+          <span class="metric-pill">99.97% uptime SLA</span>
+        </div>
+
+        <div class="cta-container">
+          <a href="#infrastructure" class="btn-primary">View Infrastructure &rarr;</a>
+          <a href="/v2/assets/resume/vajid-shaik-devops-resume.pdf" download class="btn-secondary">Download Resume</a>
+        </div>
+
+        <!-- Interactive Linux Terminal Simulator -->
+        <div class="terminal-cli-block">
+          <div class="terminal-cli-header">
+            <div class="terminal-buttons">
+              <span class="terminal-btn close"></span>
+              <span class="terminal-btn minimize"></span>
+              <span class="terminal-btn maximize"></span>
+            </div>
+            <div class="terminal-title">vajid@devops:~/terminal</div>
+          </div>
+          <div class="terminal-cli-body" id="terminal-body-click">
+            <div class="terminal-cli-output" id="terminal-cli-output">Welcome to Vajid Shaik's interactive DevOps console.
+Type <span class="term-warning term-bold">help</span> to view available system commands.
+</div>
+            <div class="terminal-input-line">
+              <span class="terminal-cli-prompt">vajid@devops:~$</span>
+              <input type="text" class="terminal-cli-input" id="terminal-cli-input" autofocus autocomplete="off" spellcheck="false" aria-label="Terminal input line" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-placeholder">
+      <div class="section-header">
+        <span class="subtitle">01 / Bio-Data</span>
+        <h2>About Me</h2>
+        <p>Operational background and core systems philosophy.</p>
+      </div>
+      <p style="color: var(--text-secondary);">[About content to be filled in P-04]</p>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section-placeholder">
+      <div class="section-header">
+        <span class="subtitle">02 / Capabilities</span>
+        <h2>Skills Stack</h2>
+        <p>Orchestration, pipelines, infrastructure as code, and cloud platforms.</p>
+      </div>
+      <p style="color: var(--text-secondary);">[Skills content to be filled in P-05]</p>
+    </section>
+
+    <!-- Infrastructure Section -->
+    <section id="infrastructure" class="section-placeholder">
+      <div class="section-header">
+        <span class="subtitle">03 / Architecture Topology</span>
+        <h2>Production Infrastructure</h2>
+        <p>High availability, cloud provisioning, and pipeline visualization.</p>
+      </div>
+      <p style="color: var(--text-secondary);">[Infrastructure content to be filled in P-06]</p>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section-placeholder">
+      <div class="section-header">
+        <span class="subtitle">04 / Code Deployments</span>
+        <h2>Featured Work</h2>
+        <p>Real-world client automation cases and cloud system modernizations.</p>
+      </div>
+      <p style="color: var(--text-secondary);">[Projects content to be filled in P-07]</p>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section-placeholder">
+      <div class="section-header">
+        <span class="subtitle">05 / Systems Log</span>
+        <h2>Work Experience</h2>
+        <p>Production history at Zerocode Innovations Pvt Ltd.</p>
+      </div>
+      <p style="color: var(--text-secondary);">[Experience content to be filled in P-08]</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-placeholder">
+      <div class="section-header">
+        <span class="subtitle">06 / SSH Connection</span>
+        <h2>Get In Touch</h2>
+        <p>Establish an encrypted connection or leave an automated message.</p>
+      </div>
+      <p style="color: var(--text-secondary);">[Contact content to be filled in P-09]</p>
+    </section>
+
+  </main>
+
+  <!-- ── 4. FOOTER COMPONENT ── -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-prompt" aria-label="Terminal Prompt">
+          <span class="prompt-host">vajid@devops</span><span class="prompt-text">:~$ echo $STATUS</span>
+        </div>
+        <div class="badge-tag green">
+          <span class="status-dot green"></span>
+          OPEN TO WORK
+        </div>
+      </div>
+
+      <div class="footer-links" aria-label="Terminal Links">
+        <div>
+          <span style="color: var(--text-secondary);">vajid@devops:~$</span> 
+          <a href="https://github.com/VajidShaik44" target="_blank" rel="noopener">cat github.txt</a>
+        </div>
+        <div>
+          <span style="color: var(--text-secondary);">vajid@devops:~$</span> 
+          <a href="https://www.linkedin.com/in/vajid-shaik" target="_blank" rel="noopener">cat linkedin.txt</a>
+        </div>
+        <div>
+          <span style="color: var(--text-secondary);">vajid@devops:~$</span> 
+          <a href="mailto:shaikvajid484@gmail.com">cat email.txt</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 Vajid Shaik · All Rights Reserved</span>
+        <span>Infrastructure: Operational &amp; Observability Nominal</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── 5. CORE LAYOUT SCRIPTS ── -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // 1. Force remove loader overlay under 1.5s
+      setTimeout(function () {
+        document.body.classList.add("loaded");
+      }, 1200);
+
+      // 2. Navigation Scroll Effect
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", function () {
+        if (window.scrollY > 20) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // 3. Mobile Hamburger Menu Toggle
+      const trigger = document.getElementById("hamburger-trigger");
+      const menu = document.getElementById("mobile-nav-menu");
+      const links = document.querySelectorAll(".mobile-link");
+
+      function toggleMenu() {
+        const isOpen = trigger.classList.toggle("open");
+        menu.classList.toggle("open");
+        trigger.setAttribute("aria-expanded", isOpen);
+      }
+
+      trigger.addEventListener("click", toggleMenu);
+
+      links.forEach(function (link) {
+        link.addEventListener("click", toggleMenu);
+      });
+
+      // 4. Update Navigation Links Active Class on Scroll
+      const sections = document.querySelectorAll("section");
+      const navItems = document.querySelectorAll(".nav-links a");
+
+      window.addEventListener("scroll", function () {
+        let current = "";
+        sections.forEach(function (section) {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          if (window.scrollY >= (sectionTop - varHOffset())) {
+            current = section.getAttribute("id");
+          }
+        });
+
+        navItems.forEach(function (item) {
+          item.classList.remove("active");
+          if (item.getAttribute("href").slice(1) === current) {
+            item.classList.add("active");
+          }
+        });
+      });
+
+      function varHOffset() {
+        return parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 70;
+      }
+    });
+  </script>
+  <script src="/v2/assets/js/terminal.js"></script>
+</body>
+</html>

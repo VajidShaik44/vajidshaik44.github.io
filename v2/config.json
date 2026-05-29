@@ -1,0 +1,64 @@
+{
+  "_comment_server_label": "Human-readable name shown in all notifications",
+  "server_label": "V37-Dev",
+
+  "_comment_services": [
+    "List systemd service names to monitor.",
+    "Remove any service this server does NOT run.",
+    "Common values: nginx, mysql, redis-server, mongod, postgresql"
+  ],
+  "services": [
+    "nginx",
+    "mysql",
+    "redis-server"
+  ],
+
+  "_comment_java_wars": [
+    "Each entry = one Java application to monitor.",
+    "  name          : display name used in notifications",
+    "  port          : PREFERRED — TCP port the app listens on.",
+    "                  A port check is more reliable than ps matching.",
+    "  process_match : FALLBACK — unique string in 'ps -ef' output.",
+    "                  Use this only if you cannot determine the port.",
+    "Remove entries for apps not running on this server.",
+    "Leave java_wars as [] if this server has no Java apps."
+  ],
+  "java_wars": [
+    { "name": "zc-v3.1-client-svc",            "port": 8072 },
+    { "name": "zc-v3.1-user-svc",              "port": 8073 },
+    { "name": "zc-v3.1-fs-svc",                "port": 8074 },
+    { "name": "zc-v3.1-theme-svc",             "port": 8075 },
+    { "name": "zc-v3.1-admin-svc",             "port": 8076 },
+    { "name": "zc-v3-custom-api-integrator",   "port": 8077 },
+    { "name": "zc-v3.1-report-gen-svc",        "port": 8078 },
+    { "name": "zc-v3.1-workflow-scheduler-svc","port": 8079 },
+    {
+      "name": "zc-v3.1-user-scheduler-svc",
+      "process_match": "server.port=8079",
+      "_note": "Example: use process_match when port is shared or unknown"
+    }
+  ],
+
+  "_comment_disk_mounts": [
+    "List every mount point to monitor.",
+    "  path         : absolute mount path",
+    "  threshold_gb : alert when free space drops BELOW this value",
+    "Remove entries for mounts that don't exist on this server.",
+    "Leave disk_mounts as [] to disable disk checks."
+  ],
+  "disk_mounts": [
+    { "path": "/",                          "threshold_gb": 1.5 },
+    { "path": "/home/ubuntu/zc-v37-data",   "threshold_gb": 1.0 }
+  ],
+
+  "_comment_resources": [
+    "CPU and memory monitoring via psutil.",
+    "Set enabled to false to disable entirely (e.g. low-power servers).",
+    "Requires: pip install psutil"
+  ],
+  "resources": {
+    "enabled": true,
+    "cpu_threshold_percent": 95,
+    "memory_threshold_percent": 90
+  }
+}
