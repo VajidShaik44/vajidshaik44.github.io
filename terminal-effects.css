@@ -295,18 +295,6 @@ body.fx-blackout-flicker {
   50%     { filter: brightness(0.05); }
 }
 
-/* ─────────────────────────────────────────────────────
-   GRAVITY.SH — Anti-gravity floating elements
-───────────────────────────────────────────────────── */
-body.fx-gravity-active * {
-  /* each element gets JS-assigned transform */
-}
-.fx-gravity-ui-clone {
-  position: fixed;
-  pointer-events: none;
-  z-index: 999980;
-  transition: transform 0.05s linear;
-}
 #fxGravityOverlay {
   position: fixed; inset: 0;
   background: radial-gradient(ellipse at bottom, rgba(56,189,248,0.07) 0%, transparent 60%);

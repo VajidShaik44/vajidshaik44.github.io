@@ -1188,11 +1188,7 @@ body:has(button:hover) #cursor-dot { background: var(--cyan); box-shadow: 0 0 10
   .arch-detail-row { grid-template-columns: 1fr; }
 }
 
-/* ── EARTHQUAKE MODE ── */
-body.quake-active {
-  animation: quakeShake 0.06s ease-in-out infinite, quakePulse 0.22s ease-in-out infinite;
-  transform-origin: center center;
-}
+/* ── EARTHQUAKE MODE — see full rules below ── */
 body.quake-active .hero-terminal {
   animation: quakeTerminal 0.12s ease-in-out infinite;
 }

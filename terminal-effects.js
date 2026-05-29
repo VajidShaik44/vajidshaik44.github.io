@@ -162,8 +162,7 @@
         if (drops[i] * 16 > canvas.height && Math.random() > 0.975) drops[i] = 0;
         drops[i] += 0.55;
       }
-      rafId = requestAnimationFrame(draw);
-      FX._rafs.push(rafId);
+      rafId = FX.raf(draw);
     };
     draw();
 
@@ -651,7 +650,7 @@
 
     let drawing = true;
     const draw = () => {
-      if (!drawing) return;
+      if (!drawing || !FX._active) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.strokeStyle = 'rgba(130,180,255,0.6)';
       ctx.lineWidth = 1;
@@ -668,7 +667,7 @@
         }
       });
       ctx.globalAlpha = 1;
-      requestAnimationFrame(draw);
+      FX.raf(draw);
     };
     draw();
 
@@ -699,6 +698,8 @@
     await sleep(6000);
     drawing = false;
     document.body.classList.remove('fx-rain-active');
+    document.body.style.filter = '';
+    document.body.style.transition = '';
     await FX.hideOverlay(el);
     appendLine('<span class="it-green">✓ Storm passed. Clearing skies. Systems unaffected.</span>');
     FX._active = null;
