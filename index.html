@@ -63,6 +63,38 @@
     </div>
   </div>
 
+  <!-- ── 1.5 OPERATIONS Status BAR ── -->
+  <div id="ops-ticker" role="status" aria-label="Operations status ticker">
+    <div class="ticker-item">
+      <span class="status-dot green" id="ticker-pods-dot"></span>
+      pods:<strong id="ticker-pods-val">3/3 running</strong>
+    </div>
+    <span class="ticker-separator">|</span>
+    <div class="ticker-item">
+      <span class="status-dot green" id="ticker-cicd-dot"></span>
+      CI/CD:<strong id="ticker-cicd-val">last build 2m ago ✓</strong>
+    </div>
+    <span class="ticker-separator">|</span>
+    <div class="ticker-item">
+      <span class="status-dot green"></span>
+      uptime:<strong>99.97%</strong>
+    </div>
+    <span class="ticker-separator">|</span>
+    <div class="ticker-item">
+      <span class="status-dot green" id="ticker-elk-dot"></span>
+      ELK:<strong id="ticker-elk-val">0 errors</strong>
+    </div>
+    <span class="ticker-separator">|</span>
+    <div class="ticker-item">
+      <span class="status-dot green"></span>
+      nginx:<strong>healthy</strong>
+    </div>
+    <span class="ticker-separator">|</span>
+    <div class="ticker-item">
+      <span>IST:</span><strong id="ticker-time-val">--:--:--</strong>
+    </div>
+  </div>
+
   <!-- ── 2. NAVIGATION BAR ── -->
   <nav id="navbar" role="navigation" aria-label="Main Navigation">
     <div class="nav-container">
@@ -102,12 +134,48 @@
     
     <!-- Hero Section -->
     <section id="hero" class="section-placeholder">
-      <div class="section-header">
-        <span class="subtitle">00 / System Initialization</span>
-        <h1>Vajid Shaik</h1>
-        <p>DevOps Engineer · Automating Infrastructures & Cloud Deployments</p>
+      <div class="hero-wrapper">
+        <div class="section-header" style="margin-bottom: var(--spacing-unit);">
+          <span class="subtitle" style="font-family: var(--font-mono); color: var(--accent-green); font-size: 13px;">vajid@devops:~$ whoami</span>
+          <h1 style="font-size: clamp(32px, 6vw, 56px); margin-top: calc(var(--spacing-unit) * 1.5); margin-bottom: calc(var(--spacing-unit) * 2);">I keep production systems running.</h1>
+        </div>
+        
+        <p class="hero-description">
+          DevOps Engineer specializing in CI/CD automation, Kubernetes deployments, and AWS infrastructure. Currently at Zerocode Innovations, Hyderabad.
+        </p>
+
+        <div class="hero-metrics">
+          <span class="metric-pill">70% faster deploys</span>
+          <span class="metric-pill">9 services on systemd</span>
+          <span class="metric-pill">99.97% uptime SLA</span>
+        </div>
+
+        <div class="cta-container">
+          <a href="#infrastructure" class="btn-primary">View Infrastructure &rarr;</a>
+          <a href="assets/resume/vajid-shaik-devops-resume.pdf" download class="btn-secondary">Download Resume</a>
+        </div>
+
+        <!-- Interactive Linux Terminal Simulator -->
+        <div class="terminal-cli-block">
+          <div class="terminal-cli-header">
+            <div class="terminal-buttons">
+              <span class="terminal-btn close"></span>
+              <span class="terminal-btn minimize"></span>
+              <span class="terminal-btn maximize"></span>
+            </div>
+            <div class="terminal-title">vajid@devops:~/terminal</div>
+          </div>
+          <div class="terminal-cli-body" id="terminal-body-click">
+            <div class="terminal-cli-output" id="terminal-cli-output">Welcome to Vajid Shaik's interactive DevOps console.
+Type <span class="term-warning term-bold">help</span> to view available system commands.
+</div>
+            <div class="terminal-input-line">
+              <span class="terminal-cli-prompt">vajid@devops:~$</span>
+              <input type="text" class="terminal-cli-input" id="terminal-cli-input" autofocus autocomplete="off" spellcheck="false" aria-label="Terminal input line" />
+            </div>
+          </div>
+        </div>
       </div>
-      <p style="color: var(--text-secondary);">[Hero content to be filled in P-03]</p>
     </section>
 
     <!-- About Section -->
@@ -269,5 +337,6 @@
       }
     });
   </script>
+  <script src="assets/js/terminal.js"></script>
 </body>
 </html>

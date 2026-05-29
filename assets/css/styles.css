@@ -523,3 +523,227 @@ body.loaded #loader {
     align-items: flex-start;
   }
 }
+
+/* ── 9. OPERATIONS TICKER STATUS BAR ── */
+#ops-ticker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 32px;
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
+  z-index: 1001;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  padding: 0 calc(var(--spacing-unit) * 3);
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: calc(var(--spacing-unit) * 3);
+  scrollbar-width: none; /* Hide scrollbar Firefox */
+}
+
+#ops-ticker::-webkit-scrollbar {
+  display: none; /* Hide scrollbar Chrome/Safari */
+}
+
+.ticker-item {
+  display: flex;
+  align-items: center;
+  color: var(--text-secondary);
+}
+
+.ticker-item .status-dot {
+  margin-right: 4px;
+}
+
+.ticker-item strong {
+  color: var(--text-primary);
+  margin-left: 4px;
+}
+
+.ticker-separator {
+  color: var(--border);
+  font-size: 10px;
+}
+
+/* Compensate body padding for top-fixed status ticker & nav */
+body {
+  padding-top: calc(var(--nav-h) + 32px);
+}
+
+#navbar {
+  top: 32px;
+}
+
+/* ── 10. HERO SECTION ELEMENTS ── */
+.hero-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing-unit) * 4);
+}
+
+.hero-description {
+  font-size: clamp(16px, 2vw, 18px);
+  color: var(--text-secondary);
+  max-width: 680px;
+}
+
+.hero-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing-unit) * 2);
+  margin-top: calc(var(--spacing-unit) * 2);
+}
+
+.hero-metrics .metric-pill {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background-color: var(--surface);
+  border: 1px dashed var(--border);
+  padding: 6px 14px;
+  border-radius: var(--radius);
+  color: var(--accent-amber);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hero-metrics .metric-pill::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent-amber);
+}
+
+.cta-container {
+  display: flex;
+  gap: calc(var(--spacing-unit) * 2);
+  margin-top: calc(var(--spacing-unit) * 2);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent-green);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition-speed) ease, transform 0.1s ease;
+}
+
+.btn-primary:hover {
+  background-color: #2ebc48;
+  color: var(--bg);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color var(--transition-speed) ease, background-color var(--transition-speed) ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent-blue);
+  background-color: rgba(88, 166, 255, 0.05);
+  color: var(--accent-blue);
+}
+
+/* ── 11. INTERACTIVE TERMINAL LAYOUT ── */
+.terminal-cli-block {
+  max-width: 900px;
+  width: 100%;
+  margin-top: calc(var(--spacing-unit) * 6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.terminal-cli-header {
+  background-color: var(--surface-raised);
+  border-bottom: 1px solid var(--border);
+  padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 2);
+  display: flex;
+  align-items: center;
+}
+
+.terminal-cli-body {
+  background-color: var(--surface);
+  padding: calc(var(--spacing-unit) * 2.5);
+  height: 400px;
+  overflow-y: auto;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-cli-output {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: calc(var(--spacing-unit) * 1.5);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+}
+
+.terminal-cli-prompt {
+  color: var(--accent-green);
+  font-weight: 600;
+  margin-right: 8px;
+  white-space: nowrap;
+}
+
+.terminal-cli-input {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  color: var(--text-primary) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 13px !important;
+  flex-grow: 1;
+  caret-color: var(--accent-green);
+  padding: 0 !important;
+}
+
+/* Autocomplete suggestion styles */
+.terminal-autocomplete-hint {
+  color: var(--text-secondary);
+  opacity: 0.5;
+  margin-left: 2px;
+}
+
+/* Terminal output coloring helpers */
+.term-success { color: var(--accent-green); }
+.term-warning { color: var(--accent-amber); }
+.term-error { color: var(--accent-red); }
+.term-info { color: var(--accent-blue); }
+.term-dim { color: var(--text-secondary); }
+.term-bold { font-weight: bold; }
+
