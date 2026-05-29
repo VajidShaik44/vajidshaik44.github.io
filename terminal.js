@@ -27,6 +27,10 @@
   let isProcessing = false;
   let abortFlag    = false;
 
+  /* ── Expose helpers for external easter-egg hooks ─────────────── */
+  window.__terminalAppendLine = (html, cls) => appendLine(html, cls);
+  window.__terminalSleep      = (ms) => sleep(ms);
+
   /* ── Helpers ──────────────────────────────────────────────────── */
   function esc(s) {
     return String(s)
@@ -166,7 +170,17 @@
       ['', 'it-white', '│ <span class="it-cyan">ai &lt;question&gt;</span>     │ chat with Grok AI                │'],
       ['', 'it-dim', '├────────────────────┼─────────────────────────────────┤'],
       ['', 'it-white', '│ <span class="it-dim">sudo hire me</span>        │ 👀 ...                           │'],
-      ['', 'it-white', '│ <span class="it-cyan">bash earthquake.sh</span> │ unleash the site glitch demo     │'],
+      ['', 'it-white', '│ <span class="it-cyan">bash earthquake.sh</span> │ seismic crash demo               │'],
+      ['', 'it-white', '│ <span class="it-cyan">bash matrix.sh</span>     │ matrix rain takeover             │'],
+      ['', 'it-white', '│ <span class="it-cyan">bash overload.sh</span>   │ CPU heat / resource spike        │'],
+      ['', 'it-white', '│ <span class="it-cyan">bash breach.sh</span>     │ cyber intrusion simulation       │'],
+      ['', 'it-white', '│ <span class="it-cyan">bash deploy-prod.sh</span>│ cinematic production rollout     │'],
+      ['', 'it-white', '│ <span class="it-cyan">bash blackout.sh</span>   │ power failure + restore          │'],
+      ['', 'it-white', '│ <span class="it-cyan">bash gravity.sh</span>    │ reverse gravity UI effect        │'],
+      ['', 'it-white', '│ <span class="it-cyan">bash pulse.sh</span>      │ synchronized UI heartbeat        │'],
+      ['', 'it-white', '│ <span class="it-cyan">bash rain.sh</span>       │ storm atmosphere overlay         │'],
+      ['', 'it-white', '│ <span class="it-cyan">bash nuclear.sh</span>    │ DEFCON countdown simulation      │'],
+      ['', 'it-white', '│ <span class="it-cyan">bash cleanlogs.sh</span>  │ log cleanup maintenance          │'],
       ['', 'it-white', '│ <span class="it-dim">sudo rm -rf /</span>       │ go ahead, try it                 │'],
       ['', 'it-dim', '└────────────────────┴─────────────────────────────────┘'],
       ['', 'it-dim', 'Keyboard: ↑↓ history  ·  Tab autocomplete  ·  Ctrl+C abort  ·  Ctrl+L clear'],
@@ -314,7 +328,17 @@
       ['it-cyan it-bold',  'drwxr-xr-x', 'skills/',        '← tech stack'],
       ['it-cyan it-bold',  'drwxr-xr-x', 'pipeline/',      '← CI/CD artefacts'],
       ['it-green it-bold', '-rwxr--r--',  'pipeline.sh',    '← GitHub Actions workflow'],
-      ['it-green it-bold', '-rwxr--r--',  'earthquake.sh',  '← run the demo crash script'],
+      ['it-green it-bold', '-rwxr--r--',  'earthquake.sh',  '← seismic crash demo'],
+      ['it-green it-bold', '-rwxr--r--',  'matrix.sh',      '← green rain takeover'],
+      ['it-green it-bold', '-rwxr--r--',  'overload.sh',    '← CPU heat dashboard'],
+      ['it-green it-bold', '-rwxr--r--',  'breach.sh',      '← cyber intrusion sim'],
+      ['it-green it-bold', '-rwxr--r--',  'deploy-prod.sh', '← cinematic deployment'],
+      ['it-green it-bold', '-rwxr--r--',  'blackout.sh',    '← power failure sim'],
+      ['it-green it-bold', '-rwxr--r--',  'gravity.sh',     '← anti-gravity UI'],
+      ['it-green it-bold', '-rwxr--r--',  'pulse.sh',       '← UI heartbeat sync'],
+      ['it-green it-bold', '-rwxr--r--',  'rain.sh',        '← storm atmosphere'],
+      ['it-green it-bold', '-rwxr--r--',  'nuclear.sh',     '← DEFCON countdown'],
+      ['it-green it-bold', '-rwxr--r--',  'cleanlogs.sh',   '← log maintenance'],
       ['it-green it-bold', '-rwxr--r--',  'deploy.yaml',    '← K8s deployment manifest'],
       ['it-green it-bold', '-rw-r--r--',  'main.tf',        '← Terraform infrastructure'],
       ['it-green it-bold', '-rw-r--r--',  'resume.pdf',     '← ATS-optimised resume'],
@@ -807,13 +831,80 @@
     'bash earthquake.sh': triggerEarthquake,
     'sh earthquake.sh':  triggerEarthquake,
     './earthquake.sh':   triggerEarthquake,
+
+    /* ── New cinematic scripts ── */
+    'matrix.sh':        (r) => _fxCmd('matrix', r),
+    'bash matrix.sh':   (r) => _fxCmd('matrix', r),
+    './matrix.sh':      (r) => _fxCmd('matrix', r),
+    'sh matrix.sh':     (r) => _fxCmd('matrix', r),
+
+    'overload.sh':      (r) => _fxCmd('overload', r),
+    'bash overload.sh': (r) => _fxCmd('overload', r),
+    './overload.sh':    (r) => _fxCmd('overload', r),
+    'sh overload.sh':   (r) => _fxCmd('overload', r),
+
+    'breach.sh':        (r) => _fxCmd('breach', r),
+    'bash breach.sh':   (r) => _fxCmd('breach', r),
+    './breach.sh':      (r) => _fxCmd('breach', r),
+    'sh breach.sh':     (r) => _fxCmd('breach', r),
+
+    'deploy-prod.sh':       (r) => _fxCmd('deployProd', r),
+    'bash deploy-prod.sh':  (r) => _fxCmd('deployProd', r),
+    './deploy-prod.sh':     (r) => _fxCmd('deployProd', r),
+    'sh deploy-prod.sh':    (r) => _fxCmd('deployProd', r),
+
+    'blackout.sh':      (r) => _fxCmd('blackout', r),
+    'bash blackout.sh': (r) => _fxCmd('blackout', r),
+    './blackout.sh':    (r) => _fxCmd('blackout', r),
+    'sh blackout.sh':   (r) => _fxCmd('blackout', r),
+
+    'gravity.sh':       (r) => _fxCmd('gravity', r),
+    'bash gravity.sh':  (r) => _fxCmd('gravity', r),
+    './gravity.sh':     (r) => _fxCmd('gravity', r),
+    'sh gravity.sh':    (r) => _fxCmd('gravity', r),
+
+    'pulse.sh':         (r) => _fxCmd('pulse', r),
+    'bash pulse.sh':    (r) => _fxCmd('pulse', r),
+    './pulse.sh':       (r) => _fxCmd('pulse', r),
+    'sh pulse.sh':      (r) => _fxCmd('pulse', r),
+
+    'rain.sh':          (r) => _fxCmd('rain', r),
+    'bash rain.sh':     (r) => _fxCmd('rain', r),
+    './rain.sh':        (r) => _fxCmd('rain', r),
+    'sh rain.sh':       (r) => _fxCmd('rain', r),
+
+    'nuclear.sh':       (r) => _fxCmd('nuclear', r),
+    'bash nuclear.sh':  (r) => _fxCmd('nuclear', r),
+    './nuclear.sh':     (r) => _fxCmd('nuclear', r),
+    'sh nuclear.sh':    (r) => _fxCmd('nuclear', r),
+
+    'cleanlogs.sh':       (r) => _fxCmd('cleanlogs', r),
+    'bash cleanlogs.sh':  (r) => _fxCmd('cleanlogs', r),
+    './cleanlogs.sh':     (r) => _fxCmd('cleanlogs', r),
+    'sh cleanlogs.sh':    (r) => _fxCmd('cleanlogs', r),
+
     'ai':                cmdAi,
     'exit':             () => appendLine('<span class="it-yellow">There\'s no escaping. You\'re already hired. 😄</span>'),
     'sudo':             () => appendLine('<span class="it-red">usage: sudo hire me</span>'),
     'vim':              async () => { appendLine('Opening vim...'); await sleep(400); appendLine('<span class="it-yellow">just kidding. use neofetch instead.</span>'); },
     'nano':             async () => { appendLine('nano: command found'); await sleep(300); appendLine('<span class="it-dim">but honestly, vim was right there.</span>'); },
-    'make coffee':      async () => { appendLine('Brewing...'); await sleep(800); appendLine('<span class="it-green">☕ Done. Deploy queued.</span>'); },
+    'make coffee':      async () => { if (window.TerminalEffects) { await window.TerminalEffects.coffee(appendLine, sleep); } else { appendLine('Brewing...'); await sleep(800); appendLine('<span class="it-green">☕ Done. Deploy queued.</span>'); } },
   };
+
+  /* ── Effect bridge — calls TerminalEffects with terminal's helpers ── */
+  async function _fxCmd(name, _raw) {
+    if (!window.TerminalEffects) {
+      appendLine('<span class="it-red">Effect engine not loaded. Refresh and try again.</span>');
+      return;
+    }
+    const fn = window.TerminalEffects[name];
+    if (typeof fn !== 'function') {
+      appendLine(`<span class="it-red">bash: ${name}: handler not found</span>`);
+      return;
+    }
+    await fn(appendLine, sleep);
+    if (window.TerminalEffects.rareEffect) window.TerminalEffects.rareEffect(appendLine, sleep);
+  }
 
   const ALL_CMDS = Object.keys(COMMANDS);
 
@@ -873,6 +964,8 @@
     // Ctrl+C — abort current command
     if (e.ctrlKey && e.key === 'c') {
       abortFlag = true;
+      // Also abort any active FX overlay
+      if (window.TerminalFX && window.TerminalFX.isActive()) window.TerminalFX.cleanup();
       appendPromptLine(inputBuffer + '^C');
       inputBuffer = '';
       historyIdx  = historyStack.length;
