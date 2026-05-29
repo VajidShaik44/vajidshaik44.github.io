@@ -1,0 +1,527 @@
+/* ===================================================================
+   terminal-effects.css — Cinematic Script Effects
+   vajidshaik44.github.io  ·  Modular overlay system
+   =================================================================== */
+
+/* ── Shared overlay base ── */
+.fx-overlay {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 999990;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  overflow: hidden;
+}
+.fx-overlay.fx-active { opacity: 1; }
+
+/* ─────────────────────────────────────────────────────
+   MATRIX.SH — Green cascading rain
+───────────────────────────────────────────────────── */
+#fxMatrix {
+  background: rgba(0,0,0,0.92);
+}
+#fxMatrixCanvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+}
+#fxMatrixMsg {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(18px, 3vw, 38px);
+  font-weight: 700; color: #00ff88;
+  text-align: center; letter-spacing: 0.12em;
+  text-shadow: 0 0 20px #00ff88, 0 0 60px #00ff88;
+  opacity: 0; transition: opacity 0.8s ease;
+  line-height: 1.5;
+}
+#fxMatrixMsg.visible { opacity: 1; }
+
+/* ─────────────────────────────────────────────────────
+   OVERLOAD.SH — CPU heat / system thrash dashboard
+───────────────────────────────────────────────────── */
+#fxOverload {
+  background: rgba(0,0,0,0.88);
+  display: flex; align-items: center; justify-content: center;
+}
+.fx-overload-panel {
+  width: min(780px, 92vw);
+  background: rgba(4, 8, 16, 0.97);
+  border: 1px solid rgba(255, 60, 0, 0.5);
+  border-radius: 14px; padding: 28px 32px;
+  box-shadow: 0 0 60px rgba(255,60,0,0.2), 0 0 120px rgba(255,60,0,0.08);
+  font-family: 'JetBrains Mono', monospace;
+}
+.fx-overload-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 24px; padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,60,0,0.3);
+}
+.fx-overload-blink {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #ff3c00;
+  animation: fxBlink 0.4s steps(1) infinite;
+  box-shadow: 0 0 10px #ff3c00;
+}
+@keyframes fxBlink { 0%,49% { opacity:1; } 50%,100% { opacity:0; } }
+.fx-overload-title {
+  font-size: 14px; font-weight: 700; letter-spacing: 0.14em;
+  color: #ff3c00; text-transform: uppercase;
+}
+.fx-overload-metrics { display: flex; flex-direction: column; gap: 14px; }
+.fx-overload-row {
+  display: grid; grid-template-columns: 80px 1fr 60px;
+  align-items: center; gap: 12px;
+}
+.fx-ol-label { font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing: 0.1em; }
+.fx-ol-bar-wrap {
+  height: 8px; background: rgba(255,255,255,0.06);
+  border-radius: 4px; overflow: hidden;
+  position: relative;
+}
+.fx-ol-bar-fill {
+  height: 100%; border-radius: 4px;
+  transition: width 0.18s ease;
+}
+.fx-ol-bar-fill.danger { background: linear-gradient(90deg, #ff6b00, #ff0000); }
+.fx-ol-bar-fill.warning { background: linear-gradient(90deg, #f0c040, #ff6b00); }
+.fx-ol-bar-fill.ok { background: linear-gradient(90deg, #00cc66, #00ff88); }
+.fx-ol-val { font-size: 13px; font-weight: 700; text-align: right; }
+.fx-ol-val.danger { color: #ff3c00; }
+.fx-ol-val.warning { color: #f0c040; }
+.fx-ol-val.ok { color: #00ff88; }
+.fx-overload-alerts { margin-top: 20px; display: flex; flex-direction: column; gap: 6px; }
+.fx-alert-line {
+  font-size: 11px; letter-spacing: 0.06em;
+  padding: 5px 10px;
+  border-left: 2px solid;
+  opacity: 0; transform: translateX(-8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.fx-alert-line.show { opacity: 1; transform: translateX(0); }
+.fx-alert-crit { color: #ff3c00; border-color: #ff3c00; background: rgba(255,60,0,0.06); }
+.fx-alert-warn { color: #f0c040; border-color: #f0c040; background: rgba(240,192,64,0.06); }
+.fx-alert-info { color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.15); }
+
+/* Flicker applied to body during overload */
+body.fx-overload-active {
+  animation: fxOverloadFlicker 0.3s steps(2) infinite;
+}
+@keyframes fxOverloadFlicker {
+  0%,100% { filter: brightness(1) contrast(1); }
+  50%      { filter: brightness(1.08) contrast(1.12) saturate(1.3); }
+}
+
+/* ─────────────────────────────────────────────────────
+   BREACH.SH — Red alert cyber intrusion
+───────────────────────────────────────────────────── */
+#fxBreach {
+  background: rgba(0,0,0,0.92);
+}
+#fxBreach::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent 0 2px,
+    rgba(255,0,40,0.03) 2px 4px
+  );
+  pointer-events: none;
+}
+.fx-breach-alert {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+}
+.fx-breach-skull {
+  font-size: clamp(48px, 8vw, 96px);
+  display: block; margin-bottom: 16px;
+  animation: fxSkullPulse 0.6s ease-in-out infinite alternate;
+}
+@keyframes fxSkullPulse {
+  0%   { text-shadow: 0 0 20px rgba(255,0,40,0.6); transform: scale(1); }
+  100% { text-shadow: 0 0 60px rgba(255,0,40,1); transform: scale(1.06); }
+}
+.fx-breach-headline {
+  font-size: clamp(22px, 4vw, 48px); font-weight: 800;
+  color: #ff0028; letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-shadow: 0 0 30px rgba(255,0,40,0.8);
+  animation: fxBreachGlitch 1.8s infinite;
+}
+@keyframes fxBreachGlitch {
+  0%,92%,100% { clip-path: none; transform: none; }
+  93%   { clip-path: inset(30% 0 40% 0); transform: translate(-4px, 0); }
+  94%   { clip-path: inset(60% 0 10% 0); transform: translate(4px, 0); }
+  95%   { clip-path: none; transform: none; }
+}
+.fx-breach-sub {
+  font-size: clamp(11px, 1.5vw, 14px); color: rgba(255,255,255,0.7);
+  letter-spacing: 0.2em; text-transform: uppercase;
+  margin-top: 12px;
+}
+.fx-breach-logs {
+  position: absolute; bottom: 32px; left: 32px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: rgba(255,0,40,0.7);
+  letter-spacing: 0.08em; line-height: 1.9;
+  max-width: 400px;
+}
+.fx-breach-log-line { opacity: 0; animation: fxFadeIn 0.3s ease forwards; }
+@keyframes fxFadeIn { to { opacity: 1; } }
+body.fx-breach-active {
+  animation: fxBreachBodyPulse 0.8s ease-in-out infinite;
+}
+@keyframes fxBreachBodyPulse {
+  0%,100% { filter: brightness(1) hue-rotate(0deg); }
+  50%     { filter: brightness(0.92) hue-rotate(5deg) contrast(1.1); }
+}
+
+/* ─────────────────────────────────────────────────────
+   DEPLOY-PROD.SH — CI/CD pipeline cinematic deploy
+───────────────────────────────────────────────────── */
+#fxDeploy {
+  background: rgba(0,0,0,0.85);
+  display: flex; align-items: center; justify-content: center;
+}
+.fx-deploy-panel {
+  width: min(720px, 90vw);
+  background: rgba(2, 6, 14, 0.98);
+  border: 1px solid rgba(0,255,136,0.25);
+  border-radius: 14px; padding: 28px 32px;
+  box-shadow: 0 0 60px rgba(0,255,136,0.1);
+  font-family: 'JetBrains Mono', monospace;
+  max-height: 90vh; overflow-y: auto;
+}
+.fx-deploy-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 20px; padding-bottom: 14px;
+  border-bottom: 1px solid rgba(0,255,136,0.15);
+}
+.fx-deploy-spinner {
+  width: 14px; height: 14px;
+  border: 2px solid rgba(0,255,136,0.2);
+  border-top-color: #00ff88;
+  border-radius: 50%;
+  animation: fxSpin 0.7s linear infinite;
+}
+@keyframes fxSpin { to { transform: rotate(360deg); } }
+.fx-deploy-title {
+  font-size: 13px; font-weight: 700; letter-spacing: 0.12em;
+  color: #00ff88; text-transform: uppercase;
+}
+.fx-deploy-steps { display: flex; flex-direction: column; gap: 0; }
+.fx-deploy-step {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 8px 0; font-size: 12px; letter-spacing: 0.04em;
+  opacity: 0; transform: translateY(4px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.fx-deploy-step.show { opacity: 1; transform: translateY(0); }
+.fx-deploy-step-icon { width: 18px; flex-shrink: 0; text-align: center; }
+.fx-step-ok    { color: #00ff88; }
+.fx-step-run   { color: #38bdf8; }
+.fx-step-warn  { color: #f0c040; }
+.fx-step-text  { color: rgba(255,255,255,0.7); }
+.fx-step-time  { margin-left: auto; color: rgba(255,255,255,0.3); font-size: 11px; }
+.fx-deploy-success {
+  margin-top: 20px; padding: 14px 18px;
+  background: rgba(0,255,136,0.06);
+  border: 1px solid rgba(0,255,136,0.25);
+  border-radius: 8px; text-align: center;
+  font-size: 13px; font-weight: 700; color: #00ff88;
+  letter-spacing: 0.1em;
+  opacity: 0; transition: opacity 0.6s ease;
+}
+.fx-deploy-success.show { opacity: 1; }
+
+/* ─────────────────────────────────────────────────────
+   BLACKOUT.SH — Power failure + emergency lights
+───────────────────────────────────────────────────── */
+#fxBlackout {
+  background: #000;
+  display: flex; align-items: center; justify-content: center;
+}
+.fx-blackout-content {
+  text-align: center; font-family: 'JetBrains Mono', monospace;
+  opacity: 0; transition: opacity 0.4s ease;
+}
+.fx-blackout-content.show { opacity: 1; }
+.fx-emergency-lights {
+  position: absolute; inset: 0; pointer-events: none;
+}
+.fx-emergency-beam {
+  position: absolute; top: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(255,50,0,0.8), transparent 60%);
+  animation: fxBeamScan 2s linear infinite;
+}
+@keyframes fxBeamScan {
+  0%   { left: 0%; opacity: 1; }
+  49%  { left: 100%; opacity: 1; }
+  50%  { left: 100%; opacity: 0; }
+  51%  { left: 0%; opacity: 0; }
+  52%  { left: 0%; opacity: 1; }
+  100% { left: 100%; opacity: 1; }
+}
+.fx-blackout-icon { font-size: 56px; display: block; margin-bottom: 16px; }
+.fx-blackout-text {
+  font-size: clamp(16px, 2.5vw, 28px); font-weight: 700;
+  color: rgba(255,50,0,0.9); letter-spacing: 0.2em;
+  text-shadow: 0 0 20px rgba(255,50,0,0.6);
+  animation: fxFlicker 0.15s steps(1) infinite;
+}
+@keyframes fxFlicker {
+  0%,45%,55%,100% { opacity: 1; }
+  46%,54%         { opacity: 0; }
+}
+.fx-restore-bar-wrap {
+  margin-top: 20px; height: 4px;
+  background: rgba(255,255,255,0.1); border-radius: 2px;
+  width: 280px; overflow: hidden;
+}
+.fx-restore-bar {
+  height: 100%; background: rgba(255,50,0,0.8);
+  border-radius: 2px; width: 0;
+  transition: width 0.1s linear;
+}
+body.fx-blackout-active { filter: brightness(0.15); }
+body.fx-blackout-flicker {
+  animation: fxPowerFlicker 0.08s steps(1) 5;
+}
+@keyframes fxPowerFlicker {
+  0%,100% { filter: brightness(1); }
+  50%     { filter: brightness(0.05); }
+}
+
+#fxGravityOverlay {
+  position: fixed; inset: 0;
+  background: radial-gradient(ellipse at bottom, rgba(56,189,248,0.07) 0%, transparent 60%);
+  pointer-events: none; z-index: 999979;
+  opacity: 0; transition: opacity 0.8s ease;
+}
+#fxGravityOverlay.fx-active { opacity: 1; }
+
+/* ─────────────────────────────────────────────────────
+   PULSE.SH — Synchronized UI heartbeat glow
+───────────────────────────────────────────────────── */
+body.fx-pulse-active {
+  animation: fxGlobalPulse 1.2s ease-in-out infinite;
+}
+@keyframes fxGlobalPulse {
+  0%,100% { filter: brightness(1) saturate(1); }
+  50%      { filter: brightness(1.12) saturate(1.6); }
+}
+#fxPulseOverlay {
+  background: transparent;
+  pointer-events: none;
+}
+#fxPulseRing {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0; height: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(0,255,136,0);
+  animation: none;
+}
+body.fx-pulse-active #fxPulseRing {
+  animation: fxPulseExpand 1.2s ease-out infinite;
+}
+@keyframes fxPulseExpand {
+  0%   { width: 0; height: 0; border-color: rgba(0,255,136,0.8); opacity: 1; }
+  100% { width: 200vmax; height: 200vmax; border-color: rgba(0,255,136,0); opacity: 0; }
+}
+
+/* ─────────────────────────────────────────────────────
+   RAIN.SH — Atmospheric rain overlay
+───────────────────────────────────────────────────── */
+#fxRain {
+  background: rgba(0,5,12,0.0);
+  pointer-events: none;
+}
+#fxRainCanvas {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+}
+.fx-thunder-flash {
+  position: absolute; inset: 0;
+  background: rgba(200,220,255,0.8);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.05s;
+}
+.fx-thunder-flash.on { opacity: 1; }
+body.fx-rain-active {
+  filter: brightness(0.85) saturate(0.8) contrast(1.1);
+  transition: filter 0.3s ease;
+}
+
+/* ─────────────────────────────────────────────────────
+   NUCLEAR.SH — DEFCON / countdown emergency
+───────────────────────────────────────────────────── */
+#fxNuclear {
+  background: rgba(0,0,0,0.94);
+  display: flex; align-items: center; justify-content: center;
+}
+#fxNuclear::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.02) 0px, rgba(255,0,0,0.02) 1px,
+    transparent 1px, transparent 60px
+  ),
+  repeating-linear-gradient(
+    0deg,
+    rgba(255, 0, 0, 0.02) 0px, rgba(255,0,0,0.02) 1px,
+    transparent 1px, transparent 60px
+  );
+  pointer-events: none;
+  animation: fxGridScroll 8s linear infinite;
+}
+@keyframes fxGridScroll {
+  0%   { transform: translate(0, 0); }
+  100% { transform: translate(60px, 60px); }
+}
+.fx-nuclear-panel {
+  width: min(660px, 90vw);
+  font-family: 'JetBrains Mono', monospace;
+  text-align: center;
+  position: relative; z-index: 1;
+}
+.fx-defcon-label {
+  font-size: 11px; letter-spacing: 0.3em; color: rgba(255,255,255,0.4);
+  text-transform: uppercase; margin-bottom: 6px;
+}
+.fx-defcon-level {
+  font-size: clamp(48px, 10vw, 100px); font-weight: 900;
+  color: #ff0000;
+  text-shadow: 0 0 30px rgba(255,0,0,0.8), 0 0 80px rgba(255,0,0,0.3);
+  line-height: 1;
+  animation: fxDefconPulse 0.6s ease-in-out infinite alternate;
+}
+@keyframes fxDefconPulse {
+  0%   { text-shadow: 0 0 30px rgba(255,0,0,0.8), 0 0 80px rgba(255,0,0,0.3); }
+  100% { text-shadow: 0 0 60px rgba(255,0,0,1), 0 0 120px rgba(255,0,0,0.6); }
+}
+.fx-nuclear-headline {
+  font-size: clamp(14px, 2.5vw, 22px); font-weight: 700;
+  color: rgba(255,255,255,0.9); letter-spacing: 0.16em;
+  text-transform: uppercase; margin-top: 8px;
+}
+.fx-countdown-wrap {
+  margin: 28px 0;
+  display: flex; justify-content: center; gap: 0;
+}
+.fx-countdown-display {
+  font-size: clamp(40px, 8vw, 80px); font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  color: #ff0000;
+  letter-spacing: 0.06em;
+  text-shadow: 0 0 20px rgba(255,0,0,0.9);
+  animation: fxCountdownTick 1s steps(1) infinite;
+}
+@keyframes fxCountdownTick {
+  0%,49% { opacity: 1; }
+  50%,100%{ opacity: 0.85; }
+}
+.fx-nuclear-status-lines {
+  display: flex; flex-direction: column; gap: 4px;
+  font-size: 11px; letter-spacing: 0.1em;
+  color: rgba(255,0,0,0.7); text-transform: uppercase;
+}
+.fx-nuclear-aborted {
+  margin-top: 24px; font-size: 18px; font-weight: 700;
+  color: #00ff88; letter-spacing: 0.2em;
+  text-shadow: 0 0 20px rgba(0,255,136,0.8);
+  opacity: 0; transition: opacity 0.8s ease;
+}
+.fx-nuclear-aborted.show { opacity: 1; }
+body.fx-nuclear-active {
+  animation: fxNuclearShake 0.05s ease-in-out infinite;
+}
+@keyframes fxNuclearShake {
+  0%,100% { transform: translate(0,0); }
+  25%     { transform: translate(-2px, 1px); }
+  75%     { transform: translate(2px, -1px); }
+}
+
+/* ─────────────────────────────────────────────────────
+   CLEANLOGS.SH — Log maintenance sequence
+───────────────────────────────────────────────────── */
+#fxCleanlogs {
+  background: rgba(0,0,0,0.85);
+  display: flex; align-items: center; justify-content: center;
+}
+.fx-cleanlogs-panel {
+  width: min(700px, 90vw);
+  background: rgba(2, 6, 14, 0.97);
+  border: 1px solid rgba(56,189,248,0.2);
+  border-radius: 14px; padding: 28px 32px;
+  box-shadow: 0 0 40px rgba(56,189,248,0.08);
+  font-family: 'JetBrains Mono', monospace;
+  max-height: 85vh; overflow: hidden;
+}
+.fx-cleanlogs-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 18px; padding-bottom: 14px;
+  border-bottom: 1px solid rgba(56,189,248,0.15);
+}
+.fx-cleanlogs-icon { font-size: 18px; }
+.fx-cleanlogs-title {
+  font-size: 13px; font-weight: 700; letter-spacing: 0.12em;
+  color: #38bdf8; text-transform: uppercase;
+}
+.fx-cleanlogs-progress {
+  margin-bottom: 16px;
+}
+.fx-cl-prog-label {
+  display: flex; justify-content: space-between;
+  font-size: 11px; color: rgba(255,255,255,0.4);
+  margin-bottom: 6px;
+}
+.fx-cl-bar-wrap {
+  height: 6px; background: rgba(255,255,255,0.06);
+  border-radius: 3px; overflow: hidden;
+}
+.fx-cl-bar {
+  height: 100%; width: 0;
+  background: linear-gradient(90deg, #1e40af, #38bdf8);
+  border-radius: 3px; transition: width 0.15s linear;
+}
+.fx-cleanlogs-feed {
+  height: 280px; overflow: hidden;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.fx-cl-log {
+  font-size: 11px; padding: 3px 6px;
+  opacity: 0; transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.fx-cl-log.show { opacity: 1; transform: translateY(0); }
+.fx-cl-deleted { color: rgba(255,60,0,0.7); }
+.fx-cl-archived { color: rgba(240,192,64,0.7); }
+.fx-cl-ok { color: rgba(0,255,136,0.8); }
+.fx-cl-dim { color: rgba(255,255,255,0.2); }
+.fx-cl-done {
+  margin-top: 14px; padding: 10px 14px;
+  background: rgba(0,255,136,0.05);
+  border: 1px solid rgba(0,255,136,0.2);
+  border-radius: 6px; font-size: 12px; font-weight: 700;
+  color: #00ff88; letter-spacing: 0.08em;
+  opacity: 0; transition: opacity 0.4s ease;
+}
+.fx-cl-done.show { opacity: 1; }
+
+/* ─────────────────────────────────────────────────────
+   Shared scanline overlay for immersion
+───────────────────────────────────────────────────── */
+.fx-scanlines {
+  position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px, transparent 2px,
+    rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px
+  );
+  opacity: 0.5;
+}
