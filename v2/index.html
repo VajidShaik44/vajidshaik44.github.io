@@ -1,345 +1,1273 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <!-- SEO Meta Tags -->
-  <title>Vajid Shaik | DevOps Engineer — Hyderabad</title>
-  <meta name="description" content="Vajid Shaik is a DevOps Engineer specializing in end-to-end CI/CD automation, AWS cloud architecture, containerized environments via Kubernetes, and Infrastructure as Code (IaC)." />
-  <meta name="keywords" content="DevOps Engineer, Vajid Shaik, CI/CD, AWS, Kubernetes, Terraform, Docker, Nginx, Linux, Jenkins, Hyderabad, India" />
+  <title>Vajid Shaik | DevOps Engineer â€” Infrastructure & CI/CD</title>
+  <meta name="description" content="Vajid Shaik â€” DevOps Engineer specializing in CI/CD automation, AWS infrastructure, Kubernetes, Docker, and Terraform. Based in Hyderabad, India." />
+  <meta name="keywords" content="DevOps Engineer, CI/CD, AWS, Kubernetes, Docker, Terraform, Ansible, Jenkins, Hyderabad" />
   <meta name="author" content="Vajid Shaik" />
-  <link rel="canonical" href="https://vajidshaik44.github.io/v2/" />
-
-  <!-- Open Graph / LinkedIn Preview Metadata -->
-  <meta property="og:title" content="Vajid Shaik | DevOps Engineer — Hyderabad" />
-  <meta property="og:description" content="Automating release engineering and infrastructure systems. Specializing in CI/CD, AWS cloud design, and Kubernetes management." />
+  <meta name="theme-color" content="#02060d" />
+  <meta property="og:title" content="Vajid Shaik â€” DevOps Engineer" />
+  <meta property="og:description" content="Automating Infrastructure | Building Reliable CI/CD Systems | Cloud Native Engineering" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://vajidshaik44.github.io/v2/" />
-  <!-- TODO: Take a screenshot of the hero section and place it at assets/images/og-preview.png -->
-  <meta property="og:image" content="https://vajidshaik44.github.io/v2/assets/images/og-preview.png" />
-  <meta property="og:site_name" content="Vajid Shaik Portfolio" />
-
-  <!-- Fonts & Styling -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
+  <link rel="canonical" href="https://vajidshaik44.github.io/v2/" />
   <link rel="icon" type="image/svg+xml" href="/v2/favicon.svg" />
   <link rel="shortcut icon" href="/v2/favicon.svg" />
-  <link rel="stylesheet" href="/v2/assets/css/styles.css" />
-
-  <!-- Schema.org JSON-LD Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Vajid Shaik",
-    "jobTitle": "DevOps Engineer",
-    "url": "https://vajidshaik44.github.io",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Hyderabad",
-      "addressRegion": "Telangana",
-      "addressCountry": "India"
-    },
-    "alumniOf": {
-      "@type": "EducationalOrganization",
-      "name": "JNTU Hyderabad"
-    },
-    "sameAs": [
-      "https://github.com/VajidShaik44",
-      "https://www.linkedin.com/in/vajid-shaik"
-    ]
-  }
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" />
+  <script>
+    (function () {
+      try {
+        var storedTheme = localStorage.getItem('portfolio-theme');
+        if (storedTheme === 'light' || storedTheme === 'dark') {
+          document.documentElement.setAttribute('data-theme', storedTheme);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (error) {}
+    })();
   </script>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="terminal-interactive.css" />
+  <link rel="stylesheet" href="terminal-effects.css" />
+  <link rel="stylesheet" href="premium-upgrade.css" />
+  <style>
+    /* Ticker bar offset â€” ensures navbar and hero sit below the 28px ticker */
+    :root { --ticker-h: 28px; }
+    body   { padding-top: var(--ticker-h); }
+    #navbar { top: var(--ticker-h) !important; }
+    #hero   { padding-top: calc(var(--nav-h) + var(--ticker-h)); }
+    @media (max-width: 600px) {
+      :root { --ticker-h: 24px; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- ── 1. LOADING SCREEN ── -->
-  <div id="loader" aria-live="polite" aria-label="Loading portfolio configurations">
-    <div class="loader-container">
-      <div class="loader-text">Booting...</div>
-      <div class="loader-bar-track">
-        <div class="loader-bar-fill"></div>
-      </div>
+<!-- â–‘â–‘ KERNEL BOOT LOADER â–‘â–‘ -->
+<div id="loader">
+  <div class="boot-wrap">
+    <div class="boot-screen" id="bootScreen"></div>
+    <div class="boot-bar-row">
+      <span class="boot-bar-label" id="bootBarLabel">LOADING</span>
+      <div class="boot-bar-track"><div class="boot-bar-fill" id="bootBarFill"></div></div>
+      <span class="boot-bar-pct" id="bootBarPct">0%</span>
     </div>
   </div>
+</div>
 
-  <!-- ── 1.5 OPERATIONS Status BAR ── -->
-  <div id="ops-ticker" role="status" aria-label="Operations status ticker">
-    <div class="ticker-item">
-      <span class="status-dot green" id="ticker-pods-dot"></span>
-      pods:<strong id="ticker-pods-val">3/3 running</strong>
-    </div>
-    <span class="ticker-separator">|</span>
-    <div class="ticker-item">
-      <span class="status-dot green" id="ticker-cicd-dot"></span>
-      CI/CD:<strong id="ticker-cicd-val">last build 2m ago ✓</strong>
-    </div>
-    <span class="ticker-separator">|</span>
-    <div class="ticker-item">
-      <span class="status-dot green"></span>
-      uptime:<strong>99.97%</strong>
-    </div>
-    <span class="ticker-separator">|</span>
-    <div class="ticker-item">
-      <span class="status-dot green" id="ticker-elk-dot"></span>
-      ELK:<strong id="ticker-elk-val">0 errors</strong>
-    </div>
-    <span class="ticker-separator">|</span>
-    <div class="ticker-item">
-      <span class="status-dot green"></span>
-      nginx:<strong>healthy</strong>
-    </div>
-    <span class="ticker-separator">|</span>
-    <div class="ticker-item">
-      <span>IST:</span><strong id="ticker-time-val">--:--:--</strong>
+<!-- â–‘â–‘ CUSTOM CURSOR â–‘â–‘ -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- â–‘â–‘ SCROLL PROGRESS â–‘â–‘ -->
+<div id="scroll-progress"></div>
+
+<!-- â–‘â–‘ MATRIX RAIN EASTER EGG â–‘â–‘ -->
+<div id="matrixOverlay" style="display:none;position:fixed;inset:0;z-index:999999;pointer-events:none;">
+  <canvas id="matrixCanvas" style="display:block;width:100%;height:100%;"></canvas>
+  <div id="matrixMsg" style="
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    font-family:'JetBrains Mono',monospace;font-size:clamp(20px,4vw,42px);
+    font-weight:700;color:#00ff88;text-align:center;opacity:0;
+    text-shadow:0 0 20px #00ff88,0 0 40px #00ff88,0 0 80px #00ff88;
+    transition:opacity 0.6s;letter-spacing:0.12em;white-space:nowrap;">
+    ACCESS GRANTED<br>
+    <span style="font-size:0.45em;opacity:0.7;letter-spacing:0.2em;">WELCOME, VAJID SHAIK</span>
+  </div>
+</div>
+
+<!-- â–‘â–‘ PARTICLE CANVAS â–‘â–‘ -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- â–‘â–‘ NAV â–‘â–‘ -->
+<!-- â–‘â–‘ INFRA STATUS TICKER â–‘â–‘ -->
+<div id="statusTicker" class="st-bar">
+  <div class="st-track">
+    <div class="st-inner" id="stInner">
+
+      <span class="st-item">
+        <span class="st-dot st-green"></span>
+        <span class="st-key">PROD</span>
+        <span class="st-val" id="stPods">3/3 pods running</span>
+      </span>
+
+      <span class="st-sep">|</span>
+
+      <span class="st-item">
+        <span class="st-dot st-green"></span>
+        <span class="st-key">CI</span>
+        <span class="st-val" id="stBuild">Last build 2m ago âœ“</span>
+      </span>
+
+      <span class="st-sep">|</span>
+
+      <span class="st-item">
+        <span class="st-dot st-blue"></span>
+        <span class="st-key">UPTIME</span>
+        <span class="st-val">99.97%</span>
+      </span>
+
+      <span class="st-sep">|</span>
+
+      <span class="st-item">
+        <span class="st-dot st-yellow"></span>
+        <span class="st-key">ELK</span>
+        <span class="st-val" id="stElk">Logstash ingesting Â· 0 errors</span>
+      </span>
+
+      <span class="st-sep">|</span>
+
+      <span class="st-item">
+        <span class="st-dot st-green"></span>
+        <span class="st-key">NGINX</span>
+        <span class="st-val">reverse proxy Â· healthy</span>
+      </span>
+
+      <span class="st-sep">|</span>
+
+      <span class="st-item">
+        <span class="st-dot st-blue"></span>
+        <span class="st-key">HYD, IN</span>
+        <span class="st-val st-clock" id="stClock">--:--:--</span>
+      </span>
+
     </div>
   </div>
+</div>
 
-  <!-- ── 2. NAVIGATION BAR ── -->
-  <nav id="navbar" role="navigation" aria-label="Main Navigation">
-    <div class="nav-container">
-      <a href="#hero" class="nav-logo">[VS]</a>
-      
-      <!-- Desktop links -->
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#infrastructure">Infrastructure</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-
-      <!-- Hamburger Trigger for mobile -->
-      <button class="hamburger" id="hamburger-trigger" aria-expanded="false" aria-controls="mobile-nav-menu" aria-label="Open navigation menu">
-        <span></span>
-        <span></span>
-        <span></span>
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">
+      <span class="logo-bracket">[</span>VS<span class="logo-bracket">]</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#architecture">Architecture</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#github">GitHub</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch color theme" aria-pressed="false">
+        <span class="theme-toggle-icon" id="themeToggleIcon">LM</span>
+        <span class="theme-toggle-text" id="themeToggleText">Light mode</span>
       </button>
     </div>
-  </nav>
-
-  <!-- Mobile navigation panel -->
-  <div class="mobile-nav-panel" id="mobile-nav-menu">
-    <ul class="mobile-nav-links">
-      <li><a href="#about" class="mobile-link">About</a></li>
-      <li><a href="#infrastructure" class="mobile-link">Infrastructure</a></li>
-      <li><a href="#projects" class="mobile-link">Projects</a></li>
-      <li><a href="#experience" class="mobile-link">Experience</a></li>
-      <li><a href="#contact" class="mobile-link">Contact</a></li>
-    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#architecture" class="mobile-link">Architecture</a>
+    <a href="#projects" class="mobile-link">Projects</a>
+    <a href="#experience" class="mobile-link">Experience</a>
+    <a href="#github" class="mobile-link">GitHub</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+  </div>
+</nav>
 
-  <!-- ── 3. MAIN PAGE SECTIONS ── -->
-  <main id="main-content">
-    
-    <!-- Hero Section -->
-    <section id="hero" class="section-placeholder">
-      <div class="hero-wrapper">
-        <div class="section-header" style="margin-bottom: var(--spacing-unit);">
-          <span class="subtitle" style="font-family: var(--font-mono); color: var(--accent-green); font-size: 13px;">vajid@devops:~$ whoami</span>
-          <h1 style="font-size: clamp(32px, 6vw, 56px); margin-top: calc(var(--spacing-unit) * 1.5); margin-bottom: calc(var(--spacing-unit) * 2);">I keep production systems running.</h1>
-        </div>
-        
-        <p class="hero-description">
-          DevOps Engineer specializing in CI/CD automation, Kubernetes deployments, and AWS infrastructure. Currently at Zerocode Innovations, Hyderabad.
-        </p>
+<!-- â–‘â–‘ HERO â–‘â–‘ -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-terminal-badge">
+      <span class="terminal-dot red"></span>
+      <span class="terminal-dot yellow"></span>
+      <span class="terminal-dot green"></span>
+      <span class="terminal-badge-text">vajid@devops:~$</span>
+    </div>
 
-        <div class="hero-metrics">
-          <span class="metric-pill">70% faster deploys</span>
-          <span class="metric-pill">9 services on systemd</span>
-          <span class="metric-pill">99.97% uptime SLA</span>
-        </div>
+    <h1 class="hero-name">
+      <span class="name-line" data-text="Vajid">Vajid</span>
+      <span class="name-line accent-green" data-text="Shaik">Shaik</span>
+    </h1>
 
-        <div class="cta-container">
-          <a href="#infrastructure" class="btn-primary">View Infrastructure &rarr;</a>
-          <a href="/v2/assets/resume/vajid-shaik-devops-resume.pdf" download class="btn-secondary">Download Resume</a>
-        </div>
+    <div class="hero-title-wrap">
+      <span class="hero-title-prefix">//</span>
+      <span class="hero-title-text" id="typedTitle"></span>
+      <span class="cursor-blink">_</span>
+    </div>
 
-        <!-- Interactive Linux Terminal Simulator -->
-        <div class="terminal-cli-block">
-          <div class="terminal-cli-header">
-            <div class="terminal-buttons">
-              <span class="terminal-btn close"></span>
-              <span class="terminal-btn minimize"></span>
-              <span class="terminal-btn maximize"></span>
-            </div>
-            <div class="terminal-title">vajid@devops:~/terminal</div>
-          </div>
-          <div class="terminal-cli-body" id="terminal-body-click">
-            <div class="terminal-cli-output" id="terminal-cli-output">Welcome to Vajid Shaik's interactive DevOps console.
-Type <span class="term-warning term-bold">help</span> to view available system commands.
-</div>
-            <div class="terminal-input-line">
-              <span class="terminal-cli-prompt">vajid@devops:~$</span>
-              <input type="text" class="terminal-cli-input" id="terminal-cli-input" autofocus autocomplete="off" spellcheck="false" aria-label="Terminal input line" />
-            </div>
-          </div>
-        </div>
+    <p class="hero-tagline">
+      Automating Infrastructure &nbsp;Â·&nbsp; Building Reliable CI/CD Systems &nbsp;Â·&nbsp; Cloud Native Engineering
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#projects" class="btn btn-primary magnetic">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        View Projects
+      </a>
+      <a href="/v2/assets/resume/vajid-shaik-devops-resume.pdf" download class="btn btn-secondary magnetic">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Resume
+      </a>
+      <a href="#contact" class="btn btn-ghost magnetic">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Contact Me
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num counter" data-target="70" data-suffix="%">0%</span>
+        <span class="stat-label">Deploy Speed</span>
       </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="section-placeholder">
-      <div class="section-header">
-        <span class="subtitle">01 / Bio-Data</span>
-        <h2>About Me</h2>
-        <p>Operational background and core systems philosophy.</p>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num counter" data-target="15" data-suffix="+">0+</span>
+        <span class="stat-label">Months Experience</span>
       </div>
-      <p style="color: var(--text-secondary);">[About content to be filled in P-04]</p>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="section-placeholder">
-      <div class="section-header">
-        <span class="subtitle">02 / Capabilities</span>
-        <h2>Skills Stack</h2>
-        <p>Orchestration, pipelines, infrastructure as code, and cloud platforms.</p>
-      </div>
-      <p style="color: var(--text-secondary);">[Skills content to be filled in P-05]</p>
-    </section>
-
-    <!-- Infrastructure Section -->
-    <section id="infrastructure" class="section-placeholder">
-      <div class="section-header">
-        <span class="subtitle">03 / Architecture Topology</span>
-        <h2>Production Infrastructure</h2>
-        <p>High availability, cloud provisioning, and pipeline visualization.</p>
-      </div>
-      <p style="color: var(--text-secondary);">[Infrastructure content to be filled in P-06]</p>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="section-placeholder">
-      <div class="section-header">
-        <span class="subtitle">04 / Code Deployments</span>
-        <h2>Featured Work</h2>
-        <p>Real-world client automation cases and cloud system modernizations.</p>
-      </div>
-      <p style="color: var(--text-secondary);">[Projects content to be filled in P-07]</p>
-    </section>
-
-    <!-- Experience Section -->
-    <section id="experience" class="section-placeholder">
-      <div class="section-header">
-        <span class="subtitle">05 / Systems Log</span>
-        <h2>Work Experience</h2>
-        <p>Production history at Zerocode Innovations Pvt Ltd.</p>
-      </div>
-      <p style="color: var(--text-secondary);">[Experience content to be filled in P-08]</p>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="section-placeholder">
-      <div class="section-header">
-        <span class="subtitle">06 / SSH Connection</span>
-        <h2>Get In Touch</h2>
-        <p>Establish an encrypted connection or leave an automated message.</p>
-      </div>
-      <p style="color: var(--text-secondary);">[Contact content to be filled in P-09]</p>
-    </section>
-
-  </main>
-
-  <!-- ── 4. FOOTER COMPONENT ── -->
-  <footer class="footer" role="contentinfo">
-    <div class="footer-container">
-      <div class="footer-top">
-        <div class="footer-prompt" aria-label="Terminal Prompt">
-          <span class="prompt-host">vajid@devops</span><span class="prompt-text">:~$ echo $STATUS</span>
-        </div>
-        <div class="badge-tag green">
-          <span class="status-dot green"></span>
-          OPEN TO WORK
-        </div>
-      </div>
-
-      <div class="footer-links" aria-label="Terminal Links">
-        <div>
-          <span style="color: var(--text-secondary);">vajid@devops:~$</span> 
-          <a href="https://github.com/VajidShaik44" target="_blank" rel="noopener">cat github.txt</a>
-        </div>
-        <div>
-          <span style="color: var(--text-secondary);">vajid@devops:~$</span> 
-          <a href="https://www.linkedin.com/in/vajid-shaik" target="_blank" rel="noopener">cat linkedin.txt</a>
-        </div>
-        <div>
-          <span style="color: var(--text-secondary);">vajid@devops:~$</span> 
-          <a href="mailto:shaikvajid484@gmail.com">cat email.txt</a>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <span>&copy; 2026 Vajid Shaik · All Rights Reserved</span>
-        <span>Infrastructure: Operational &amp; Observability Nominal</span>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num counter" data-target="5" data-suffix="+">0+</span>
+        <span class="stat-label">WAR Services</span>
       </div>
     </div>
-  </footer>
+  </div>
 
-  <!-- ── 5. CORE LAYOUT SCRIPTS ── -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      // 1. Force remove loader overlay under 1.5s
-      setTimeout(function () {
-        document.body.classList.add("loaded");
-      }, 1200);
+  <!-- â–‘â–‘ INTERACTIVE TERMINAL â–‘â–‘ -->
+  <div class="hero-terminal" id="heroTerminal" tabindex="0" role="region" aria-label="Interactive terminal â€” type help to explore">
+    <div class="it-header">
+      <span class="it-dot it-red"></span>
+      <span class="it-dot it-yellow"></span>
+      <span class="it-dot it-green"></span>
+      <span class="it-title" id="it-title">vajid@devops:~</span>
+      <span class="it-hint" id="it-hint">click &amp; type <span style="color:#e3b341;font-weight:600">help</span></span>
+    </div>
+    <div class="it-body" id="terminalBody">
+      <div id="it-output"></div>
+      <div class="it-input-row" id="it-input-row">
+        <span class="it-prompt">vajid@devops:~$&nbsp;</span><span class="it-input-text" id="it-typed"></span><span class="it-cursor" id="it-cursor"></span>
+      </div>
+    </div>
+    <div class="terminal-toolbar" aria-label="Terminal shortcuts">
+      <button class="terminal-chip" type="button" data-terminal-command="help">help</button>
+      <button class="terminal-chip" type="button" data-terminal-command="neofetch">neofetch</button>
+      <button class="terminal-chip" type="button" data-terminal-command="uptime">uptime</button>
+      <button class="terminal-chip terminal-chip-accent" type="button" id="terminalThemeCommand" data-terminal-command="theme light">theme light</button>
+    </div>
+    <div class="terminal-statusbar" aria-hidden="true">
+      <span class="terminal-status-meta">
+        <span class="terminal-status-dot"></span>
+        shell synced
+      </span>
+      <span class="terminal-status-meta">
+        theme
+        <strong class="terminal-status-value" data-theme-value>dark</strong>
+      </span>
+      <span class="terminal-status-meta">
+        shortcut
+        <strong class="terminal-status-value">Tab autocomplete</strong>
+      </span>
+    </div>
+  </div>
 
-      // 2. Navigation Scroll Effect
-      const navbar = document.getElementById("navbar");
-      window.addEventListener("scroll", function () {
-        if (window.scrollY > 20) {
-          navbar.classList.add("scrolled");
-        } else {
-          navbar.classList.remove("scrolled");
-        }
-      });
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    <span>scroll</span>
+  </div>
+</section>
 
-      // 3. Mobile Hamburger Menu Toggle
-      const trigger = document.getElementById("hamburger-trigger");
-      const menu = document.getElementById("mobile-nav-menu");
-      const links = document.querySelectorAll(".mobile-link");
+<style>
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   PRODUCTION ARCHITECTURE
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
-      function toggleMenu() {
-        const isOpen = trigger.classList.toggle("open");
-        menu.classList.toggle("open");
-        trigger.setAttribute("aria-expanded", isOpen);
-      }
+#architecture {
+  position: relative;
+  overflow: hidden;
+}
 
-      trigger.addEventListener("click", toggleMenu);
+#architecture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top left, rgba(0,255,136,0.05), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(56,189,248,0.04), transparent 35%);
+  pointer-events: none;
+}
 
-      links.forEach(function (link) {
-        link.addEventListener("click", toggleMenu);
-      });
+.architecture-flow {
+  margin-top: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  position: relative;
+  z-index: 1;
+}
 
-      // 4. Update Navigation Links Active Class on Scroll
-      const sections = document.querySelectorAll("section");
-      const navItems = document.querySelectorAll(".nav-links a");
+.arch-box {
+  width: 220px;
+  min-height: 230px;
+  padding: 26px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.03);
+}
+</style>
 
-      window.addEventListener("scroll", function () {
-        let current = "";
-        sections.forEach(function (section) {
-          const sectionTop = section.offsetTop;
-          const sectionHeight = section.clientHeight;
-          if (window.scrollY >= (sectionTop - varHOffset())) {
-            current = section.getAttribute("id");
-          }
-        });
+<!-- â–‘â–‘ ABOUT â–‘â–‘ -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="section-label">
+      <span class="label-line"></span>
+      <span class="label-text scramble">01 / about</span>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <h2 class="section-title">Engineering <span class="accent-green">Reliability</span><br>at Scale</h2>
+        <p class="about-desc">
+          DevOps Engineer with hands-on production experience building and maintaining CI/CD pipelines, cloud infrastructure, and containerized deployments. Currently at <strong>Zerocode Innovations Pvt Ltd</strong> in Hyderabad, where I've taken full ownership of the deployment lifecycle across multi-server Java WAR architectures.
+        </p>
+        <p class="about-desc">
+          I believe in infrastructure that's automated, observable, and recoverable. From writing Terraform modules to debugging Nginx reverse proxies at 2 AM â€” I operate at the intersection of development speed and operational stability.
+        </p>
+        <div class="about-highlights">
+          <div class="highlight-item">
+            <span class="highlight-icon">&#9889;</span>
+            <div><strong>CI/CD Automation</strong><span>GitHub Actions &amp; Jenkins pipelines for Java WAR services</span></div>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-icon">&#9729;&#65039;</span>
+            <div><strong>Cloud Infrastructure</strong><span>AWS EC2, S3, IAM, VPC â€” managed end-to-end</span></div>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-icon">&#128051;</span>
+            <div><strong>Containerization</strong><span>Docker containerization and Kubernetes orchestration</span></div>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-icon">&#128230;</span>
+            <div><strong>Infrastructure as Code</strong><span>Terraform provisioning with version-controlled infra</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="about-right">
+        <div class="about-card">
+          <div class="about-card-header"><span class="t-prompt">$</span> whoami</div>
+          <div class="about-card-body">
+            <div class="info-row"><span class="info-key">name</span><span class="info-val">"Vajid Shaik"</span></div>
+            <div class="info-row"><span class="info-key">role</span><span class="info-val">"DevOps Engineer"</span></div>
+            <div class="info-row"><span class="info-key">location</span><span class="info-val">"Hyderabad, India"</span></div>
+            <div class="info-row"><span class="info-key">company</span><span class="info-val">"Zerocode Innovations"</span></div>
+            <div class="info-row"><span class="info-key">focus</span><span class="info-val">"CI/CD, Cloud, IaC"</span></div>
+            <div class="info-row"><span class="info-key">os</span><span class="info-val">"Ubuntu Linux"</span></div>
+            <div class="info-row"><span class="info-key">impact</span><span class="info-val accent-green">"70% faster deploys"</span></div>
+          </div>
+        </div>
+        <div class="about-metrics">
+          <div class="metric-box">
+            <div class="metric-ring">
+              <svg viewBox="0 0 36 36" class="ring-svg">
+                <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                <path class="ring-fill" stroke-dasharray="70, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+              </svg>
+              <span class="ring-label">70%</span>
+            </div>
+            <span class="metric-text">Deploy Speed</span>
+          </div>
+          <div class="metric-box">
+            <div class="metric-ring">
+              <svg viewBox="0 0 36 36" class="ring-svg">
+                <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                <path class="ring-fill ring-blue" stroke-dasharray="90, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+              </svg>
+              <span class="ring-label ring-label-blue">90%</span>
+            </div>
+            <span class="metric-text">Uptime SLA</span>
+          </div>
+        </div>
 
-        navItems.forEach(function (item) {
-          item.classList.remove("active");
-          if (item.getAttribute("href").slice(1) === current) {
-            item.classList.add("active");
-          }
-        });
-      });
+        <!-- â–‘â–‘ LIVE INFRA MONITOR â–‘â–‘ -->
+        <div class="infra-monitor reveal" id="infraMonitor">
+          <div class="im-header">
+            <span class="im-pulse-dot"></span>
+            <span class="im-title-text">sys-monitor</span>
+            <span class="im-badge" id="imBadge">â— NOMINAL</span>
+            <span class="im-uptime" id="imUptime">up 0d</span>
+          </div>
+          <div class="im-metrics">
+            <div class="im-row">
+              <span class="im-label">CPU</span>
+              <div class="im-bar-wrap"><div class="im-fill" id="imCpuBar"></div></div>
+              <span class="im-val" id="imCpuVal">--</span>
+            </div>
+            <div class="im-row">
+              <span class="im-label">MEM</span>
+              <div class="im-bar-wrap"><div class="im-fill im-fill-blue" id="imMemBar"></div></div>
+              <span class="im-val" id="imMemVal">--</span>
+            </div>
+            <div class="im-row">
+              <span class="im-label">DISK</span>
+              <div class="im-bar-wrap"><div class="im-fill im-fill-yellow" id="imDiskBar"></div></div>
+              <span class="im-val" id="imDiskVal">--</span>
+            </div>
+            <div class="im-row">
+              <span class="im-label">NETâ†‘</span>
+              <div class="im-bar-wrap"><div class="im-fill im-fill-purple" id="imNetBar"></div></div>
+              <span class="im-val" id="imNetVal">--</span>
+            </div>
+          </div>
+          <div class="im-divider"></div>
+          <div class="im-feed" id="imFeed">
+            <div class="im-feed-row im-green">âœ“ deploy/prod â€” success â€” 2m ago</div>
+            <div class="im-feed-row im-blue">â†» elk-logstash â€” restarted â€” 14m ago</div>
+            <div class="im-feed-row im-dim">âœ“ ssl-cert-renew â€” scheduled â€” 1h ago</div>
+          </div>
+          <button class="im-deploy-btn" id="imDeployBtn">
+            <span class="im-btn-icon">âš¡</span> Trigger Deploy
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      function varHOffset() {
-        return parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 70;
-      }
+<!-- â–‘â–‘ PRODUCTION ARCHITECTURE â–‘â–‘ -->
+<section id="architecture" class="section section-alt">
+  <div class="container">
+
+    <div class="section-label">
+      <span class="label-line"></span>
+      <span class="label-text scramble">03 / production architecture</span>
+    </div>
+
+    <h2 class="section-title">
+      Production <span class="accent-green">Deployment Workflow</span>
+    </h2>
+
+    <p class="section-sub">
+      Real-world CI/CD deployment architecture used for multi-service Java WAR applications.
+    </p>
+
+    <div class="architecture-flow">
+
+      <div class="arch-box reveal">
+        <div class="arch-icon">ðŸ“¦</div>
+        <h3>Developer Push</h3>
+        <p>Code pushed to GitHub repository with automated workflow trigger.</p>
+      </div>
+
+      <div class="arch-arrow">â†’</div>
+
+      <div class="arch-box reveal">
+        <div class="arch-icon">âš™ï¸</div>
+        <h3>GitHub Actions</h3>
+        <p>CI/CD pipeline starts automated build and deployment process.</p>
+      </div>
+
+      <div class="arch-arrow">â†’</div>
+
+      <div class="arch-box reveal">
+</section>
+
+<!-- â–‘â–‘ SKILLS â–‘â–‘ -->
+<section id="skills" class="section section-alt">
+  <div class="container">
+    <div class="section-label">
+      <span class="label-line"></span>
+      <span class="label-text scramble">02 / skills</span>
+    </div>
+    <h2 class="section-title">Tech <span class="accent-green">Stack</span></h2>
+    <p class="section-sub">Tools and technologies I use daily to build, deploy, and maintain production systems.</p>
+    <div class="skills-grid">
+      <div class="skill-category">
+        <div class="skill-cat-header"><span class="cat-icon">&#9729;&#65039;</span><span>Cloud</span></div>
+        <div class="skill-tags"><div class="skill-tag"><i class="devicon-amazonwebservices-original colored"></i>AWS</div></div>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-header"><span class="cat-icon">&#128051;</span><span>Containers</span></div>
+        <div class="skill-tags"><div class="skill-tag"><i class="devicon-docker-plain colored"></i>Docker</div></div>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-header"><span class="cat-icon">&#9878;&#65039;</span><span>Orchestration</span></div>
+        <div class="skill-tags"><div class="skill-tag"><i class="devicon-kubernetes-plain colored"></i>Kubernetes</div></div>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-header"><span class="cat-icon">&#9881;&#65039;</span><span>CI/CD</span></div>
+        <div class="skill-tags">
+          <div class="skill-tag"><i class="devicon-github-original"></i>GitHub Actions</div>
+          <div class="skill-tag"><i class="devicon-jenkins-plain colored"></i>Jenkins</div>
+        </div>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-header"><span class="cat-icon">&#127959;&#65039;</span><span>Infrastructure as Code</span></div>
+        <div class="skill-tags">
+          <div class="skill-tag"><i class="devicon-terraform-plain colored"></i>Terraform</div>
+          <div class="skill-tag"><i class="devicon-ansible-plain"></i>Ansible</div>
+        </div>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-header"><span class="cat-icon">&#127760;</span><span>Web Servers</span></div>
+        <div class="skill-tags"><div class="skill-tag"><i class="devicon-nginx-original colored"></i>Nginx</div></div>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-header"><span class="cat-icon">&#128450;&#65039;</span><span>Databases</span></div>
+        <div class="skill-tags">
+          <div class="skill-tag"><i class="devicon-mysql-plain colored"></i>MySQL</div>
+          <div class="skill-tag"><i class="devicon-mongodb-plain colored"></i>MongoDB</div>
+          <div class="skill-tag"><i class="devicon-redis-plain colored"></i>Redis</div>
+        </div>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-header"><span class="cat-icon">&#128039;</span><span>OS &amp; Scripting</span></div>
+        <div class="skill-tags">
+          <div class="skill-tag"><i class="devicon-linux-plain"></i>Linux</div>
+          <div class="skill-tag"><i class="devicon-bash-plain"></i>Bash</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- â–‘â–‘ PROJECTS â–‘â–‘ -->
+<section id="projects" class="section">
+  <div class="container">
+    <div class="section-label">
+      <span class="label-line"></span>
+      <span class="label-text scramble">03 / projects</span>
+    </div>
+    <h2 class="section-title">Featured <span class="accent-green">Projects</span></h2>
+    <p class="section-sub">Real-world DevOps engineering work â€” automation, containers, and cloud infrastructure.</p>
+    <div class="projects-grid">
+
+      <div class="project-card tilt-card" data-index="01">
+        <div class="tilt-shine"></div>
+        <div class="project-card-top">
+          <div class="project-badge">CI/CD</div>
+          <a href="https://github.com/VajidShaik44" target="_blank" rel="noopener" class="project-link-icon" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+        </div>
+        <h3 class="project-title">CI/CD Pipeline Automation</h3>
+        <p class="project-desc">End-to-end automated build and deployment pipeline for Java WAR services. Reduced deployment time by 70% through full automation from commit to multi-server deployment.</p>
+        <div class="pipeline-flow">
+          <div class="pipeline-step"><span>&#128194;</span><span>GitHub</span></div>
+          <span class="pipeline-arrow">&#8594;</span>
+          <div class="pipeline-step"><span>&#9881;&#65039;</span><span>Actions</span></div>
+          <span class="pipeline-arrow">&#8594;</span>
+          <div class="pipeline-step"><span>&#128296;</span><span>Build</span></div>
+          <span class="pipeline-arrow">&#8594;</span>
+          <div class="pipeline-step"><span>&#129531;</span><span>S3</span></div>
+          <span class="pipeline-arrow">&#8594;</span>
+          <div class="pipeline-step"><span>&#128421;&#65039;</span><span>Deploy</span></div>
+        </div>
+        <div class="project-features">
+          <span class="feature-tag">&#10003; Automated Builds</span>
+          <span class="feature-tag">&#10003; S3 Artifact Storage</span>
+          <span class="feature-tag">&#10003; Multi-Server Deploy</span>
+          <span class="feature-tag accent">70% Faster</span>
+        </div>
+        <div class="project-tech">
+          <span>GitHub Actions</span><span>Jenkins</span><span>AWS S3</span><span>Java WAR</span><span>Bash</span>
+        </div>
+      </div>
+
+      <div class="project-card tilt-card" data-index="02">
+        <div class="tilt-shine"></div>
+        <div class="project-card-top">
+          <div class="project-badge project-badge-blue">Kubernetes</div>
+          <a href="https://github.com/VajidShaik44" target="_blank" rel="noopener" class="project-link-icon" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+        </div>
+        <h3 class="project-title">Kubernetes Deployment Project</h3>
+        <p class="project-desc">Containerized application deployment on Kubernetes cluster with rolling updates, auto-scaling, and self-healing capabilities for high availability production workloads.</p>
+        <div class="k8s-grid">
+          <div class="k8s-item"><span>&#128230;</span><span>Pods</span></div>
+          <div class="k8s-item"><span>&#128260;</span><span>Deployments</span></div>
+          <div class="k8s-item"><span>&#127760;</span><span>Services</span></div>
+          <div class="k8s-item"><span>&#128682;</span><span>Ingress</span></div>
+        </div>
+        <div class="project-features">
+          <span class="feature-tag">&#10003; Rolling Updates</span>
+          <span class="feature-tag">&#10003; Replica Scaling</span>
+          <span class="feature-tag">&#10003; Self-Healing Pods</span>
+          <span class="feature-tag accent blue">HA Ready</span>
+        </div>
+        <div class="project-tech">
+          <span>Kubernetes</span><span>Docker</span><span>YAML</span><span>kubectl</span>
+        </div>
+      </div>
+
+      <div class="project-card tilt-card" data-index="03">
+        <div class="tilt-shine"></div>
+        <div class="project-card-top">
+          <div class="project-badge project-badge-purple">Terraform</div>
+          <a href="https://github.com/VajidShaik44" target="_blank" rel="noopener" class="project-link-icon" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+        </div>
+        <h3 class="project-title">Terraform Infrastructure Automation</h3>
+        <p class="project-desc">Provisioned complete AWS infrastructure using Infrastructure as Code. Version-controlled, repeatable environments for development, staging, and production workloads.</p>
+        <div class="tf-resources">
+          <div class="tf-resource"><span class="tf-key">resource</span> <span class="tf-val">"aws_instance"</span></div>
+          <div class="tf-resource"><span class="tf-key">resource</span> <span class="tf-val">"aws_vpc"</span></div>
+          <div class="tf-resource"><span class="tf-key">resource</span> <span class="tf-val">"aws_security_group"</span></div>
+          <div class="tf-resource"><span class="tf-key">output</span> <span class="tf-val">12 resources added</span></div>
+        </div>
+        <div class="project-features">
+          <span class="feature-tag">&#10003; Auto-provisioning</span>
+          <span class="feature-tag">&#10003; Version Controlled</span>
+          <span class="feature-tag">&#10003; Repeatable Envs</span>
+          <span class="feature-tag accent purple">IaC</span>
+        </div>
+        <div class="project-tech">
+          <span>Terraform</span><span>AWS EC2</span><span>AWS VPC</span><span>HCL</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- â–‘â–‘ EXPERIENCE â–‘â–‘ -->
+<section id="experience" class="section section-alt">
+  <div class="container">
+    <div class="section-label">
+      <span class="label-line"></span>
+      <span class="label-text scramble">04 / experience</span>
+    </div>
+    <h2 class="section-title">Work <span class="accent-green">Experience</span></h2>
+    <div class="timeline">
+      <div class="timeline-item active">
+        <div class="timeline-dot"><div class="timeline-dot-pulse"></div></div>
+        <div class="timeline-content">
+          <div class="timeline-header">
+            <div>
+              <h3 class="timeline-role">DevOps Engineer</h3>
+              <p class="timeline-company">Zerocode Innovations Pvt Ltd &nbsp;Â·&nbsp; Hyderabad, India</p>
+            </div>
+            <div class="timeline-date"><span class="date-badge">Current</span></div>
+          </div>
+          <div class="timeline-responsibilities">
+            <div class="resp-item"><span class="resp-bullet">&#9657;</span><span>Designed and maintained CI/CD pipelines using GitHub Actions and Jenkins for Java WAR services, <strong>reducing deployment time by 70%</strong> through full automation</span></div>
+            <div class="resp-item"><span class="resp-bullet">&#9657;</span><span>Managed Docker containerization and Kubernetes deployments across production and UAT environments</span></div>
+            <div class="resp-item"><span class="resp-bullet">&#9657;</span><span>Configured and maintained AWS infrastructure (EC2, S3, IAM, VPC, Security Groups) and Nginx reverse proxies for multiple applications</span></div>
+            <div class="resp-item"><span class="resp-bullet">&#9657;</span><span>Migrated multiple Java WAR services from nohup-based scripts to systemd unit files for robust service management</span></div>
+            <div class="resp-item"><span class="resp-bullet">&#9657;</span><span>Managed ELK stack (Elasticsearch, Logstash, Kibana) for centralized log aggregation and MySQL-to-Elasticsearch data pipelines</span></div>
+            <div class="resp-item"><span class="resp-bullet">&#9657;</span><span>Handled production troubleshooting for multi-service Java WAR architecture spanning MySQL, Redis, MongoDB, and Nginx</span></div>
+            <div class="resp-item"><span class="resp-bullet">&#9657;</span><span>Wrote Python Flask APIs and Bash automation scripts for operational tooling and monitoring</span></div>
+          </div>
+          <div class="timeline-stack">
+            <span>GitHub Actions</span><span>Jenkins</span><span>Docker</span><span>Kubernetes</span><span>AWS</span><span>Terraform</span><span>Nginx</span><span>ELK</span><span>MySQL</span><span>MongoDB</span><span>Linux</span><span>Python</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- â–‘â–‘ ARCHITECTURE â–‘â–‘ -->
+<section id="architecture" class="section">
+  <div class="container">
+    <div class="section-label">
+      <span class="label-line"></span>
+      <span class="label-text scramble">05 / architecture</span>
+    </div>
+    <h2 class="section-title">DevOps <span class="accent-green">Pipeline</span></h2>
+    <p class="section-sub">End-to-end CI/CD pipeline architecture â€” from code commit to production deployment.</p>
+    <div class="arch-diagram">
+      <div class="arch-stage">
+        <div class="arch-icon-wrap arch-dev">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        </div>
+        <div class="arch-label">Code Commit</div>
+        <div class="arch-sublabel">GitHub</div>
+      </div>
+      <div class="arch-connector"><div class="connector-line" id="conn0"></div><span class="connector-label">push</span></div>
+      <div class="arch-stage">
+        <div class="arch-icon-wrap arch-ci">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        </div>
+        <div class="arch-label">CI Pipeline</div>
+        <div class="arch-sublabel">GitHub Actions</div>
+      </div>
+      <div class="arch-connector"><div class="connector-line" id="conn1"></div><span class="connector-label">trigger</span></div>
+      <div class="arch-stage">
+        <div class="arch-icon-wrap arch-build">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <div class="arch-label">Build WAR</div>
+        <div class="arch-sublabel">Maven</div>
+      </div>
+      <div class="arch-connector"><div class="connector-line" id="conn2"></div><span class="connector-label">artifact</span></div>
+      <div class="arch-stage">
+        <div class="arch-icon-wrap arch-storage">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <div class="arch-label">Artifact Storage</div>
+        <div class="arch-sublabel">AWS S3</div>
+      </div>
+      <div class="arch-connector"><div class="connector-line" id="conn3"></div><span class="connector-label">deploy</span></div>
+      <div class="arch-stage">
+        <div class="arch-icon-wrap arch-deploy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="arch-label">Server Deploy</div>
+        <div class="arch-sublabel">Multi-Server</div>
+      </div>
+    </div>
+    <div class="arch-detail-row">
+      <div class="arch-detail-card">
+        <div class="adc-header">&#128274; Security Layer</div>
+        <div class="adc-body">IAM roles, Security Groups, VPC isolation, secrets via env files</div>
+      </div>
+      <div class="arch-detail-card">
+        <div class="adc-header">&#128202; Observability</div>
+        <div class="adc-body">ELK stack, systemd journal logs, Kibana dashboards</div>
+      </div>
+      <div class="arch-detail-card">
+        <div class="adc-header">&#9851;&#65039; Recovery</div>
+        <div class="adc-body">Systemd auto-restart, DB backups with mysqldump automation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- â–‘â–‘ TOOLS â–‘â–‘ -->
+<section id="tools" class="section section-alt">
+  <div class="container">
+    <div class="section-label">
+      <span class="label-line"></span>
+      <span class="label-text scramble">06 / tools</span>
+    </div>
+    <h2 class="section-title">Tools I <span class="accent-green">Use</span></h2>
+    <div class="tools-marquee-wrap">
+      <div class="tools-marquee">
+        <div class="tools-track" id="toolsTrack">
+          <div class="tool-logo"><i class="devicon-amazonwebservices-original colored"></i><span>AWS</span></div>
+          <div class="tool-logo"><i class="devicon-docker-plain colored"></i><span>Docker</span></div>
+          <div class="tool-logo"><i class="devicon-kubernetes-plain colored"></i><span>Kubernetes</span></div>
+          <div class="tool-logo"><i class="devicon-terraform-plain colored"></i><span>Terraform</span></div>
+          <div class="tool-logo"><i class="devicon-github-original"></i><span>GitHub Actions</span></div>
+          <div class="tool-logo"><i class="devicon-jenkins-plain colored"></i><span>Jenkins</span></div>
+          <div class="tool-logo"><i class="devicon-linux-plain"></i><span>Linux</span></div>
+          <div class="tool-logo"><i class="devicon-nginx-original colored"></i><span>Nginx</span></div>
+          <div class="tool-logo"><i class="devicon-mysql-plain colored"></i><span>MySQL</span></div>
+          <div class="tool-logo"><i class="devicon-mongodb-plain colored"></i><span>MongoDB</span></div>
+          <div class="tool-logo"><i class="devicon-redis-plain colored"></i><span>Redis</span></div>
+          <div class="tool-logo"><i class="devicon-ansible-plain"></i><span>Ansible</span></div>
+          <div class="tool-logo"><i class="devicon-amazonwebservices-original colored"></i><span>AWS</span></div>
+          <div class="tool-logo"><i class="devicon-docker-plain colored"></i><span>Docker</span></div>
+          <div class="tool-logo"><i class="devicon-kubernetes-plain colored"></i><span>Kubernetes</span></div>
+          <div class="tool-logo"><i class="devicon-terraform-plain colored"></i><span>Terraform</span></div>
+          <div class="tool-logo"><i class="devicon-github-original"></i><span>GitHub Actions</span></div>
+          <div class="tool-logo"><i class="devicon-jenkins-plain colored"></i><span>Jenkins</span></div>
+          <div class="tool-logo"><i class="devicon-linux-plain"></i><span>Linux</span></div>
+          <div class="tool-logo"><i class="devicon-nginx-original colored"></i><span>Nginx</span></div>
+          <div class="tool-logo"><i class="devicon-mysql-plain colored"></i><span>MySQL</span></div>
+          <div class="tool-logo"><i class="devicon-mongodb-plain colored"></i><span>MongoDB</span></div>
+          <div class="tool-logo"><i class="devicon-redis-plain colored"></i><span>Redis</span></div>
+          <div class="tool-logo"><i class="devicon-ansible-plain"></i><span>Ansible</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- â–‘â–‘ GITHUB â–‘â–‘ -->
+<section id="github" class="section">
+  <div class="container">
+    <div class="section-label">
+      <span class="label-line"></span>
+      <span class="label-text scramble">07 / github</span>
+    </div>
+    <h2 class="section-title">GitHub <span class="accent-green">Repositories</span></h2>
+    <p class="section-sub">Live repos fetched from GitHub API.</p>
+    <div class="github-header">
+      <a href="https://github.com/VajidShaik44" target="_blank" rel="noopener" class="btn btn-secondary magnetic">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        View All Repos
+      </a>
+    </div>
+    <div class="repos-grid" id="reposGrid">
+      <div class="repo-loading"><div class="loading-spinner"></div><span>Fetching repositories...</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- â–‘â–‘ RESUME â–‘â–‘ -->
+<section id="resume" class="section section-alt">
+  <div class="container">
+    <div class="section-label">
+      <span class="label-line"></span>
+      <span class="label-text scramble">08 / resume</span>
+    </div>
+    <h2 class="section-title">My <span class="accent-green">Resume</span></h2>
+    <div class="resume-section">
+      <div class="resume-preview">
+        <div class="resume-mock">
+          <div class="rm-header">
+            <div class="rm-name">Vajid Shaik</div>
+            <div class="rm-role">DevOps Engineer</div>
+            <div class="rm-contact">Hyderabad, India &nbsp;Â·&nbsp; shaikvajid484@gmail.com</div>
+          </div>
+          <div class="rm-section">
+            <div class="rm-sec-title">Experience</div>
+            <div class="rm-line long"></div><div class="rm-line medium"></div><div class="rm-line short"></div>
+          </div>
+          <div class="rm-section">
+            <div class="rm-sec-title">Skills</div>
+            <div class="rm-skills-row">
+              <div class="rm-skill-tag">AWS</div><div class="rm-skill-tag">Docker</div><div class="rm-skill-tag">K8s</div><div class="rm-skill-tag">Terraform</div>
+            </div>
+          </div>
+          <div class="rm-section">
+            <div class="rm-sec-title">Education</div>
+            <div class="rm-line long"></div><div class="rm-line short"></div>
+          </div>
+          <div class="resume-overlay">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="resume-info">
+        <h3>Download My Resume</h3>
+        <p>Get my complete resume with detailed experience, skills, and education. PDF format, ATS-optimized.</p>
+        <ul class="resume-checklist">
+          <li>&#10003; CI/CD &amp; Automation experience</li>
+          <li>&#10003; AWS Cloud infrastructure details</li>
+          <li>&#10003; Containerization &amp; Kubernetes</li>
+          <li>&#10003; Infrastructure as Code (Terraform)</li>
+          <li>&#10003; Production troubleshooting background</li>
+        </ul>
+        <a href="/v2/assets/resume/vajid-shaik-devops-resume.pdf" download class="btn btn-primary btn-lg magnetic">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Resume (PDF)
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- â–‘â–‘ CONTACT â–‘â–‘ -->
+<section id="contact" class="section">
+  <div class="container">
+    <div class="section-label">
+      <span class="label-line"></span>
+      <span class="label-text scramble">09 / contact</span>
+    </div>
+    <h2 class="section-title">Get In <span class="accent-green">Touch</span></h2>
+    <p class="section-sub">Open to new opportunities, collaborations, and interesting DevOps challenges.</p>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-links">
+          <a href="mailto:shaikvajid484@gmail.com" class="contact-link-item">
+            <div class="cli-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div><span class="cli-label">Email</span><span class="cli-value">shaikvajid484@gmail.com</span></div>
+          </a>
+          <a href="tel:+919640781856" class="contact-link-item">
+            <div class="cli-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div><span class="cli-label">Phone</span><span class="cli-value">+91 9640781856</span></div>
+          </a>
+          <a href="https://www.linkedin.com/in/vajid-shaik" target="_blank" rel="noopener" class="contact-link-item">
+            <div class="cli-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+            <div><span class="cli-label">LinkedIn</span><span class="cli-value">linkedin.com/in/vajid-shaik</span></div>
+          </a>
+          <a href="https://github.com/VajidShaik44" target="_blank" rel="noopener" class="contact-link-item">
+            <div class="cli-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></div>
+            <div><span class="cli-label">GitHub</span><span class="cli-value">github.com/VajidShaik44</span></div>
+          </a>
+        </div>
+      </div>
+      <form class="contact-form" id="contactForm">
+        <div class="form-group">
+          <label for="contactName">Name</label>
+          <input type="text" id="contactName" name="name" placeholder="Your name" required autocomplete="off" />
+        </div>
+        <div class="form-group">
+          <label for="contactEmail">Email</label>
+          <input type="email" id="contactEmail" name="email" placeholder="your@email.com" required autocomplete="off" />
+        </div>
+        <div class="form-group">
+          <label for="contactMessage">Message</label>
+          <textarea id="contactMessage" name="message" placeholder="Tell me about the opportunity or project..." rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full magnetic">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Send Message
+        </button>
+        <p class="form-note">Messages are sent directly to my inbox.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- â–‘â–‘ FOOTER â–‘â–‘ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo"><span class="logo-bracket">[</span>VS<span class="logo-bracket">]</span></div>
+    <p class="footer-copy">&#169; 2026 Vajid Shaik &nbsp;Â·&nbsp; DevOps Engineer Portfolio</p>
+    <div class="footer-links">
+      <a href="https://github.com/VajidShaik44" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/vajid-shaik" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:shaikvajid484@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script src="premium-upgrade.js"></script>
+<script src="terminal-effects.js" defer></script>
+<script src="terminal.js" defer></script>
+<script>
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   PIPELINE DATA FLOW â€” animated packets travelling across connectors
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+(function () {
+
+  // Config per connector: [color, speed_ms, packet count, stage icon IDs]
+  const CONNECTORS = [
+    { id: 'conn0', color: '#fb923c', speeds: [1800, 2600, 3400], label: 'push' },
+    { id: 'conn1', color: '#00ff88', speeds: [1500, 2200, 3100], label: 'trigger' },
+    { id: 'conn2', color: '#38bdf8', speeds: [2000, 2900],       label: 'artifact' },
+    { id: 'conn3', color: '#a855f7', speeds: [1600, 2500, 3600], label: 'deploy' },
+  ];
+
+  // Stage icons to pulse when a packet arrives at destination
+  const STAGES = ['arch-dev','arch-ci','arch-build','arch-storage','arch-deploy'];
+
+  function pulse(stageClass) {
+    const el = document.querySelector('.' + stageClass);
+    if (!el) return;
+    el.classList.add('stage-pulse');
+    setTimeout(() => el.classList.remove('stage-pulse'), 600);
+  }
+
+  function buildConnector(cfg, stageIdx) {
+    const line = document.getElementById(cfg.id);
+    if (!line) return;
+
+    // Clear any existing children (the old single dot)
+    line.innerHTML = '';
+
+    cfg.speeds.forEach((speed, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'connector-dot';
+      dot.style.cssText = `
+        position:absolute; top:-2px;
+        width:7px; height:7px; border-radius:50%;
+        background:${cfg.color};
+        box-shadow:0 0 8px ${cfg.color}, 0 0 16px ${cfg.color}55;
+        animation: flowDot ${speed}ms linear infinite;
+        animation-delay: ${(speed / cfg.speeds.length) * i}ms;
+        pointer-events:none;
+      `;
+      line.appendChild(dot);
+
+      // Pulse destination stage when each packet completes a loop
+      setInterval(() => {
+        pulse(STAGES[stageIdx]);
+      }, speed);
     });
-  </script>
-  <script src="/v2/assets/js/terminal.js"></script>
+  }
+
+  // Wait for DOM + IntersectionObserver to avoid unnecessary work offscreen
+  const archDiagram = document.querySelector('.arch-diagram');
+  if (!archDiagram) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      CONNECTORS.forEach((cfg, i) => buildConnector(cfg, i + 1));
+      observer.disconnect();
+    }
+  }, { threshold: 0.2 });
+
+  observer.observe(archDiagram);
+
+  // Also add "commit burst" â€” every 8s simulate a real push that sends
+  // a burst of 3 packets across all connectors sequentially
+  let burstTimer;
+  function scheduleBurst() {
+    burstTimer = setTimeout(() => {
+      STAGES.forEach((cls, i) => {
+        setTimeout(() => pulse(cls), i * 700);
+      });
+      scheduleBurst();
+    }, 8000 + Math.random() * 4000);
+  }
+  scheduleBurst();
+
+})();
+
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   KONAMI CODE EASTER EGG â€” â†‘â†‘â†“â†“â†â†’â†â†’BA â†’ Matrix Rain
+   Try it: press those keys on desktop!
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+(function () {
+  const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown',
+                  'ArrowLeft','ArrowRight','ArrowLeft','ArrowRight',
+                  'b','a'];
+  let seq = [];
+  let running = false;
+  let animId;
+
+  document.addEventListener('keydown', e => {
+    seq.push(e.key);
+    if (seq.length > KONAMI.length) seq.shift();
+    if (seq.join(',') === KONAMI.join(',') && !running) {
+      seq = [];
+      launchMatrix();
+    }
+  });
+
+  function launchMatrix() {
+    running = true;
+    const overlay  = document.getElementById('matrixOverlay');
+    const canvas   = document.getElementById('matrixCanvas');
+    const msgEl    = document.getElementById('matrixMsg');
+    if (!overlay || !canvas) { running = false; return; }
+
+    // Size canvas to viewport
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const ctx = canvas.getContext('2d');
+
+    const COLS    = Math.floor(canvas.width / 16);
+    const drops   = Array(COLS).fill(1);
+    const CHARS   = 'ã‚¢ã‚¤ã‚¦ã‚¨ã‚ªã‚«ã‚­ã‚¯ã‚±ã‚³ã‚µã‚·ã‚¹ã‚»ã‚½ã‚¿ãƒãƒ„ãƒ†ãƒˆãƒŠãƒ‹ãƒŒãƒãƒŽãƒãƒ’ãƒ•ãƒ˜ãƒ›ãƒžãƒŸãƒ ãƒ¡ãƒ¢ãƒ¤ãƒ¦ãƒ¨ãƒ©ãƒªãƒ«ãƒ¬ãƒ­ãƒ¯ãƒ²ãƒ³0123456789ABCDEF<>{}[]|&%$#';
+
+    overlay.style.display = 'block';
+    overlay.style.opacity = '0';
+    overlay.style.transition = 'opacity 0.4s';
+    requestAnimationFrame(() => { overlay.style.opacity = '1'; });
+
+    let frame = 0;
+
+    function draw() {
+      // Fade trail
+      ctx.fillStyle = 'rgba(0,0,0,0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      frame++;
+
+      drops.forEach((y, i) => {
+        // Randomise char brightness â€” lead char is bright white/cyan
+        const isLead = Math.random() > 0.95;
+        ctx.fillStyle = isLead ? '#ccffee' : (Math.random() > 0.85 ? '#00ff88' : '#006633');
+        ctx.font = `${13 + Math.floor(Math.random() * 3)}px "JetBrains Mono", monospace`;
+        const char = CHARS[Math.floor(Math.random() * CHARS.length)];
+        ctx.fillText(char, i * 16, y * 16);
+
+        if (y * 16 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      });
+
+      animId = requestAnimationFrame(draw);
+    }
+
+    draw();
+
+    // Show ACCESS GRANTED message after 1.5s
+    setTimeout(() => { msgEl.style.opacity = '1'; }, 1500);
+
+    // Dismiss after 6s
+    setTimeout(() => {
+      cancelAnimationFrame(animId);
+      overlay.style.transition = 'opacity 0.8s';
+      overlay.style.opacity = '0';
+      msgEl.style.opacity = '0';
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        running = false;
+      }, 900);
+    }, 6000);
+  }
+
+})();
+
+</script>
+<script>
+/* â”€â”€ STATUS TICKER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+(function () {
+  const clockEl = document.getElementById('stClock');
+  const buildEl = document.getElementById('stBuild');
+  const podsEl  = document.getElementById('stPods');
+  const elkEl   = document.getElementById('stElk');
+  if (!clockEl) return;
+
+  // Live clock â€” Hyderabad IST via Asia/Kolkata timezone
+  function updateClock() {
+    const now = new Date();
+    const fmt = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Asia/Kolkata', hour12: false,
+      hour: '2-digit', minute: '2-digit', second: '2-digit'
+    });
+    clockEl.textContent = fmt.format(now);
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // Build timer â€” counts up realistically
+  let buildMinutes = 2;
+  const buildStates = ['âœ“', 'âœ“', 'âœ“', 'âš¡ running'];
+  let buildStateIdx = 0;
+  setInterval(() => {
+    buildMinutes++;
+    if (buildMinutes >= 28) {
+      // "new build" triggers
+      buildMinutes = 0;
+      buildStateIdx = (buildStateIdx + 1) % buildStates.length;
+    }
+    const state = buildStates[buildStateIdx % (buildStates.length - 1)];
+    const label = buildMinutes < 1 ? 'just now' :
+                  buildMinutes === 1 ? '1m ago' : buildMinutes + 'm ago';
+    buildEl.textContent = 'Last build ' + label + ' ' + state;
+  }, 60000);
+
+  // Pods â€” randomly flicker between 3/3 and briefly 2/3 then back
+  setInterval(() => {
+    const roll = Math.random();
+    if (roll > 0.96) {
+      podsEl.textContent = '2/3 pods running';
+      podsEl.style.color = '#e3b341';
+      setTimeout(() => {
+        podsEl.textContent = '3/3 pods running';
+        podsEl.style.color = '';
+      }, 3500);
+    }
+  }, 12000);
+
+  // ELK events feed
+  const elkMsgs = [
+    'Logstash ingesting Â· 0 errors',
+    'siteid_28245 pipeline Â· active',
+    'ES index refresh Â· 200 OK',
+    'Kibana dashboard Â· live',
+    'MySQL â†’ ES sync Â· 4.2k docs',
+  ];
+  let elkIdx = 0;
+  setInterval(() => {
+    elkIdx = (elkIdx + 1) % elkMsgs.length;
+    elkEl.textContent = elkMsgs[elkIdx];
+  }, 7000);
+
+  // Seamless scroll loop â€” duplicate inner content
+  const stInner = document.getElementById('stInner');
+  if (stInner) {
+    stInner.innerHTML = stInner.innerHTML + stInner.innerHTML;
+  }
+  const navbar = document.getElementById('navbar');
+  if (navbar) {
+    const tickerH = document.getElementById('statusTicker').offsetHeight;
+    navbar.style.top = tickerH + 'px';
+  }
+})();
+(function () {
+  const cpuBar   = document.getElementById('imCpuBar');
+  const memBar   = document.getElementById('imMemBar');
+  const diskBar  = document.getElementById('imDiskBar');
+  const netBar   = document.getElementById('imNetBar');
+  const cpuVal   = document.getElementById('imCpuVal');
+  const memVal   = document.getElementById('imMemVal');
+  const diskVal  = document.getElementById('imDiskVal');
+  const netVal   = document.getElementById('imNetVal');
+  const feed     = document.getElementById('imFeed');
+  const badge    = document.getElementById('imBadge');
+  const upEl     = document.getElementById('imUptime');
+  const deployBtn= document.getElementById('imDeployBtn');
+  if (!cpuBar) return;
+
+  // Smoothly wandering metrics
+  let cpu = 23, mem = 61, disk = 44, net = 18;
+  function wander(val, min, max, speed) {
+    val += (Math.random() - 0.5) * speed;
+    return Math.max(min, Math.min(max, val));
+  }
+
+  function setBar(bar, valEl, pct, label) {
+    bar.style.width = pct.toFixed(0) + '%';
+    if (valEl) valEl.textContent = label;
+  }
+
+  function tick() {
+    cpu  = wander(cpu,  8, 72, 4);
+    mem  = wander(mem, 45, 78, 2);
+    disk = wander(disk,40, 55, 0.8);
+    net  = wander(net,  5, 60, 8);
+    setBar(cpuBar,  cpuVal,  cpu,  cpu.toFixed(0) + '%');
+    setBar(memBar,  memVal,  mem,  mem.toFixed(0) + '%');
+    setBar(diskBar, diskVal, disk, disk.toFixed(0) + '%');
+    const mbps = (net * 0.12).toFixed(1);
+    setBar(netBar, netVal, net, mbps + ' MB/s');
+    // Badge colour based on CPU
+    if (cpu > 65) {
+      badge.textContent = 'âš  HIGH LOAD';
+      badge.style.color = '#e3b341';
+    } else {
+      badge.textContent = 'â— NOMINAL';
+      badge.style.color = '#3fb950';
+    }
+  }
+
+  // Uptime counter from Jan 15 2024
+  function updateUptime() {
+    const days = Math.floor((Date.now() - new Date('2024-01-15')) / 86400000);
+    if (upEl) upEl.textContent = 'up ' + days + 'd';
+  }
+
+  // Deploy events feed
+  const deployEvents = [
+    { cls: 'im-green',  text: (t) => `âœ“ deploy/prod â€” success â€” just now` },
+    { cls: 'im-blue',   text: (t) => `â†º docker pull app:${t} â€” done` },
+    { cls: 'im-white',  text: (t) => `â–¸ kubectl rollout â€” 3/3 pods live` },
+    { cls: 'im-green',  text: (t) => `âœ“ healthcheck /ping â€” 200 OK â€” 4ms` },
+    { cls: 'im-dim',    text: (t) => `âœ“ nginx reload â€” config ok` },
+    { cls: 'im-green',  text: (t) => `âœ“ deploy complete â€” ${t} â€” 0 errors` },
+  ];
+
+  let isDeploying = false;
+  function addFeedRow(cls, text) {
+    const row = document.createElement('div');
+    row.className = 'im-feed-row ' + cls + ' im-feed-new';
+    row.textContent = text;
+    feed.insertBefore(row, feed.firstChild);
+    // Keep max 5 rows
+    while (feed.children.length > 5) feed.removeChild(feed.lastChild);
+    setTimeout(() => row.classList.remove('im-feed-new'), 10);
+  }
+
+  function runDeploy() {
+    if (isDeploying) return;
+    isDeploying = true;
+    deployBtn.disabled = true;
+    deployBtn.innerHTML = '<span class="im-btn-icon im-spin">â†»</span> Deploying...';
+    const tag = 'v2.' + Math.floor(Math.random() * 90 + 10);
+    let step = 0;
+    const interval = setInterval(() => {
+      if (step >= deployEvents.length) {
+        clearInterval(interval);
+        isDeploying = false;
+        deployBtn.disabled = false;
+        deployBtn.innerHTML = '<span class="im-btn-icon">âš¡</span> Trigger Deploy';
+        return;
+      }
+      const ev = deployEvents[step];
+      addFeedRow(ev.cls, ev.text(tag));
+      step++;
+    }, 600);
+  }
+
+  deployBtn && deployBtn.addEventListener('click', runDeploy);
+
+  // Kick off
+  updateUptime();
+  tick();
+  setInterval(tick, 1800);
+  setInterval(updateUptime, 60000);
+})();
+</script>
 </body>
 </html>
+
