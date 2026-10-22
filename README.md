@@ -9,7 +9,8 @@ Personal portfolio built with plain HTML, CSS, and JavaScript and hosted on GitH
 - `index.html` — page content, projects, experience, and contact links
 - `styles.css` — responsive layout and visual styles
 - `script.js` — accessible mobile navigation
-- `assets/resume/vajid-shaik-devops-resume.pdf` — downloadable résumé
+- `assets/resume/vajid-shaik-devops-resume.pdf` — ATS-friendly PDF résumé
+- `assets/resume/Vajid_Shaik_DevOps_Engineer_Resume.docx` — editable résumé source
 
 There is no build step or package installation.
 
@@ -28,7 +29,7 @@ Then visit http://localhost:8000.
 The GitHub Pages site is published from the root of the `main` branch. After updating the files:
 
 ```bash
-git add index.html styles.css script.js README.md
+git add .gitattributes README.md assets/resume/vajid-shaik-devops-resume.pdf assets/resume/Vajid_Shaik_DevOps_Engineer_Resume.docx
 git commit -m "Refresh portfolio design"
 git push origin main
 ```
