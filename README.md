@@ -30,7 +30,7 @@ The GitHub Pages site is published from the root of the `main` branch. After upd
 
 ```bash
 git add .gitattributes README.md index.html styles.css assets/resume/vajid-shaik-devops-resume.pdf assets/resume/Vajid_Shaik_DevOps_Engineer_Resume.docx
-git commit -m "Update portfolio contrast and DevOps resume"
+git commit -m "Polish portfolio branding and DevOps project"
 git push origin main
 ```
 

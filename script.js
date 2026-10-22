@@ -1,6 +1,27 @@
 const menuToggle = document.querySelector("#menuToggle");
 const navLinks = document.querySelector("#navLinks");
 
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if ("IntersectionObserver" in window && !reducedMotion) {
+  const revealTargets = document.querySelectorAll(
+    ".about-copy, .project-card, .experience-card, .skill-group, .contact-inner",
+  );
+
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  revealTargets.forEach((element) => {
+    element.classList.add("reveal-on-scroll");
+    revealObserver.observe(element);
+  });
+}
+
 function closeMenu() {
   menuToggle.setAttribute("aria-expanded", "false");
   menuToggle.setAttribute("aria-label", "Open navigation");

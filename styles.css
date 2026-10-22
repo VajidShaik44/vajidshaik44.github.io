@@ -148,6 +148,7 @@ button:focus-visible {
   background:
     radial-gradient(ellipse at 88% 28%, rgb(224 238 232 / 50%), transparent 36%),
     linear-gradient(180deg, #fbfcfa 0%, #fff 100%);
+  animation: hero-appear 520ms ease-out both;
 }
 
 .hero-grid {
@@ -278,6 +279,7 @@ button:focus-visible {
   border-radius: var(--radius);
   background: rgb(255 255 255 / 88%);
   box-shadow: 0 20px 55px rgb(38 64 54 / 7%);
+  animation: hero-appear 620ms 100ms ease-out both;
 }
 
 .focus-card-heading {
@@ -480,6 +482,26 @@ button:focus-visible {
   transform: translateY(-3px);
   border-color: #cbd9d2;
   box-shadow: 0 14px 34px rgb(29 52 43 / 7%);
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 420ms ease, transform 420ms ease;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-card.reveal-on-scroll.is-visible:hover {
+  transform: translateY(-3px);
+}
+
+.project-card:nth-child(2),
+.skill-group:nth-child(even) {
+  transition-delay: 70ms;
 }
 
 .project-card-featured {
@@ -948,6 +970,23 @@ button:focus-visible {
   *::before,
   *::after {
     scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-appear {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
