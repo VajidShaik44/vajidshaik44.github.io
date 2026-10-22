@@ -1,8 +1,8 @@
 :root {
   color-scheme: light;
   --ink: #17212f;
-  --ink-soft: #3c4a5b;
-  --muted: #64748b;
+  --ink-soft: #354254;
+  --muted: #526174;
   --accent: #176b58;
   --accent-dark: #105544;
   --accent-soft: #e8f2ef;
@@ -166,7 +166,7 @@ button:focus-visible {
   gap: 10px;
   margin: 0 0 20px;
   color: var(--accent);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.13em;
   line-height: 1.4;
@@ -210,7 +210,8 @@ button:focus-visible {
   max-width: 590px;
   margin: 0;
   color: var(--muted);
-  font-size: 15px;
+  font-size: 16px;
+  line-height: 1.7;
 }
 
 .hero-actions {
@@ -262,7 +263,7 @@ button:focus-visible {
   gap: 25px;
   margin-top: 34px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
 }
 
@@ -302,7 +303,7 @@ button:focus-visible {
 .card-kicker {
   margin: 1px 0 6px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -332,8 +333,8 @@ button:focus-visible {
 
 .focus-list li > span {
   padding-top: 1px;
-  color: #8a9a92;
-  font-size: 11px;
+  color: #607269;
+  font-size: 12px;
   font-weight: 700;
 }
 
@@ -343,14 +344,14 @@ button:focus-visible {
 }
 
 .focus-list strong {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 650;
 }
 
 .focus-list small {
   margin-top: 2px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .focus-note {
@@ -358,7 +359,7 @@ button:focus-visible {
   padding-top: 15px;
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .hero-bottom {
@@ -367,8 +368,8 @@ button:focus-visible {
   padding-top: 15px;
   padding-bottom: 22px;
   border-top: 1px solid rgb(227 232 229 / 75%);
-  color: #78867e;
-  font-size: 11px;
+  color: #536258;
+  font-size: 12px;
 }
 
 .hero-bottom > span span {
@@ -413,7 +414,8 @@ button:focus-visible {
   max-width: 610px;
   padding-top: 2px;
   color: var(--ink-soft);
-  font-size: 15px;
+  font-size: 16px;
+  line-height: 1.75;
 }
 
 .about-copy p {
@@ -431,7 +433,7 @@ button:focus-visible {
   gap: 8px;
   margin-top: 8px;
   color: var(--accent);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 650;
 }
 
@@ -502,7 +504,7 @@ button:focus-visible {
   border-radius: 20px;
   background: #f1f5f2;
   color: #53645b;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 650;
 }
 
@@ -517,7 +519,7 @@ button:focus-visible {
   max-width: 470px;
   margin: 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.7;
 }
 
@@ -535,7 +537,7 @@ button:focus-visible {
   border: 1px solid var(--line);
   border-radius: 5px;
   color: #526157;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
 }
 
@@ -545,7 +547,7 @@ button:focus-visible {
   align-items: center;
   gap: 7px;
   color: var(--accent);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
 }
 
@@ -573,7 +575,7 @@ button:focus-visible {
 .experience-date {
   padding-top: 3px;
   color: var(--accent);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.04em;
 }
@@ -588,7 +590,7 @@ button:focus-visible {
 .experience-company {
   margin: 4px 0 19px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .experience-company span {
@@ -601,7 +603,8 @@ button:focus-visible {
   margin: 0;
   padding-left: 17px;
   color: var(--ink-soft);
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 1.7;
 }
 
 .experience-list li::marker {
@@ -612,7 +615,7 @@ button:focus-visible {
   max-width: 270px;
   margin: 0 0 5px;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .skills-grid {
@@ -632,14 +635,14 @@ button:focus-visible {
 .skill-group h3 {
   margin: 0 0 9px;
   color: var(--ink);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
 }
 
 .skill-group p {
   margin: 0;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .skill-group p span {
@@ -680,7 +683,7 @@ button:focus-visible {
 .contact-section > .container > div:first-child > p:last-child {
   margin: 12px 0 0;
   color: #c6d7d1;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .contact-actions {
@@ -718,7 +721,7 @@ button:focus-visible {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .footer-brand {
