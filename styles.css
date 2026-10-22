@@ -1,8 +1,8 @@
 :root {
   color-scheme: light;
   --ink: #17212f;
-  --ink-soft: #354254;
-  --muted: #526174;
+  --ink-soft: #252f3d;
+  --muted: #343f4d;
   --accent: #176b58;
   --accent-dark: #105544;
   --accent-soft: #e8f2ef;
@@ -180,7 +180,7 @@ button:focus-visible {
 }
 
 .eyebrow-dot {
-  color: #a3b1aa;
+  color: #526052;
 }
 
 .hero h1 {
@@ -269,7 +269,7 @@ button:focus-visible {
 
 .social-links span {
   margin-left: 3px;
-  color: #87968e;
+  color: #47564d;
 }
 
 .focus-card {
@@ -374,7 +374,7 @@ button:focus-visible {
 
 .hero-bottom > span span {
   padding-inline: 5px;
-  color: #b2bdb7;
+  color: #59665e;
 }
 
 .hero-bottom a:hover {
@@ -503,7 +503,7 @@ button:focus-visible {
   padding: 5px 9px;
   border-radius: 20px;
   background: #f1f5f2;
-  color: #53645b;
+  color: #303c34;
   font-size: 12px;
   font-weight: 650;
 }
@@ -523,6 +523,16 @@ button:focus-visible {
   line-height: 1.7;
 }
 
+.project-card > .project-status {
+  margin-top: 14px;
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+.project-status strong {
+  color: var(--ink);
+}
+
 .tag-list {
   display: flex;
   flex-wrap: wrap;
@@ -536,7 +546,7 @@ button:focus-visible {
   padding: 4px 8px;
   border: 1px solid var(--line);
   border-radius: 5px;
-  color: #526157;
+  color: #303b34;
   font-size: 12px;
   font-weight: 600;
 }
@@ -647,7 +657,7 @@ button:focus-visible {
 
 .skill-group p span {
   padding-inline: 3px;
-  color: #a7b2ac;
+  color: #4b574f;
 }
 
 .contact-section {
