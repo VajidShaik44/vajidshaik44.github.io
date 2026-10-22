@@ -545,16 +545,6 @@ button:focus-visible {
   line-height: 1.7;
 }
 
-.project-card > .project-status {
-  margin-top: 14px;
-  color: var(--ink-soft);
-  font-size: 13px;
-}
-
-.project-status strong {
-  color: var(--ink);
-}
-
 .tag-list {
   display: flex;
   flex-wrap: wrap;
