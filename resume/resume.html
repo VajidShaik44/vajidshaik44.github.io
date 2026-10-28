@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vajid Shaik | DevOps Engineer</title>
+  <style>
+    @page {
+      size: Letter;
+      margin: 0.42in 0.52in;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0 auto;
+      max-width: 8.5in;
+      padding: 0.42in 0.52in;
+      color: #171717;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 9.2pt;
+      line-height: 1.22;
+    }
+
+    header {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 18pt;
+      line-height: 1.08;
+    }
+
+    .role {
+      margin: 2px 0 4px;
+      font-size: 10pt;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .contact {
+      margin: 0;
+      font-size: 8.8pt;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    section {
+      margin: 0 0 8px;
+      break-inside: avoid;
+    }
+
+    h2 {
+      margin: 0 0 3px;
+      padding-bottom: 2px;
+      border-bottom: 1px solid #555;
+      font-size: 10.4pt;
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+
+    p {
+      margin: 0 0 3px;
+    }
+
+    .skill-line strong,
+    .job-title,
+    .project-title {
+      font-weight: 700;
+    }
+
+    .job-meta,
+    .project-stack {
+      margin-bottom: 3px;
+    }
+
+    ul {
+      margin: 2px 0 0;
+      padding-left: 15px;
+    }
+
+    li {
+      margin: 0 0 2px;
+      padding-left: 1px;
+    }
+
+    .project {
+      margin-bottom: 5px;
+      break-inside: avoid;
+    }
+
+    @media screen {
+      body {
+        margin: 24px auto;
+        padding: 0.42in 0.52in;
+        background: #fff;
+        box-shadow: 0 1px 12px rgb(0 0 0 / 14%);
+      }
+    }
+
+    @media print {
+      html,
+      body {
+        width: auto;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        background: #fff;
+        box-shadow: none;
+      }
+
+      a {
+        text-decoration: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>VAJID SHAIK</h1>
+    <p class="role">DEVOPS ENGINEER</p>
+    <p class="contact">Hyderabad, India | +91 9640781856 | shaikvajid484@gmail.com</p>
+    <p class="contact">LinkedIn: linkedin.com/in/vajid-shaik | GitHub: github.com/VajidShaik44 | Portfolio: vajidshaik44.github.io</p>
+  </header>
+
+  <main>
+    <section aria-labelledby="summary-heading">
+      <h2 id="summary-heading">Summary</h2>
+      <p>DevOps Engineer with about 2 years of experience supporting business-critical production applications across development, UAT, and production. Automates CI/CD, manages AWS and Linux deployments, and troubleshoots application and infrastructure issues.</p>
+    </section>
+
+    <section aria-labelledby="skills-heading">
+      <h2 id="skills-heading">Skills</h2>
+      <p class="skill-line"><strong>Production experience:</strong> AWS (EC2, S3), Ubuntu/Linux administration, Git, GitHub Actions, Jenkins, Maven, Java WAR, Tomcat, systemd, PM2, Nginx (reverse proxy, SSL/TLS, load balancing), MySQL, MongoDB, Redis, Bash, S3 build artifact storage, ELK stack, GoAccess.</p>
+      <p class="skill-line"><strong>Hands-on (projects):</strong> Docker, Kubernetes, Helm, Nginx Ingress, Prometheus, Grafana, K3s, Linux, GitHub Actions.</p>
+    </section>
+
+    <section aria-labelledby="experience-heading">
+      <h2 id="experience-heading">Experience</h2>
+      <p class="job-title">DevOps Engineer</p>
+      <p class="job-meta">Zerocode Innovations Pvt Ltd | Hyderabad, India | Dec 2024 - Present</p>
+      <ul>
+        <li>Manage development, UAT, and production environments, supporting 20+ production deployments per month for business-critical production applications.</li>
+        <li>Automate deployments with a push-triggered GitHub Actions pipeline that installs dependencies, builds, and deploys the latest code over SSH, replacing manual multi-step deployments with a repeatable pipeline.</li>
+        <li>Build and support Java WAR workflows with Jenkins and Maven, Tomcat deployments, and S3-based build artifact storage.</li>
+        <li>Create Bash monitoring scripts with Google Chat alerts, schedule them with systemd timers, and add MySQL health and thread alerting.</li>
+        <li>Configure Nginx reverse proxy, SSL/TLS, and load balancing for application delivery across AWS EC2 and Ubuntu/Linux systems.</li>
+        <li>Troubleshoot deployments and production operations through log analysis, Nginx and HTTP error investigation, SSL troubleshooting, and disk, memory, and resource monitoring.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="projects-heading">
+      <h2 id="projects-heading">Projects</h2>
+      <article class="project">
+        <p class="project-title">End-to-End CI/CD Pipeline with Kubernetes | Personal project</p>
+        <p class="project-stack">GitHub Actions, Docker, Kubernetes, Helm, Nginx Ingress, Prometheus, Grafana, Linux</p>
+        <ul>
+          <li>Built a personal end-to-end CI/CD pipeline with GitHub Actions, Docker, Kubernetes, and Helm.</li>
+          <li>Project stack includes Nginx Ingress, Prometheus, Grafana, and Linux.</li>
+        </ul>
+      </article>
+      <article class="project">
+        <p class="project-title">BlogCMS Deployment | Personal deployment of an open-source application</p>
+        <p class="project-stack">Go API, Vue frontend, K3s, Nginx, Let's Encrypt</p>
+        <ul>
+          <li>Cloned and deployed the open-source CMS, without authoring the application, to a single-node K3s cluster; live at https://cmsapp.duckdns.org.</li>
+          <li>Ran API and frontend pods with a 5Gi uploads PVC behind host Nginx and Let's Encrypt TLS.</li>
+          <li>Used health and readiness endpoints, deployment scripts, and database backups to support the deployment.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section aria-labelledby="education-heading">
+      <h2 id="education-heading">Education</h2>
+      <p>B.Sc. in Computer Science | Medha Degree College (Yogi Vemana University) | Kadapa | Aug 2021 - Jun 2024</p>
+    </section>
+
+    <section aria-labelledby="training-heading">
+      <h2 id="training-heading">Courses &amp; Training</h2>
+    </section>
+  </main>
+</body>
+</html>

@@ -5,19 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <!-- SEO Meta Tags -->
-  <title>Vajid Shaik | DevOps Engineer — Hyderabad</title>
-  <meta name="description" content="Vajid Shaik is a DevOps Engineer specializing in end-to-end CI/CD automation, AWS cloud architecture, containerized environments via Kubernetes, and Infrastructure as Code (IaC)." />
-  <meta name="keywords" content="DevOps Engineer, Vajid Shaik, CI/CD, AWS, Kubernetes, Terraform, Docker, Nginx, Linux, Jenkins, Hyderabad, India" />
+  <title>Vajid Shaik | DevOps Engineer</title>
+  <meta name="description" content="Vajid Shaik is a DevOps Engineer at Zerocode Innovations in Hyderabad, with about 2 years of experience in AWS, CI/CD, Linux operations, and production deployments." />
+  <meta name="keywords" content="DevOps Engineer, Vajid Shaik, CI/CD, AWS, GitHub Actions, Jenkins, Linux, Nginx, Docker, Kubernetes, Helm, Hyderabad, India" />
   <meta name="author" content="Vajid Shaik" />
   <link rel="canonical" href="https://vajidshaik44.github.io/v2/" />
 
   <!-- Open Graph / LinkedIn Preview Metadata -->
-  <meta property="og:title" content="Vajid Shaik | DevOps Engineer — Hyderabad" />
-  <meta property="og:description" content="Automating release engineering and infrastructure systems. Specializing in CI/CD, AWS cloud design, and Kubernetes management." />
+  <meta property="og:title" content="Vajid Shaik | DevOps Engineer" />
+  <meta property="og:description" content="DevOps Engineer with about 2 years of production experience in AWS, CI/CD, and Linux, plus hands-on Kubernetes projects." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://vajidshaik44.github.io/v2/" />
-  <!-- TODO: Take a screenshot of the hero section and place it at assets/images/og-preview.png -->
-  <meta property="og:image" content="https://vajidshaik44.github.io/v2/assets/images/og-preview.png" />
   <meta property="og:site_name" content="Vajid Shaik Portfolio" />
 
   <!-- Fonts & Styling -->
@@ -25,9 +23,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <link rel="icon" type="image/svg+xml" href="/v2/favicon.svg" />
-  <link rel="shortcut icon" href="/v2/favicon.svg" />
-  <link rel="stylesheet" href="/v2/assets/css/styles.css" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="shortcut icon" href="favicon.svg" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
 
   <!-- Schema.org JSON-LD Structured Data -->
   <script type="application/ld+json">
@@ -45,7 +43,7 @@
     },
     "alumniOf": {
       "@type": "EducationalOrganization",
-      "name": "JNTU Hyderabad"
+      "name": "Medha Degree College (Yogi Vemana University)"
     },
     "sameAs": [
       "https://github.com/VajidShaik44",
@@ -55,9 +53,10 @@
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
   <!-- ── 1. LOADING SCREEN ── -->
-  <div id="loader" aria-live="polite" aria-label="Loading portfolio configurations">
+  <div id="loader" aria-live="polite" aria-label="Loading portfolio">
     <div class="loader-container">
       <div class="loader-text">Booting...</div>
       <div class="loader-bar-track">
@@ -67,41 +66,28 @@
   </div>
 
   <!-- ── 1.5 OPERATIONS Status BAR ── -->
-  <div id="ops-ticker" role="status" aria-label="Operations status ticker">
+  <div id="ops-ticker" aria-label="Profile highlights">
     <div class="ticker-item">
-      <span class="status-dot green" id="ticker-pods-dot"></span>
-      pods:<strong id="ticker-pods-val">3/3 running</strong>
+      <span>Role:</span><strong>DevOps Engineer</strong>
     </div>
     <span class="ticker-separator">|</span>
     <div class="ticker-item">
-      <span class="status-dot green" id="ticker-cicd-dot"></span>
-      CI/CD:<strong id="ticker-cicd-val">last build 2m ago ✓</strong>
+      <span>Environments:</span><strong>dev · UAT · production</strong>
     </div>
     <span class="ticker-separator">|</span>
     <div class="ticker-item">
-      <span class="status-dot green"></span>
-      uptime:<strong>99.97%</strong>
+      <span>Deployments:</span><strong>20+ / month</strong>
     </div>
     <span class="ticker-separator">|</span>
     <div class="ticker-item">
-      <span class="status-dot green" id="ticker-elk-dot"></span>
-      ELK:<strong id="ticker-elk-val">0 errors</strong>
-    </div>
-    <span class="ticker-separator">|</span>
-    <div class="ticker-item">
-      <span class="status-dot green"></span>
-      nginx:<strong>healthy</strong>
-    </div>
-    <span class="ticker-separator">|</span>
-    <div class="ticker-item">
-      <span>IST:</span><strong id="ticker-time-val">--:--:--</strong>
+      <span>Projects:</span><strong>Kubernetes · Helm · Monitoring</strong>
     </div>
   </div>
 
   <!-- ── 2. NAVIGATION BAR ── -->
   <nav id="navbar" role="navigation" aria-label="Main Navigation">
     <div class="nav-container">
-      <a href="#hero" class="nav-logo">[VS]</a>
+      <a href="#hero" class="nav-logo">VS</a>
       
       <!-- Desktop links -->
       <ul class="nav-links">
@@ -136,26 +122,26 @@
   <main id="main-content">
     
     <!-- Hero Section -->
-    <section id="hero" class="section-placeholder">
+    <section id="hero" class="page-section">
       <div class="hero-wrapper">
         <div class="section-header" style="margin-bottom: var(--spacing-unit);">
           <span class="subtitle" style="font-family: var(--font-mono); color: var(--accent-green); font-size: 13px;">vajid@devops:~$ whoami</span>
-          <h1 style="font-size: clamp(32px, 6vw, 56px); margin-top: calc(var(--spacing-unit) * 1.5); margin-bottom: calc(var(--spacing-unit) * 2);">I keep production systems running.</h1>
+          <h1 style="font-size: clamp(32px, 6vw, 56px); margin-top: calc(var(--spacing-unit) * 1.5); margin-bottom: calc(var(--spacing-unit) * 2);">Vajid Shaik</h1>
         </div>
         
         <p class="hero-description">
-          DevOps Engineer specializing in CI/CD automation, Kubernetes deployments, and AWS infrastructure. Currently at Zerocode Innovations, Hyderabad.
+          DevOps Engineer at Zerocode Innovations Pvt Ltd in Hyderabad, with about 2 years of experience supporting business-critical production applications.
         </p>
 
         <div class="hero-metrics">
-          <span class="metric-pill">70% faster deploys</span>
-          <span class="metric-pill">9 services on systemd</span>
-          <span class="metric-pill">99.97% uptime SLA</span>
+          <span class="metric-pill">About 2 years of experience</span>
+          <span class="metric-pill">3 environments</span>
+          <span class="metric-pill">20+ deployments / month</span>
         </div>
 
         <div class="cta-container">
-          <a href="#infrastructure" class="btn-primary">View Infrastructure &rarr;</a>
-          <a href="/v2/assets/resume/vajid-shaik-devops-resume.pdf" download class="btn-secondary">Download Resume</a>
+          <a href="#infrastructure" class="btn-primary">View production work &rarr;</a>
+          <a href="../assets/resume/vajid-shaik-devops-resume.pdf" download class="btn-secondary">Resume PDF</a>
         </div>
 
         <!-- Interactive Linux Terminal Simulator -->
@@ -169,12 +155,12 @@
             <div class="terminal-title">vajid@devops:~/terminal</div>
           </div>
           <div class="terminal-cli-body" id="terminal-body-click">
-            <div class="terminal-cli-output" id="terminal-cli-output">Welcome to Vajid Shaik's interactive DevOps console.
-Type <span class="term-warning term-bold">help</span> to view available system commands.
+            <div class="terminal-cli-output" id="terminal-cli-output">Vajid Shaik | DevOps Engineer
+Type <span class="term-warning term-bold">help</span> to view profile commands.
 </div>
             <div class="terminal-input-line">
               <span class="terminal-cli-prompt">vajid@devops:~$</span>
-              <input type="text" class="terminal-cli-input" id="terminal-cli-input" autofocus autocomplete="off" spellcheck="false" aria-label="Terminal input line" />
+              <input type="text" class="terminal-cli-input" id="terminal-cli-input" autocomplete="off" spellcheck="false" aria-label="Terminal command input" />
             </div>
           </div>
         </div>
@@ -182,63 +168,127 @@ Type <span class="term-warning term-bold">help</span> to view available system c
     </section>
 
     <!-- About Section -->
-    <section id="about" class="section-placeholder">
+    <section id="about" class="page-section">
       <div class="section-header">
-        <span class="subtitle">01 / Bio-Data</span>
-        <h2>About Me</h2>
-        <p>Operational background and core systems philosophy.</p>
+        <span class="subtitle">01 / Profile</span>
+        <h2>About</h2>
+        <p>Production operations and personal project work.</p>
       </div>
-      <p style="color: var(--text-secondary);">[About content to be filled in P-04]</p>
+      <div class="terminal-block">
+        <div class="terminal-header"><span class="terminal-title">Production experience</span></div>
+        <div class="terminal-body">
+          <p>At Zerocode Innovations Pvt Ltd, I manage development, UAT, and production environments for business-critical production applications.</p>
+          <p>My work includes repeatable GitHub Actions deployments, AWS and Linux administration, Bash monitoring with Google Chat alerts, and production troubleshooting.</p>
+          <p>Kubernetes and Helm are part of my personal projects, not my Zerocode role.</p>
+        </div>
+      </div>
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="section-placeholder">
+    <section id="skills" class="page-section">
       <div class="section-header">
-        <span class="subtitle">02 / Capabilities</span>
-        <h2>Skills Stack</h2>
-        <p>Orchestration, pipelines, infrastructure as code, and cloud platforms.</p>
+        <span class="subtitle">02 / Skills</span>
+        <h2>Skills</h2>
+        <p>Production experience and hands-on project tools, kept distinct.</p>
       </div>
-      <p style="color: var(--text-secondary);">[Skills content to be filled in P-05]</p>
+      <div class="terminal-block">
+        <div class="terminal-header"><span class="terminal-title">Production experience</span></div>
+        <div class="terminal-body">
+          <p>AWS (EC2, S3), Ubuntu/Linux administration, Git, GitHub Actions, Jenkins, Maven, Java WAR, Tomcat, systemd, PM2, Nginx (reverse proxy, SSL/TLS, load balancing), MySQL, MongoDB, Redis, Bash, S3 build artifact storage, ELK stack, GoAccess.</p>
+        </div>
+      </div>
+      <div class="terminal-block">
+        <div class="terminal-header"><span class="terminal-title">Hands-on (projects)</span></div>
+        <div class="terminal-body">
+          <p>Docker, Kubernetes, Helm, Nginx Ingress, Prometheus, Grafana, K3s, Linux, GitHub Actions.</p>
+        </div>
+      </div>
     </section>
 
     <!-- Infrastructure Section -->
-    <section id="infrastructure" class="section-placeholder">
+    <section id="infrastructure" class="page-section">
       <div class="section-header">
-        <span class="subtitle">03 / Architecture Topology</span>
-        <h2>Production Infrastructure</h2>
-        <p>High availability, cloud provisioning, and pipeline visualization.</p>
+        <span class="subtitle">03 / Operations</span>
+        <h2>Deployment and operations</h2>
+        <p>Production workflow at Zerocode, separate from personal Kubernetes projects.</p>
       </div>
-      <p style="color: var(--text-secondary);">[Infrastructure content to be filled in P-06]</p>
+      <div class="terminal-block">
+        <div class="terminal-header"><span class="terminal-title">Production deployment flow</span></div>
+        <div class="terminal-body">
+          <p>Git push → GitHub Actions installs dependencies → builds → connects over SSH → deploys the latest code.</p>
+          <p>This replaced manual multi-step deployments with an automated, repeatable pipeline. Production work uses AWS EC2/S3, Ubuntu/Linux, Jenkins, Maven/Java WAR on Tomcat, systemd, PM2, and Nginx.</p>
+          <p>Monitoring scripts use Bash, Google Chat alerts, and systemd timers, with MySQL health and thread alerting.</p>
+        </div>
+      </div>
+      <div class="terminal-block">
+        <div class="terminal-header"><span class="terminal-title">Project environments</span></div>
+        <div class="terminal-body">
+          <p>Personal projects cover Docker, Kubernetes, Helm, Nginx Ingress, Prometheus, Grafana, and a single-node K3s deployment for BlogCMS.</p>
+          <p><a href="/#work">View project case studies and architecture diagrams on the main portfolio.</a></p>
+        </div>
+      </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="section-placeholder">
+    <section id="projects" class="page-section">
       <div class="section-header">
-        <span class="subtitle">04 / Code Deployments</span>
-        <h2>Featured Work</h2>
-        <p>Real-world client automation cases and cloud system modernizations.</p>
+        <span class="subtitle">04 / Personal Projects</span>
+        <h2>Projects</h2>
+        <p>Two separate personal projects.</p>
       </div>
-      <p style="color: var(--text-secondary);">[Projects content to be filled in P-07]</p>
+      <article class="terminal-block">
+        <div class="terminal-header"><span class="terminal-title">Project A · End-to-End CI/CD Pipeline with Kubernetes</span></div>
+        <div class="terminal-body">
+          <p><strong>Problem:</strong> Demonstrate an end-to-end delivery path from GitHub Actions to Kubernetes workloads.</p>
+          <p><strong>Architecture:</strong> GitHub Actions → Docker → Kubernetes with Helm → Nginx Ingress; Prometheus and Grafana are included in the project stack.</p>
+          <p><strong>Stack:</strong> GitHub Actions, Docker, Kubernetes, Helm, Nginx Ingress, Prometheus, Grafana, Linux.</p>
+          <p><strong>What I did:</strong> Built a personal CI/CD pipeline and worked with the listed container, ingress, monitoring, and Linux tools.</p>
+          <p><a href="/#work">Open Project A case study</a></p>
+        </div>
+      </article>
+      <article class="terminal-block">
+        <div class="terminal-header"><span class="terminal-title">Project B · BlogCMS deployment</span></div>
+        <div class="terminal-body">
+          <p><strong>Problem:</strong> Deploy an open-source Go API and Vue frontend as a live CMS with persistent uploads and HTTPS.</p>
+          <p><strong>Architecture:</strong> Host Nginx with Let's Encrypt TLS → API and frontend pods on single-node K3s, with a 5Gi uploads PVC.</p>
+          <p><strong>Stack:</strong> Go API, Vue frontend, MySQL, K3s, Nginx, Let's Encrypt.</p>
+          <p><strong>What I did:</strong> Cloned and deployed the open-source application; I did not write it. I use health/readiness endpoints, deployment scripts, and database backups.</p>
+          <p><a href="https://cmsapp.duckdns.org">Live app: cmsapp.duckdns.org</a> · <a href="/#work">Open Project B case study</a></p>
+        </div>
+      </article>
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="section-placeholder">
+    <section id="experience" class="page-section">
       <div class="section-header">
-        <span class="subtitle">05 / Systems Log</span>
+        <span class="subtitle">05 / Experience</span>
         <h2>Work Experience</h2>
-        <p>Production history at Zerocode Innovations Pvt Ltd.</p>
+        <p>DevOps Engineer · Zerocode Innovations Pvt Ltd · Hyderabad, India · Dec 2024 - Present</p>
       </div>
-      <p style="color: var(--text-secondary);">[Experience content to be filled in P-08]</p>
+      <ul class="experience-facts">
+        <li>Manage development, UAT, and production environments, supporting 20+ production deployments per month for business-critical production applications.</li>
+        <li>Automate deployments with a push-triggered GitHub Actions pipeline that installs dependencies, builds, and deploys the latest code over SSH, replacing manual multi-step deployments with a repeatable pipeline.</li>
+        <li>Build and support Java WAR workflows with Jenkins and Maven, Tomcat deployments, and S3-based build artifact storage.</li>
+        <li>Create Bash monitoring scripts with Google Chat alerts, schedule them with systemd timers, and add MySQL health and thread alerting.</li>
+        <li>Configure Nginx reverse proxy, SSL/TLS, and load balancing for application delivery across AWS EC2 and Ubuntu/Linux systems.</li>
+        <li>Troubleshoot deployments and production operations through log analysis, Nginx and HTTP error investigation, SSL troubleshooting, and disk, memory, and resource monitoring.</li>
+      </ul>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="section-placeholder">
+    <section id="contact" class="page-section">
       <div class="section-header">
-        <span class="subtitle">06 / SSH Connection</span>
-        <h2>Get In Touch</h2>
-        <p>Establish an encrypted connection or leave an automated message.</p>
+        <span class="subtitle">06 / Contact</span>
+        <h2>Open to DevOps Engineer roles</h2>
+        <p>Hyderabad, India</p>
       </div>
-      <p style="color: var(--text-secondary);">[Contact content to be filled in P-09]</p>
+      <div class="contact-details">
+        <a href="tel:+919640781856">Phone: +91 9640781856</a>
+        <a href="mailto:shaikvajid484@gmail.com">Email: shaikvajid484@gmail.com</a>
+        <a href="https://www.linkedin.com/in/vajid-shaik" target="_blank" rel="noopener noreferrer">LinkedIn profile</a>
+        <a href="https://github.com/VajidShaik44" target="_blank" rel="noopener noreferrer">GitHub profile</a>
+        <a href="../assets/resume/vajid-shaik-devops-resume.pdf">Resume PDF</a>
+      </div>
     </section>
 
   </main>
@@ -259,21 +309,21 @@ Type <span class="term-warning term-bold">help</span> to view available system c
       <div class="footer-links" aria-label="Terminal Links">
         <div>
           <span style="color: var(--text-secondary);">vajid@devops:~$</span> 
-          <a href="https://github.com/VajidShaik44" target="_blank" rel="noopener">cat github.txt</a>
+          <a href="https://github.com/VajidShaik44" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
         <div>
           <span style="color: var(--text-secondary);">vajid@devops:~$</span> 
-          <a href="https://www.linkedin.com/in/vajid-shaik" target="_blank" rel="noopener">cat linkedin.txt</a>
+          <a href="https://www.linkedin.com/in/vajid-shaik" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
         <div>
           <span style="color: var(--text-secondary);">vajid@devops:~$</span> 
-          <a href="mailto:shaikvajid484@gmail.com">cat email.txt</a>
+          <a href="mailto:shaikvajid484@gmail.com">Email</a>
         </div>
       </div>
 
       <div class="footer-bottom">
         <span>&copy; 2026 Vajid Shaik · All Rights Reserved</span>
-        <span>Infrastructure: Operational &amp; Observability Nominal</span>
+        <span>Hyderabad, India · DevOps Engineer</span>
       </div>
     </div>
   </footer>
@@ -340,6 +390,6 @@ Type <span class="term-warning term-bold">help</span> to view available system c
       }
     });
   </script>
-  <script src="/v2/assets/js/terminal.js"></script>
+  <script src="assets/js/profile-terminal.js"></script>
 </body>
 </html>

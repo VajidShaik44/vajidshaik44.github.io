@@ -215,6 +215,16 @@ button:focus-visible {
   line-height: 1.7;
 }
 
+.availability {
+  margin: 13px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.availability strong {
+  color: var(--ink);
+}
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -469,6 +479,7 @@ button:focus-visible {
 
 .project-card {
   min-height: 310px;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   padding: 27px;
@@ -537,6 +548,159 @@ button:focus-visible {
   letter-spacing: -0.04em;
 }
 
+.case-study-problem,
+.project-ownership {
+  max-width: 470px;
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.case-study-problem strong {
+  color: var(--ink);
+}
+
+.project-ownership {
+  padding-left: 12px;
+  border-left: 2px solid var(--accent);
+}
+
+.architecture-figure {
+  margin: 8px 0 18px;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f7f8f6;
+  scrollbar-color: #9eb4aa transparent;
+}
+
+.architecture-figure:focus-visible {
+  outline: 3px solid #83bcae;
+  outline-offset: 3px;
+}
+
+.architecture-diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: var(--ink);
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+}
+
+.diagram-canvas {
+  fill: #f7f8f6;
+}
+
+.diagram-node rect {
+  fill: #fff;
+  stroke: #cbd9d2;
+  stroke-width: 1.5;
+}
+
+.diagram-node.diagram-accent-node rect {
+  fill: #e8f2ef;
+  stroke: #176b58;
+}
+
+.diagram-node.diagram-monitor-node rect {
+  fill: #eff4f1;
+}
+
+.diagram-node text,
+.diagram-cluster-label,
+.diagram-operations {
+  fill: #17212f;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.diagram-edge {
+  fill: none;
+  stroke: #176b58;
+  stroke-width: 2;
+}
+
+.diagram-arrowhead {
+  fill: #176b58;
+}
+
+.diagram-cluster {
+  fill: #eef4f0;
+  stroke: #91aa9e;
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+}
+
+.diagram-cluster-label {
+  font-size: 13px;
+}
+
+.diagram-operations {
+  fill: #303f36;
+  font-size: 13px;
+}
+
+.architecture-figure figcaption,
+.project-screenshot figcaption {
+  padding: 8px 11px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.case-study-heading {
+  margin: 4px 0 7px;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.project-card .tag-list {
+  margin: 0 0 16px;
+}
+
+.case-study-list {
+  display: grid;
+  gap: 7px;
+  margin: 0 0 18px;
+  padding-left: 17px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.case-study-list li::marker {
+  color: var(--accent);
+}
+
+.project-screenshot {
+  display: none;
+  margin: 0 0 18px;
+}
+
+.project-screenshot.is-loaded {
+  display: block;
+}
+
+.project-screenshot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.project-screenshot figcaption {
+  padding: 6px 0 0;
+  overflow-wrap: anywhere;
+}
+
+.project-screenshot code {
+  color: var(--ink-soft);
+  font-family: "Segoe UI Mono", Consolas, monospace;
+}
+
 .project-card > p {
   max-width: 470px;
   margin: 0;
@@ -599,7 +763,7 @@ button:focus-visible {
   color: var(--accent);
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  line-height: 1.5;
 }
 
 .experience-card h3 {
@@ -642,7 +806,7 @@ button:focus-visible {
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   border-top: 1px solid var(--line);
   border-left: 1px solid var(--line);
 }
@@ -709,10 +873,12 @@ button:focus-visible {
 }
 
 .contact-actions {
-  display: grid;
-  justify-items: start;
-  gap: 15px;
-  flex: none;
+  display: flex;
+  flex: 1 1 500px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px 20px;
 }
 
 .button-light {
@@ -730,6 +896,51 @@ button:focus-visible {
 
 .contact-profile:hover {
   color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  .architecture-figure {
+    background: #14221d;
+  }
+
+  .diagram-canvas {
+    fill: #14221d;
+  }
+
+  .diagram-node rect {
+    fill: #1d3028;
+    stroke: #719383;
+  }
+
+  .diagram-node.diagram-accent-node rect {
+    fill: #23483b;
+    stroke: #8bc4ae;
+  }
+
+  .diagram-node.diagram-monitor-node rect {
+    fill: #20372d;
+  }
+
+  .diagram-node text,
+  .diagram-cluster-label,
+  .diagram-operations {
+    fill: #edf5f1;
+  }
+
+  .diagram-edge,
+  .diagram-arrowhead {
+    stroke: #9ad0ba;
+    fill: #9ad0ba;
+  }
+
+  .diagram-cluster {
+    fill: #182920;
+    stroke: #719383;
+  }
+
+  .architecture-figure figcaption {
+    color: #d0dfd8;
+  }
 }
 
 .site-footer {
@@ -766,6 +977,10 @@ button:focus-visible {
 }
 
 @media (max-width: 900px) {
+  .projects-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .hero-grid {
     grid-template-columns: 1fr 0.8fr;
     gap: 38px;
@@ -897,6 +1112,11 @@ button:focus-visible {
     min-height: 290px;
   }
 
+  .architecture-diagram {
+    width: 680px;
+    max-width: none;
+  }
+
   .experience-card {
     grid-template-columns: 1fr;
     gap: 12px;
@@ -916,6 +1136,7 @@ button:focus-visible {
   }
 
   .contact-actions {
+    justify-content: flex-start;
     margin-top: 25px;
   }
 }

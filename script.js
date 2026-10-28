@@ -2,6 +2,25 @@ const menuToggle = document.querySelector("#menuToggle");
 const navLinks = document.querySelector("#navLinks");
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+document.querySelectorAll(".project-screenshot img").forEach((image) => {
+  const figure = image.closest(".project-screenshot");
+  const revealLoadedImage = () => {
+    if (image.naturalWidth > 0) {
+      figure.classList.add("is-loaded");
+    }
+  };
+
+  image.addEventListener("load", revealLoadedImage, { once: true });
+  image.addEventListener("error", () => {
+    figure.classList.remove("is-loaded");
+  }, { once: true });
+
+  if (image.complete) {
+    revealLoadedImage();
+  }
+});
+
 if ("IntersectionObserver" in window && !reducedMotion) {
   const revealTargets = document.querySelectorAll(
     ".about-copy, .project-card, .experience-card, .skill-group, .contact-inner",

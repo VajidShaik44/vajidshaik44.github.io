@@ -70,6 +70,28 @@ a:hover {
   color: var(--accent-green);
 }
 
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent-green);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 10002;
+  padding: 8px 12px;
+  transform: translateY(-150%);
+  background: var(--surface-raised);
+  color: var(--text-primary);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 /* ── 4. LOADING SCREEN ── */
 #loader {
   position: fixed;
@@ -282,7 +304,7 @@ body.loaded #loader {
 /* ── 6. UTILITY CLASSES ── */
 
 /* Section Layouts */
-.section-placeholder {
+.page-section {
   min-height: 80vh;
   padding: calc(var(--spacing-unit) * 12) calc(var(--spacing-unit) * 3);
   max-width: 1200px;
@@ -365,6 +387,37 @@ body.loaded #loader {
   font-size: 14px;
   color: var(--text-primary);
   line-height: 1.5;
+}
+
+.terminal-body p + p {
+  margin-top: 12px;
+}
+
+.terminal-block + .terminal-block {
+  margin-top: 16px;
+}
+
+.experience-facts {
+  display: grid;
+  gap: 12px;
+  padding-left: 22px;
+  color: var(--text-secondary);
+}
+
+.experience-facts li::marker {
+  color: var(--accent-green);
+}
+
+.contact-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+.contact-details a {
+  overflow-wrap: anywhere;
 }
 
 /* Status Indicator Dot */
@@ -493,7 +546,7 @@ body.loaded #loader {
     --nav-h: 64px;
   }
   
-  .section-placeholder {
+  .page-section {
     padding: calc(var(--spacing-unit) * 8) calc(var(--spacing-unit) * 3);
   }
 }
@@ -622,6 +675,7 @@ body {
 
 .cta-container {
   display: flex;
+  flex-wrap: wrap;
   gap: calc(var(--spacing-unit) * 2);
   margin-top: calc(var(--spacing-unit) * 2);
 }
@@ -730,6 +784,11 @@ body {
   flex-grow: 1;
   caret-color: var(--accent-green);
   padding: 0 !important;
+}
+
+.terminal-cli-input:focus-visible {
+  outline: 2px solid var(--accent-green) !important;
+  outline-offset: 4px;
 }
 
 /* Autocomplete suggestion styles */
