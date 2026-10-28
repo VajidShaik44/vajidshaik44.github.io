@@ -6,8 +6,8 @@
   <title>Vajid Shaik | DevOps Engineer</title>
   <style>
     @page {
-      size: Letter;
-      margin: 0.42in 0.52in;
+      size: A4;
+      margin: 0.38in 0.48in;
     }
 
     * {
@@ -16,35 +16,35 @@
 
     body {
       margin: 0 auto;
-      max-width: 8.5in;
-      padding: 0.42in 0.52in;
+      max-width: 8.27in;
+      padding: 0.38in 0.48in;
       color: #171717;
       font-family: Arial, Helvetica, sans-serif;
-      font-size: 9.2pt;
+      font-size: 10.5pt;
       line-height: 1.22;
     }
 
     header {
-      margin-bottom: 10px;
+      margin-bottom: 9px;
       text-align: center;
     }
 
     h1 {
       margin: 0;
-      font-size: 18pt;
-      line-height: 1.08;
+      font-size: 22pt;
+      line-height: 1.05;
     }
 
     .role {
       margin: 2px 0 4px;
-      font-size: 10pt;
+      font-size: 10.5pt;
       font-weight: 700;
-      text-transform: uppercase;
     }
 
     .contact {
       margin: 0;
-      font-size: 8.8pt;
+      font-size: 9.2pt;
+      line-height: 1.3;
     }
 
     a {
@@ -53,21 +53,24 @@
     }
 
     section {
-      margin: 0 0 8px;
-      break-inside: avoid;
+      margin: 0 0 10px;
     }
 
     h2 {
-      margin: 0 0 3px;
+      margin: 0 0 4px;
       padding-bottom: 2px;
       border-bottom: 1px solid #555;
-      font-size: 10.4pt;
-      line-height: 1.15;
-      text-transform: uppercase;
+      font-size: 11.5pt;
+      font-weight: 700;
+      line-height: 1.16;
     }
 
     p {
       margin: 0 0 3px;
+    }
+
+    .summary {
+      line-height: 1.18;
     }
 
     .skill-line strong,
@@ -81,25 +84,28 @@
       margin-bottom: 3px;
     }
 
+    .project-stack {
+      font-size: 10pt;
+    }
+
     ul {
       margin: 2px 0 0;
       padding-left: 15px;
     }
 
     li {
-      margin: 0 0 2px;
+      margin: 0 0 3px;
       padding-left: 1px;
     }
 
     .project {
-      margin-bottom: 5px;
+      margin-bottom: 8px;
       break-inside: avoid;
     }
 
     @media screen {
       body {
         margin: 24px auto;
-        padding: 0.42in 0.52in;
         background: #fff;
         box-shadow: 0 1px 12px rgb(0 0 0 / 14%);
       }
@@ -115,10 +121,6 @@
         background: #fff;
         box-shadow: none;
       }
-
-      a {
-        text-decoration: none;
-      }
     }
   </style>
 </head>
@@ -132,47 +134,50 @@
 
   <main>
     <section aria-labelledby="summary-heading">
-      <h2 id="summary-heading">Summary</h2>
-      <p>DevOps Engineer with about 2 years of experience supporting business-critical production applications across development, UAT, and production. Automates CI/CD, manages AWS and Linux deployments, and troubleshoots application and infrastructure issues.</p>
+      <h2 id="summary-heading">Professional Summary</h2>
+      <p class="summary">DevOps Engineer with about 2 years of experience automating CI/CD, deploying and operating<br>business-critical production applications across dev, UAT and production on AWS and Linux; recently<br>deployed a containerised app to Kubernetes (K3s) with automated build, scan and release pipelines.</p>
     </section>
 
     <section aria-labelledby="skills-heading">
-      <h2 id="skills-heading">Skills</h2>
-      <p class="skill-line"><strong>Production experience:</strong> AWS (EC2, S3), Ubuntu/Linux administration, Git, GitHub Actions, Jenkins, Maven, Java WAR, Tomcat, systemd, PM2, Nginx (reverse proxy, SSL/TLS, load balancing), MySQL, MongoDB, Redis, Bash, S3 build artifact storage, ELK stack, GoAccess.</p>
-      <p class="skill-line"><strong>Hands-on (projects):</strong> Docker, Kubernetes, Helm, Nginx Ingress, Prometheus, Grafana, K3s, Linux, GitHub Actions.</p>
+      <h2 id="skills-heading">Technical Skills</h2>
+      <p class="skill-line"><strong>Production experience:</strong> AWS (EC2, S3), Ubuntu/Linux administration, GitHub Actions, Jenkins, Maven, Java WAR/Tomcat deployments, Nginx (reverse proxy, SSL/TLS, load balancing), systemd, PM2, Bash, MySQL, MongoDB, Redis, ELK, Git.</p>
+      <p class="skill-line"><strong>Hands-on (projects):</strong> Docker, Kubernetes/K3s, Helm, Nginx Ingress, Prometheus, Grafana, Trivy, GHCR, Terraform, Ansible, AWS IAM/VPC.</p>
     </section>
 
     <section aria-labelledby="experience-heading">
-      <h2 id="experience-heading">Experience</h2>
+      <h2 id="experience-heading">Professional Experience</h2>
       <p class="job-title">DevOps Engineer</p>
       <p class="job-meta">Zerocode Innovations Pvt Ltd | Hyderabad, India | Dec 2024 - Present</p>
       <ul>
-        <li>Manage development, UAT, and production environments, supporting 20+ production deployments per month for business-critical production applications.</li>
-        <li>Automate deployments with a push-triggered GitHub Actions pipeline that installs dependencies, builds, and deploys the latest code over SSH, replacing manual multi-step deployments with a repeatable pipeline.</li>
-        <li>Build and support Java WAR workflows with Jenkins and Maven, Tomcat deployments, and S3-based build artifact storage.</li>
-        <li>Create Bash monitoring scripts with Google Chat alerts, schedule them with systemd timers, and add MySQL health and thread alerting.</li>
-        <li>Configure Nginx reverse proxy, SSL/TLS, and load balancing for application delivery across AWS EC2 and Ubuntu/Linux systems.</li>
-        <li>Troubleshoot deployments and production operations through log analysis, Nginx and HTTP error investigation, SSL troubleshooting, and disk, memory, and resource monitoring.</li>
+        <li>Manage dev, UAT, and production environments for business-critical production applications, supporting 20+ production deployments per month.</li>
+        <li>Replace manual multi-step deployments, where a DevOps engineer pulled code on the server, installed dependencies, updated the database, built, and restarted the app, with push-triggered GitHub Actions pipelines that install dependencies, build, SSH to the server, and deploy the latest code.</li>
+        <li>Build Java WAR applications with Maven on Tomcat using Jenkins, and store and retrieve build artifacts from S3.</li>
+        <li>Configure Nginx reverse proxy, SSL/TLS, and load balancing; manage application services with systemd.</li>
+        <li>Create Bash monitoring scripts with Google Chat alerts, schedule them on systemd timers, and alert on MySQL health and thread conditions.</li>
+        <li>Administer MySQL, MongoDB, and Redis; use ELK for log analysis and GoAccess for traffic reporting.</li>
+        <li>Troubleshoot deployment and application availability, HTTP errors, SSL/TLS, disk and memory issues.</li>
       </ul>
     </section>
 
     <section aria-labelledby="projects-heading">
       <h2 id="projects-heading">Projects</h2>
       <article class="project">
-        <p class="project-title">End-to-End CI/CD Pipeline with Kubernetes | Personal project</p>
-        <p class="project-stack">GitHub Actions, Docker, Kubernetes, Helm, Nginx Ingress, Prometheus, Grafana, Linux</p>
+        <p class="project-title">BlogCMS: CI/CD and Kubernetes Deployment | Live: cmsapp.duckdns.org</p>
+        <p class="project-stack">Go, Vue.js, MySQL, GitHub Actions, Trivy, GHCR, K3s, Nginx</p>
         <ul>
-          <li>Built a personal end-to-end CI/CD pipeline with GitHub Actions, Docker, Kubernetes, and Helm.</li>
-          <li>Project stack includes Nginx Ingress, Prometheus, Grafana, and Linux.</li>
+          <li>Cloned, deployed, and operate this open-source application; I did not write it.</li>
+          <li>Added GitHub Actions checks for the backend and frontend; published verified GHCR images after Trivy scans reported 0 HIGH/CRITICAL findings.</li>
+          <li>Deployed API and frontend workloads to a single-node K3s cluster behind host Nginx with Let's Encrypt HTTPS; connected MySQL and a persistent uploads volume.</li>
+          <li>Verified public frontend and API readiness endpoints returned HTTP 200.</li>
         </ul>
       </article>
       <article class="project">
-        <p class="project-title">BlogCMS Deployment | Personal deployment of an open-source application</p>
-        <p class="project-stack">Go API, Vue frontend, K3s, Nginx, Let's Encrypt</p>
+        <p class="project-title">End-to-End CI/CD Pipeline with Kubernetes</p>
+        <p class="project-stack">GitHub Actions, Docker, Kubernetes, Helm, Nginx Ingress, Prometheus, Grafana, Linux</p>
         <ul>
-          <li>Cloned and deployed the open-source CMS, without authoring the application, to a single-node K3s cluster; live at https://cmsapp.duckdns.org.</li>
-          <li>Ran API and frontend pods with a 5Gi uploads PVC behind host Nginx and Let's Encrypt TLS.</li>
-          <li>Used health and readiness endpoints, deployment scripts, and database backups to support the deployment.</li>
+          <li>Build Docker images in a GitHub Actions pipeline and deploy them to Kubernetes with Helm.</li>
+          <li>Expose the application through Nginx Ingress.</li>
+          <li>Monitor workloads with Prometheus and Grafana dashboards in a Linux environment.</li>
         </ul>
       </article>
     </section>
@@ -180,10 +185,6 @@
     <section aria-labelledby="education-heading">
       <h2 id="education-heading">Education</h2>
       <p>B.Sc. in Computer Science | Medha Degree College (Yogi Vemana University) | Kadapa | Aug 2021 - Jun 2024</p>
-    </section>
-
-    <section aria-labelledby="training-heading">
-      <h2 id="training-heading">Courses &amp; Training</h2>
     </section>
   </main>
 </body>
