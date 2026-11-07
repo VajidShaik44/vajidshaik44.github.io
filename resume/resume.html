@@ -7,7 +7,7 @@
   <style>
     @page {
       size: A4;
-      margin: 0.38in 0.48in;
+      margin: 0.6in;
     }
 
     * {
@@ -17,11 +17,11 @@
     body {
       margin: 0 auto;
       max-width: 8.27in;
-      padding: 0.38in 0.48in;
+      padding: 0.6in;
       color: #171717;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 10.5pt;
-      line-height: 1.22;
+      line-height: 1.15;
     }
 
     header {
@@ -53,7 +53,7 @@
     }
 
     section {
-      margin: 0 0 10px;
+      margin: 0 0 7px;
     }
 
     h2 {
@@ -94,12 +94,11 @@
     }
 
     li {
-      margin: 0 0 3px;
-      padding-left: 1px;
+      margin: 0 0 2px;
     }
 
     .project {
-      margin-bottom: 8px;
+      margin-bottom: 4px;
       break-inside: avoid;
     }
 
@@ -135,13 +134,13 @@
   <main>
     <section aria-labelledby="summary-heading">
       <h2 id="summary-heading">Professional Summary</h2>
-      <p class="summary">DevOps Engineer with 2 years of experience automating CI/CD and operating<br>business-critical production applications across dev, UAT and production on AWS and Linux; hands-on<br>with containers and Kubernetes through personal projects.</p>
+      <p class="summary">DevOps Engineer with 2 years of experience automating CI/CD and operating production applications across dev, UAT and production on AWS and Linux; hands-on with Kubernetes, Terraform and observability through projects.</p>
     </section>
 
     <section aria-labelledby="skills-heading">
       <h2 id="skills-heading">Technical Skills</h2>
       <p class="skill-line"><strong>Production experience:</strong> AWS (EC2, S3), Ubuntu/Linux, GitHub Actions, Jenkins, Maven, Java WAR/Tomcat, Nginx (reverse proxy, SSL/TLS, load balancing), systemd, PM2, Bash, MySQL, MongoDB, Redis, ELK, Git.</p>
-      <p class="skill-line"><strong>Hands-on (projects):</strong> Docker, Kubernetes/K3s, Helm, Nginx Ingress, Prometheus, Grafana, Trivy, GHCR.</p>
+      <p class="skill-line"><strong>Hands-on (projects):</strong> Docker, Kubernetes/K3s, Helm, Prometheus, Grafana, Trivy, GHCR, Terraform, Ansible, AWS (VPC, ALB, Auto Scaling, RDS, IAM, CloudWatch), GitHub OIDC.</p>
     </section>
 
     <section aria-labelledby="experience-heading">
@@ -149,36 +148,38 @@
       <p class="job-title">DevOps Engineer</p>
       <p class="job-meta">Zerocode Innovations Pvt Ltd | Hyderabad, India | Dec 2024 - Present</p>
       <ul>
-        <li>Manage dev, UAT, and production environments, supporting 20+ production deployments per month.</li>
-        <li>Replace manual server-side pulls, dependency installs, database updates, builds, and restarts with push-triggered GitHub Actions pipelines that install, build, and deploy over SSH on each push.</li>
-        <li>Build Java WAR applications with Maven on Tomcat using Jenkins; store and retrieve build artifacts in S3.</li>
-        <li>Maintain 9 Java services migrated from nohup to systemd for automatic restarts and proper logging.</li>
-        <li>Renew SSL/TLS certificates across 20+ domains; configure Nginx reverse proxy and load balancing.</li>
-        <li>Build Bash monitoring scripts with Google Chat alerts on systemd timers, covering MySQL health and thread conditions.</li>
-        <li>Maintain cron-based automated MySQL backup scripts.</li>
-        <li>Build ELK pipelines that ingest MySQL data into Elasticsearch; use GoAccess for traffic reporting.</li>
-        <li>Administer MySQL, MongoDB, and Redis; troubleshoot deployments, HTTP errors, SSL/TLS, disk, and memory issues.</li>
+        <li>Manage dev, UAT and production environments, supporting 20+ production deployments per month.</li>
+        <li>Replace manual pull-build-restart deployments with push-triggered GitHub Actions pipelines (install, build, SSH deploy).</li>
+        <li>Build Java WAR apps with Maven on Tomcat via Jenkins; store and retrieve build artifacts in S3.</li>
+        <li>Maintain 9 Java services under systemd (migrated from nohup) for auto restarts and proper logging.</li>
+        <li>Manage SSL/TLS renewals across 20+ domains; configure Nginx reverse proxy and load balancing.</li>
+        <li>Write Bash monitoring scripts on systemd timers with Google Chat alerts for MySQL health and threads.</li>
+        <li>Automate MySQL backups with cron-based scripts.</li>
+        <li>Build ELK pipelines that ingest MySQL data into Elasticsearch and use GoAccess for traffic reporting.</li>
+        <li>Administer MySQL, MongoDB and Redis, and troubleshoot deployments, HTTP errors, SSL/TLS, disk and memory issues.</li>
       </ul>
     </section>
 
     <section aria-labelledby="projects-heading">
       <h2 id="projects-heading">Projects</h2>
       <article class="project">
-        <p class="project-title">BlogCMS: CI/CD and Kubernetes Deployment | Live: cmsapp.duckdns.org</p>
-        <p class="project-stack">Go, Vue.js, MySQL, GitHub Actions, Trivy, GHCR, K3s, Nginx</p>
+        <p class="project-title">CI/CD to Kubernetes with Helm and Monitoring</p>
+        <p class="project-stack">Stack: Java Spring Boot, Docker, GitHub Actions, Trivy, GHCR, Kubernetes (K3s), Helm, Nginx Ingress, Prometheus, Grafana</p>
         <ul>
-          <li>Deploy and operate the open-source CMS without claiming application authorship; handle its CI, scanning, Kubernetes setup, and HTTPS configuration.</li>
-          <li>Add GitHub Actions checks for backend and frontend; publish verified GHCR images after Trivy scans report 0 HIGH/CRITICAL findings.</li>
-          <li>Deploy the API and frontend to a single-node K3s cluster behind host Nginx with Let's Encrypt HTTPS, MySQL, and a persistent uploads volume.</li>
+          <li>Build and test a Spring Boot service with GitHub Actions on every pull request; build a Docker image tagged with the commit SHA, scan it with Trivy (failing on HIGH/CRITICAL) and push it to GHCR.</li>
+          <li>Package the service as a Helm chart with dev and prod values, Ingress, HPA, resource limits and readiness/liveness probes.</li>
+          <li>Deploy to K3s with helm upgrade --install (rolling updates) and a documented helm rollback.</li>
+          <li>Monitor the workload with kube-prometheus-stack, a Grafana dashboard and Prometheus alert rules for pod restarts and error rate.</li>
         </ul>
       </article>
       <article class="project">
-        <p class="project-title">End-to-End CI/CD Pipeline with Kubernetes | [GITHUB LINK]</p>
-        <p class="project-stack">GitHub Actions, Docker, Kubernetes, Helm, Nginx Ingress, Prometheus, Grafana, Linux</p>
+        <p class="project-title">AWS Infrastructure with Terraform, Ansible and CI/CD</p>
+        <p class="project-stack">Stack: AWS, Terraform, Ansible, GitHub Actions, CloudWatch</p>
         <ul>
-          <li>Build Docker images in a GitHub Actions pipeline and deploy them to Kubernetes with Helm.</li>
-          <li>Expose the application through Nginx Ingress.</li>
-          <li>Monitor workloads with Prometheus and Grafana dashboards in a Linux environment.</li>
+          <li>Provision a VPC with public and private subnets across two AZs, an ALB, an EC2 Auto Scaling group and RDS MySQL using reusable Terraform modules, with remote state in S3 and DynamoDB locking.</li>
+          <li>Apply least-privilege IAM roles and security groups for the application and database tiers.</li>
+          <li>Configure servers with Ansible roles: Nginx reverse proxy and the application as a systemd service.</li>
+          <li>Run terraform fmt, validate, tflint and a security scan on every pull request, post the plan on the PR and apply on merge with approval, authenticating to AWS through GitHub OIDC; set CloudWatch alarms with SNS notifications.</li>
         </ul>
       </article>
     </section>
