@@ -135,13 +135,13 @@
   <main>
     <section aria-labelledby="summary-heading">
       <h2 id="summary-heading">Professional Summary</h2>
-      <p class="summary">DevOps Engineer with about 2 years of experience automating CI/CD, deploying and operating<br>business-critical production applications across dev, UAT and production on AWS and Linux; recently<br>deployed a containerised app to Kubernetes (K3s) with automated build, scan and release pipelines.</p>
+      <p class="summary">DevOps Engineer with 2 years of experience automating CI/CD and operating<br>business-critical production applications across dev, UAT and production on AWS and Linux; hands-on<br>with containers and Kubernetes through personal projects.</p>
     </section>
 
     <section aria-labelledby="skills-heading">
       <h2 id="skills-heading">Technical Skills</h2>
-      <p class="skill-line"><strong>Production experience:</strong> AWS (EC2, S3), Ubuntu/Linux administration, GitHub Actions, Jenkins, Maven, Java WAR/Tomcat deployments, Nginx (reverse proxy, SSL/TLS, load balancing), systemd, PM2, Bash, MySQL, MongoDB, Redis, ELK, Git.</p>
-      <p class="skill-line"><strong>Hands-on (projects):</strong> Docker, Kubernetes/K3s, Helm, Nginx Ingress, Prometheus, Grafana, Trivy, GHCR, Terraform, Ansible, AWS IAM/VPC.</p>
+      <p class="skill-line"><strong>Production experience:</strong> AWS (EC2, S3), Ubuntu/Linux, GitHub Actions, Jenkins, Maven, Java WAR/Tomcat, Nginx (reverse proxy, SSL/TLS, load balancing), systemd, PM2, Bash, MySQL, MongoDB, Redis, ELK, Git.</p>
+      <p class="skill-line"><strong>Hands-on (projects):</strong> Docker, Kubernetes/K3s, Helm, Nginx Ingress, Prometheus, Grafana, Trivy, GHCR.</p>
     </section>
 
     <section aria-labelledby="experience-heading">
@@ -149,13 +149,15 @@
       <p class="job-title">DevOps Engineer</p>
       <p class="job-meta">Zerocode Innovations Pvt Ltd | Hyderabad, India | Dec 2024 - Present</p>
       <ul>
-        <li>Manage dev, UAT, and production environments for business-critical production applications, supporting 20+ production deployments per month.</li>
-        <li>Replace manual multi-step deployments, where a DevOps engineer pulled code on the server, installed dependencies, updated the database, built, and restarted the app, with push-triggered GitHub Actions pipelines that install dependencies, build, SSH to the server, and deploy the latest code.</li>
-        <li>Build Java WAR applications with Maven on Tomcat using Jenkins, and store and retrieve build artifacts from S3.</li>
-        <li>Configure Nginx reverse proxy, SSL/TLS, and load balancing; manage application services with systemd.</li>
-        <li>Create Bash monitoring scripts with Google Chat alerts, schedule them on systemd timers, and alert on MySQL health and thread conditions.</li>
-        <li>Administer MySQL, MongoDB, and Redis; use ELK for log analysis and GoAccess for traffic reporting.</li>
-        <li>Troubleshoot deployment and application availability, HTTP errors, SSL/TLS, disk and memory issues.</li>
+        <li>Manage dev, UAT, and production environments, supporting 20+ production deployments per month.</li>
+        <li>Replace manual server-side pulls, dependency installs, database updates, builds, and restarts with push-triggered GitHub Actions pipelines that install, build, and deploy over SSH on each push.</li>
+        <li>Build Java WAR applications with Maven on Tomcat using Jenkins; store and retrieve build artifacts in S3.</li>
+        <li>Maintain 9 Java services migrated from nohup to systemd for automatic restarts and proper logging.</li>
+        <li>Renew SSL/TLS certificates across 20+ domains; configure Nginx reverse proxy and load balancing.</li>
+        <li>Build Bash monitoring scripts with Google Chat alerts on systemd timers, covering MySQL health and thread conditions.</li>
+        <li>Maintain cron-based automated MySQL backup scripts.</li>
+        <li>Build ELK pipelines that ingest MySQL data into Elasticsearch; use GoAccess for traffic reporting.</li>
+        <li>Administer MySQL, MongoDB, and Redis; troubleshoot deployments, HTTP errors, SSL/TLS, disk, and memory issues.</li>
       </ul>
     </section>
 
@@ -165,14 +167,13 @@
         <p class="project-title">BlogCMS: CI/CD and Kubernetes Deployment | Live: cmsapp.duckdns.org</p>
         <p class="project-stack">Go, Vue.js, MySQL, GitHub Actions, Trivy, GHCR, K3s, Nginx</p>
         <ul>
-          <li>Cloned, deployed, and operate this open-source application; I did not write it.</li>
-          <li>Added GitHub Actions checks for the backend and frontend; published verified GHCR images after Trivy scans reported 0 HIGH/CRITICAL findings.</li>
-          <li>Deployed API and frontend workloads to a single-node K3s cluster behind host Nginx with Let's Encrypt HTTPS; connected MySQL and a persistent uploads volume.</li>
-          <li>Verified public frontend and API readiness endpoints returned HTTP 200.</li>
+          <li>Deploy and operate the open-source CMS without claiming application authorship; handle its CI, scanning, Kubernetes setup, and HTTPS configuration.</li>
+          <li>Add GitHub Actions checks for backend and frontend; publish verified GHCR images after Trivy scans report 0 HIGH/CRITICAL findings.</li>
+          <li>Deploy the API and frontend to a single-node K3s cluster behind host Nginx with Let's Encrypt HTTPS, MySQL, and a persistent uploads volume.</li>
         </ul>
       </article>
       <article class="project">
-        <p class="project-title">End-to-End CI/CD Pipeline with Kubernetes</p>
+        <p class="project-title">End-to-End CI/CD Pipeline with Kubernetes | [GITHUB LINK]</p>
         <p class="project-stack">GitHub Actions, Docker, Kubernetes, Helm, Nginx Ingress, Prometheus, Grafana, Linux</p>
         <ul>
           <li>Build Docker images in a GitHub Actions pipeline and deploy them to Kubernetes with Helm.</li>
